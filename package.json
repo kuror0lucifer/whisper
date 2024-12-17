@@ -13,6 +13,8 @@
     "nintendo-switch-eshop": "^8.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-paginate": "^8.2.0",
+    "scss": "^0.2.4",
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
