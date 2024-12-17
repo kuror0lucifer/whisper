@@ -42,6 +42,8 @@ export const GameCard = () => {
         $direction="row"
         height="fit-content"
         $wrap="wrap"
+        $margin="0 auto"
+        width="80%"
       >
         {games.map((game) => {
           return (

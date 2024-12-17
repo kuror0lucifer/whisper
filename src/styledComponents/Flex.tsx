@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 interface FlexProps {
@@ -13,7 +13,7 @@ interface FlexProps {
     | "space-around"
     | "space-evenly";
   $wrap: "nowrap" | "wrap" | "wrap-reverse";
-  margin: string;
+  $margin: string;
   width: string;
   height: string;
   children: React.ReactNode;
@@ -25,7 +25,7 @@ const StyledFlex = styled.div<Partial<FlexProps>>`
   align-items: ${(props) => props.$align || "stretch"};
   justify-content: ${(props) => props.$justify || "stretch"};
   flex-wrap: ${(props) => props.$wrap || "wrap"};
-  margin: ${(props) => props.margin || "0"};
+  margin: ${(props) => props.$margin || "0"};
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
 `;
