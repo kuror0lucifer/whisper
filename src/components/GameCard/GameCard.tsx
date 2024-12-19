@@ -13,7 +13,6 @@ export const GameCard = () => {
   const [games, setGames] = useState<QueriedGameUS[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const itemsPerPage = 10;
-  const totalPages = 100;
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -35,8 +34,6 @@ export const GameCard = () => {
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
-
-  console.log(games);
 
   return (
     <>
@@ -60,8 +57,9 @@ export const GameCard = () => {
               <GameCardImg boxart={game.horizontalHeaderImage} />
               <GameCardTitle title={game.title} />
               <GameCardPrice
-                price={
-                  game.price === null ? "Бесплатно" : game.price.finalPrice
+                price={game.price.finalPrice}
+                availability={
+                  game.availability.length > 0 ? game.availability : "Бесплатно"
                 }
               />
             </Container>
@@ -69,7 +67,7 @@ export const GameCard = () => {
         })}
       </Flex>
       <ReactPaginate
-        pageCount={totalPages}
+        pageCount={Math.ceil(games.length / itemsPerPage)}
         pageRangeDisplayed={3}
         marginPagesDisplayed={2}
         onPageChange={handlePageClick}
