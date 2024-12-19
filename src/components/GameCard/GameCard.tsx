@@ -18,10 +18,7 @@ export const GameCard = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const gamesData = await getQueriedGamesAmerica("", {
-          hitsPerPage: itemsPerPage,
-          page: currentPage,
-        });
+        const gamesData = await getQueriedGamesAmerica("");
         setGames(gamesData);
       } catch (err) {
         console.error(err);
@@ -34,6 +31,13 @@ export const GameCard = () => {
     setCurrentPage(event.selected);
   };
 
+  const paginatedGames = games.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
+  console.log(games);
+
   return (
     <>
       <Flex
@@ -45,7 +49,7 @@ export const GameCard = () => {
         $margin="0 auto"
         width="80%"
       >
-        {games.map((game) => {
+        {paginatedGames.map((game) => {
           return (
             <Container
               key={game.nsuid + Math.random()}
@@ -53,7 +57,7 @@ export const GameCard = () => {
               height="372px"
               $margin="0 0 40px 0"
             >
-              <GameCardImg boxart={game.boxart} />
+              <GameCardImg boxart={game.horizontalHeaderImage} />
               <GameCardTitle title={game.title} />
               <GameCardPrice
                 price={
