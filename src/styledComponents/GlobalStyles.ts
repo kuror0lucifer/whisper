@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
   },
   html,body, #root {
   width:100%;
-  height: 100%;
+  height: fit-content;
   font-family: "Noto Sans JP", sans-serif;
   font-optical-sizing: auto;
   font-weight: 300;

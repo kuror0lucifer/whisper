@@ -3,6 +3,7 @@
   list-style: none;
   padding: 0;
   justify-content: center;
+  margin-bottom: 100px;
 
   li {
     margin: 0 5px;
@@ -10,20 +11,23 @@
     a {
       padding: 10px 15px;
       text-decoration: none;
-      color: #333;
-      border: 1px solid #ddd;
+      color: white;
+      background-color: #ff9800;
+      border: 1px solid #ff9800;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #f0f0f0;
+        color: #ff9800;
+        background-color: white;
       }
     }
   }
-}
 
-.active a {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
+  .active a {
+    color: #ff9800;
+    background-color: white;
+    border-color: #ff9800;
+  }
 }
