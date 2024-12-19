@@ -5,7 +5,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  },
+  }
+
   html,body, #root {
   width:100%;
   height: fit-content;
@@ -13,7 +14,8 @@ const GlobalStyles = createGlobalStyle`
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
-  },
+  background-color:rgba(245, 245, 245, 0.89);
+  }
 `;
 
 export default GlobalStyles;

@@ -2,15 +2,15 @@ import { FC } from "react";
 import { Image } from "../../styledComponents/Image";
 
 type GameCardImgProps = {
-  boxart: string | undefined;
+  headerImage: string | undefined;
 };
 
-export const GameCardImg: FC<GameCardImgProps> = ({ boxart }) => {
+export const GameCardImg: FC<GameCardImgProps> = ({ headerImage }) => {
   return (
     <Image
-      width="188px"
+      width="100%"
       height="188px"
-      src={boxart ? boxart : "/placeholder.png"}
+      src={headerImage ? headerImage : "/placeholder.png"}
       $cover="cover"
       loading="lazy"
     />

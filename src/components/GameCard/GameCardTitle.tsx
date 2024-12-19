@@ -9,7 +9,7 @@ type GameCardTitleProps = {
 export const GameCardTitle: FC<GameCardTitleProps> = ({ title }) => {
   return (
     <Container width="190px" height="40px">
-      <Paragraph color="black" $wrap="break-word">
+      <Paragraph color="black" $wrap="break-word" $fontSize="14px">
         {title}
       </Paragraph>
     </Container>

@@ -12,7 +12,7 @@ import "../../scss/paginate.scss";
 export const GameCard = () => {
   const [games, setGames] = useState<QueriedGameUS[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -50,18 +50,23 @@ export const GameCard = () => {
           return (
             <Container
               key={game.nsuid + Math.random()}
-              width="190px"
-              height="372px"
+              width="220px"
+              height="260px"
               $margin="0 0 40px 0"
+              $bgColor="white"
             >
-              <GameCardImg boxart={game.horizontalHeaderImage} />
-              <GameCardTitle title={game.title} />
-              <GameCardPrice
-                price={game.price.finalPrice}
-                availability={
-                  game.availability.length > 0 ? game.availability : "Бесплатно"
-                }
-              />
+              <GameCardImg headerImage={game.horizontalHeaderImage} />
+              <Flex $justify="space-between" $align="center" $direction="row">
+                <GameCardTitle title={game.title} />
+                <GameCardPrice
+                  price={game.price.finalPrice}
+                  availability={
+                    game.availability.length > 0
+                      ? game.availability
+                      : "Бесплатно"
+                  }
+                />
+              </Flex>
             </Container>
           );
         })}
