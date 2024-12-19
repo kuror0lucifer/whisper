@@ -38,7 +38,8 @@ export const GameCard = () => {
   return (
     <>
       <Flex
-        $justify="space-between"
+        $justify="center"
+        gap="20px"
         $align="center"
         $direction="row"
         height="fit-content"
@@ -50,16 +51,20 @@ export const GameCard = () => {
           return (
             <Container
               key={game.nsuid + Math.random()}
-              width="220px"
+              width="250px"
               height="260px"
               $margin="0 0 40px 0"
               $bgColor="white"
             >
               <GameCardImg headerImage={game.horizontalHeaderImage} />
-              <Flex $justify="space-between" $align="center" $direction="row">
+              <Flex
+                $justify="space-around"
+                $align="flex-start"
+                $direction="row"
+              >
                 <GameCardTitle title={game.title} />
                 <GameCardPrice
-                  price={game.price.finalPrice}
+                  price={game.price}
                   availability={
                     game.availability.length > 0
                       ? game.availability
