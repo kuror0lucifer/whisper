@@ -7,7 +7,7 @@ import { GameCardPrice } from "./GameCardPrice";
 import { GameCardTitle } from "./GameCardTitle";
 import ReactPaginate from "react-paginate";
 
-import "../../scss/paginate.scss";
+import "../../scss/components/paginate.scss";
 
 export const GameCard = () => {
   const [games, setGames] = useState<QueriedGameUS[]>([]);
@@ -39,12 +39,12 @@ export const GameCard = () => {
     <>
       <Flex
         $justify="center"
-        gap="20px"
+        $gap="20px"
         $align="center"
         $direction="row"
         height="fit-content"
         $wrap="wrap"
-        $margin="0 auto"
+        $margin="25px auto"
         width="80%"
       >
         {paginatedGames.map((game) => {
@@ -53,7 +53,6 @@ export const GameCard = () => {
               key={game.nsuid + Math.random()}
               width="250px"
               height="260px"
-              $margin="0 0 40px 0"
               $bgColor="white"
             >
               <GameCardImg headerImage={game.horizontalHeaderImage} />

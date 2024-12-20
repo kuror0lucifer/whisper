@@ -6,6 +6,7 @@ interface SpanProps {
   width?: string;
   height?: string;
   $size?: string;
+  $weight?: string;
   color?: string;
   $decoration?: string;
   $marginRight?: string;
@@ -16,6 +17,7 @@ interface SpanProps {
 const StyledSpan = styled.span<SpanProps>`
   display: ${(props) => props.display || "inline"};
   font-size: ${(props) => props.$size};
+  font-weight: ${(props) => props.$weight};
   color: ${(props) => props.color};
   width: ${(props) => props.width};
   height: ${(props) => props.height};

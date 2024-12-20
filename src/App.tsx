@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { GameCard } from "./components/GameCard/GameCard";
+import { Header } from "./components/Header/Header";
 
 const AppWrapper = styled.div`
   width: 100%;
@@ -9,6 +10,7 @@ const AppWrapper = styled.div`
 function App() {
   return (
     <AppWrapper>
+      <Header />
       <GameCard />
     </AppWrapper>
   );
