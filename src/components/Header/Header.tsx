@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { Container } from "../../styledComponents/Container";
-import variables from "../../scss/styles.module.scss";
 import { Flex } from "../../styledComponents/Flex";
-
-import { IoBagOutline } from "react-icons/io5";
 import { Span } from "../../styledComponents/Span";
+
+import variables from "../../scss/styles.module.scss";
+import { HeaderLogo } from "./HeaderLogo";
+import { SearchInput } from "./SearchInput";
 
 export const Header: FC = () => {
   return (
@@ -20,23 +21,15 @@ export const Header: FC = () => {
         $align="center"
         $justify="flex-start"
         height="100%"
-        width="20%"
+        width="80%"
+        $direction="row"
         $gap="10px"
       >
-        <Container
-          display="flex"
-          $justify="center"
-          $align="center"
-          $borderRadius="50%"
-          width="35px"
-          height="35px"
-          $bgColor="white"
-        >
-          <IoBagOutline color={variables.orange} />
-        </Container>
+        <HeaderLogo />
         <Span $size="18px" $weight="400">
           WHISPER
         </Span>
+        <SearchInput />
       </Flex>
     </Container>
   );
