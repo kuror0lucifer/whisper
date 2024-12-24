@@ -11,8 +11,8 @@ interface InputProps {
   $borderLeft: string;
   $backgroundColor: string;
   $fontSize: string;
-  padding: string;
-  margin: string;
+  $padding: string;
+  $margin: string;
   outline: string;
 }
 
@@ -26,8 +26,8 @@ const StyledInput = styled.input<Partial<InputProps>>`
   border-left: ${(props) => props.$borderLeft || "none"};
   background-color: ${(props) => props.$backgroundColor || "transparent"};
   font-size: ${(props) => props.$fontSize || "14px"};
-  padding: ${(props) => props.padding || "0"};
-  margin: ${(props) => props.margin || "auto"};
+  padding: ${(props) => props.$padding || "0"};
+  margin: ${(props) => props.$margin || "auto"};
   outline: ${(props) => props.outline || "none"};
 `;
 

@@ -7,7 +7,7 @@ interface ContainerProps {
   $align: string;
   width: string;
   height: string;
-  margin: string;
+  $margin: string;
   $padding: string;
   $bgColor: string;
   $borderRadius: string;
@@ -21,7 +21,7 @@ const StyledContainer = styled.div<Partial<ContainerProps>>`
   width: ${(props) => (props.width ? props.width : "auto")};
   padding: ${(props) => props.$padding || "0"};
   height: ${(props) => (props.height ? props.height : "auto")};
-  margin: ${(props) => props.margin || "0"};
+  margin: ${(props) => props.$margin || "0"};
   background-color: ${(props) => props.$bgColor || "transparent"};
   border-radius: ${(props) => props.$borderRadius || "0"};
 `;

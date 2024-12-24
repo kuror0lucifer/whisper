@@ -10,13 +10,13 @@ export const SearchInput: FC = () => {
       display="flex"
       $align="center"
       $justify="center"
-      margin="0 0 0 20%"
+      $margin="0 0 0 20%"
     >
       <Input
         width="400px"
         height="25px"
         $borderBottom="1px solid black"
-        padding="0 20px"
+        $padding="0 20px"
         $fontSize="20px"
       />
       <Button width="20px" height="fit-content" cursor="pointer">
