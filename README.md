@@ -11,7 +11,7 @@ Demo: <a href="" target="_blank">Click Me</a>
 - **ReactJS 18**
 - **TypeScript**
 - Nintendo-switch-eshop (API)
-  <!-- - **Redux Toolkit** (data storage / pizza) -->
+- **Redux Toolkit** (data storage)
   <!-- - **React Router v6** (navigation) -->
   <!-- - **Axios + Fetch** (sending a request to the backend) -->
 - React Hooks (hooks)
