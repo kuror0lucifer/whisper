@@ -62,7 +62,11 @@ export const GameCard = () => {
               height="260px"
               $bgColor="white"
             >
-              <GameCardImg headerImage={game.horizontalHeaderImage} />
+              <GameCardImg
+                headerImage={
+                  game.boxart ? game.boxart : game.horizontalHeaderImage
+                }
+              />
               <Flex
                 $justify="space-around"
                 $align="flex-start"
