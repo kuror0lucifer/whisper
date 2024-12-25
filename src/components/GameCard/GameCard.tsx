@@ -57,7 +57,7 @@ export const GameCard = () => {
         {paginatedGames.map((game, index) => {
           return (
             <Container
-              key={game.nsuid || `fallback-${index}`}
+              key={game.objectID || `fallback-${index}`}
               width="250px"
               height="260px"
               $bgColor="white"
