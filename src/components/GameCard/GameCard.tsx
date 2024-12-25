@@ -8,29 +8,35 @@ import { GameCardTitle } from "./GameCardTitle";
 import ReactPaginate from "react-paginate";
 
 import "../../scss/components/paginate.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export const GameCard = () => {
-  const [games, setGames] = useState<QueriedGameUS[]>([]);
+  const [allGames, setAllGames] = useState<QueriedGameUS[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const itemsPerPage = 8;
+
+  const { games, query } = useSelector((state: RootState) => state.games);
 
   useEffect(() => {
     const fetchGames = async () => {
       try {
         const gamesData = await getQueriedGamesAmerica("");
-        setGames(gamesData);
+        setAllGames(gamesData);
       } catch (err) {
         console.error(err);
       }
     };
     fetchGames();
-  }, [currentPage]);
+  }, []);
 
   const handlePageClick = (event: { selected: number }) => {
     setCurrentPage(event.selected);
   };
 
-  const paginatedGames = games.slice(
+  const currentGames = query.trim() ? games : allGames;
+
+  const paginatedGames = currentGames.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
@@ -47,10 +53,10 @@ export const GameCard = () => {
         $margin="25px auto"
         width="80%"
       >
-        {paginatedGames.map((game) => {
+        {paginatedGames.map((game, index) => {
           return (
             <Container
-              key={game.nsuid + Math.random()}
+              key={game.nsuid || `fallback-${index}`}
               width="250px"
               height="260px"
               $bgColor="white"
@@ -76,7 +82,7 @@ export const GameCard = () => {
         })}
       </Flex>
       <ReactPaginate
-        pageCount={Math.ceil(games.length / itemsPerPage)}
+        pageCount={Math.ceil(currentGames.length / itemsPerPage)}
         pageRangeDisplayed={3}
         marginPagesDisplayed={2}
         onPageChange={handlePageClick}

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import styled from "styled-components";
 
 interface InputProps {
@@ -14,6 +14,9 @@ interface InputProps {
   $padding: string;
   $margin: string;
   outline: string;
+
+  value: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const StyledInput = styled.input<Partial<InputProps>>`
@@ -32,5 +35,13 @@ const StyledInput = styled.input<Partial<InputProps>>`
 `;
 
 export const Input: FC<Partial<InputProps>> = (props) => {
-  return <StyledInput {...props} placeholder="Поиск" type="text" />;
+  return (
+    <StyledInput
+      {...props}
+      placeholder="Поиск"
+      type="text"
+      value={props.value}
+      onChange={props.onChange}
+    />
+  );
 };
