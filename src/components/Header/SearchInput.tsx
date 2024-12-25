@@ -5,14 +5,12 @@ import { Button } from "../../styledComponents/Button";
 import { FaSearch } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { AppDispatch } from "../../redux/store";
 import { fetchGames, setQuery } from "../../redux/games/slice";
+import { selectQuery } from "../../redux/games/selectors";
 
 export const SearchInput: FC = () => {
-  // const [query, setQuery] = useState<string>("");
-  // const [queryGames, setQueryGames] = useState<QueriedGameUS[]>([]);
-
-  const query = useSelector((state: RootState) => state.games.query);
+  const query = useSelector(selectQuery);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
