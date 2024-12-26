@@ -10,11 +10,14 @@ import ReactPaginate from "react-paginate";
 import "../../scss/components/paginate.scss";
 import { useSelector } from "react-redux";
 import { selectGames, selectQuery } from "../../redux/games/selectors";
+import { useNavigate } from "react-router-dom";
 
 export const GameCard = () => {
   const [allGames, setAllGames] = useState<QueriedGameUS[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const itemsPerPage = 8;
+
+  const navigate = useNavigate();
 
   const games = useSelector(selectGames);
   const query = useSelector(selectQuery);
@@ -61,6 +64,7 @@ export const GameCard = () => {
               width="250px"
               height="260px"
               $bgColor="white"
+              onClick={() => navigate(`/game/${game.nsuid}`)}
             >
               <GameCardImg
                 headerImage={

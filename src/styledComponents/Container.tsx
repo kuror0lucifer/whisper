@@ -12,6 +12,8 @@ interface ContainerProps {
   $bgColor: string;
   $borderRadius: string;
   children: React.ReactNode;
+
+  onClick: () => void;
 }
 
 const StyledContainer = styled.div<Partial<ContainerProps>>`
