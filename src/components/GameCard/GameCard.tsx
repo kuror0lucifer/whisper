@@ -58,6 +58,7 @@ export const GameCard = () => {
         width="80%"
       >
         {paginatedGames.map((game, index) => {
+          console.log(game);
           return (
             <Container
               key={game.objectID || `fallback-${index}`}
@@ -70,7 +71,8 @@ export const GameCard = () => {
             >
               <GameCardImg
                 headerImage={
-                  game.boxart ? game.boxart : game.horizontalHeaderImage
+                  "https://assets.nintendo.com/image/upload/" +
+                  game.productImage
                 }
               />
               <Flex
