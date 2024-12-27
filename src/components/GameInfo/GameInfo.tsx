@@ -8,7 +8,7 @@ import {
   QueriedGameUS,
 } from "nintendo-switch-eshop";
 import { useParams } from "react-router-dom";
-import { TitleH1 } from "../../styledComponents/TitleH1";
+import { TitleH } from "../../styledComponents/TitleH";
 import { Image } from "../../styledComponents/Image";
 import { Flex } from "../../styledComponents/Flex";
 import { GameDescription } from "./GameDescription";
@@ -39,7 +39,9 @@ export const GameInfo: FC = () => {
     <>
       <Header />
       <Container width="80%" height="100vh" $margin="25px auto" $bgColor="gray">
-        <TitleH1 $margin="0 0 0 25px">{gameInfo?.title}</TitleH1>
+        <TitleH as="h1" $margin="0 0 0 25px">
+          {gameInfo?.title}
+        </TitleH>
 
         <Flex
           $align="flex-start"
