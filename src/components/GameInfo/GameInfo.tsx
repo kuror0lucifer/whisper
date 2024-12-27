@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { TitleH1 } from "../../styledComponents/TitleH1";
 import { Image } from "../../styledComponents/Image";
 import { Flex } from "../../styledComponents/Flex";
-import { Span } from "../../styledComponents/Span";
+import { GameDescription } from "./GameDescription";
 
 export const GameInfo: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,9 +38,7 @@ export const GameInfo: FC = () => {
           $margin="40px 0 0 0"
         >
           <Image src={gameInfo?.horizontalHeaderImage} width="40%" />
-          <Container width="50%">
-            <Span>{gameInfo?.description}</Span>
-          </Container>
+          <GameDescription gameDescription={gameInfo?.description} />
         </Flex>
       </Container>
     </>

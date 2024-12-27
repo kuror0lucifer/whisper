@@ -64,7 +64,9 @@ export const GameCard = () => {
               width="250px"
               height="260px"
               $bgColor="white"
-              onClick={() => navigate(`/game/${game.nsuid}`)}
+              onClick={() => {
+                navigate(`/game/${game.nsuid}`);
+              }}
             >
               <GameCardImg
                 headerImage={
