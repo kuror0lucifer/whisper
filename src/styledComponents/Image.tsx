@@ -8,6 +8,8 @@ interface ImgProps {
   $margin: string;
   src: string;
   loading: "eager" | "lazy";
+
+  alt: string;
 }
 
 const StyledImg = styled.img<Partial<ImgProps>>`
@@ -15,6 +17,7 @@ const StyledImg = styled.img<Partial<ImgProps>>`
   height: ${(props) => (props.height ? props.height : "auto")};
   cover: ${(props) => props.$cover || "cover"};
   margin: ${(props) => props.$margin || "0"};
+  alt: ${(props) => props.alt || ""};
 `;
 
 export const Image: FC<Partial<ImgProps>> = (props) => {
