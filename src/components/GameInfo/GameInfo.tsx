@@ -16,18 +16,22 @@ import { GamePrice } from "./GamePrice";
 
 export const GameInfo: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [gameInfo, setGameInfo] = useState<GameUS>();
-  const [gamePrice, setGamePrice] = useState<QueriedGameUS>();
+  const [gameDescription, setGameDescription] = useState<GameUS>();
+  const [gameInfo, setGameInfo] = useState<QueriedGameUS>();
 
   useEffect(() => {
     const fetchGameInfo = async () => {
       try {
-        const games = await getGamesAmerica();
-        const prices = await getQueriedGamesAmerica("");
-        const game = games.find((game) => game.nsuid === id);
-        const price = prices.find((price) => price.nsuid === id);
-        setGameInfo(game);
-        setGamePrice(price);
+        const descriptions = await getGamesAmerica();
+        const infos = await getQueriedGamesAmerica("");
+        const description = descriptions.find(
+          (description) => description.nsuid === id
+        );
+        const info = infos.find((info) => info.nsuid === id);
+        setGameDescription(description);
+        setGameInfo(info);
+        console.log(description);
+        console.log(info);
       } catch (err) {
         console.log(err);
       }
@@ -50,14 +54,17 @@ export const GameInfo: FC = () => {
           $margin="40px 0 0 0"
         >
           <Image
-            src={gameInfo?.horizontalHeaderImage}
+            src={
+              "https://assets.nintendo.com/image/upload/" +
+              gameInfo?.productImage
+            }
             alt={gameInfo?.title}
             width="40%"
           />
 
-          <GameDescription gameDescription={gameInfo?.description} />
+          <GameDescription gameDescription={gameDescription?.description} />
         </Flex>
-        <GamePrice price={gamePrice?.price} />
+        <GamePrice price={gameInfo?.price} />
       </Container>
     </>
   );
