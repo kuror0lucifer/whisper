@@ -6,7 +6,7 @@ type GamePriceProps = {
   price: Price | undefined;
 };
 
-interface Price {
+export default interface Price {
   regPrice: number;
   finalPrice: number;
   salePrice: number | null;

@@ -58,7 +58,6 @@ export const GameCard = () => {
         width="80%"
       >
         {paginatedGames.map((game, index) => {
-          console.log(game);
           return (
             <Container
               key={game.objectID || `fallback-${index}`}
