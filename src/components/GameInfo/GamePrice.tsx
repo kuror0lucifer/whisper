@@ -15,8 +15,7 @@ export default interface Price {
 export const GamePrice: FC<GamePriceProps> = ({ price }) => {
   return (
     <Flex $direction="column">
-      <Span>Regular price: {price?.regPrice} $</Span>
-      <Span>Final price: {price?.finalPrice} $</Span>
+      <Span $size="22px">💸 Price: {price?.finalPrice} $</Span>
     </Flex>
   );
 };

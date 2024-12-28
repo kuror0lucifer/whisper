@@ -9,6 +9,7 @@ import { GameDescription } from "./GameDescription";
 import Price, { GamePrice } from "./GamePrice";
 
 import axios from "axios";
+import { GameReleasDate } from "./GameReleasDate";
 
 type GameInfoResponse = {
   title: string;
@@ -16,6 +17,7 @@ type GameInfoResponse = {
   productImage: string;
   description: string;
   price: Price;
+  date: string;
 };
 
 export const GameInfo: FC = () => {
@@ -46,8 +48,11 @@ export const GameInfo: FC = () => {
           title: game.title,
           nsuid: game.nsuid,
           productImage: game.productImage,
-          description: game.description || "Описание недоступно",
+          description: game.description || "",
           price: game.price,
+          date: game.releaseDateDisplay
+            ? game.releaseDateDisplay
+            : game.releaseDate.slice(0, 10),
         });
       } catch (err: unknown) {
         if (axios.isAxiosError(err)) {
@@ -66,7 +71,12 @@ export const GameInfo: FC = () => {
   return (
     <>
       <Header />
-      <Container width="80%" height="100vh" $margin="25px auto" $bgColor="gray">
+      <Container
+        width="80%"
+        height="100vh"
+        $margin="25px auto"
+        $bgColor="inherit"
+      >
         <TitleH as="h1" $margin="0 0 0 25px">
           {gameInfo?.title}
         </TitleH>
@@ -74,8 +84,9 @@ export const GameInfo: FC = () => {
         <Flex
           $align="flex-start"
           $direction="row"
-          $justify="space-around"
-          $margin="40px 0 0 0"
+          $justify="flex-start"
+          $margin="40px 25px 0 25px"
+          $gap="50px"
         >
           <Image
             src={
@@ -87,8 +98,9 @@ export const GameInfo: FC = () => {
           />
 
           <GameDescription gameDescription={gameInfo?.description} />
+          <GamePrice price={gameInfo?.price} />
+          <GameReleasDate date={gameInfo?.date} />
         </Flex>
-        <GamePrice price={gameInfo?.price} />
       </Container>
     </>
   );

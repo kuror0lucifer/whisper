@@ -20,6 +20,9 @@ export const GameDescription: FC<GameDescriptionProps> = ({
     if (!text) return "";
     return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
   };
+
+  if (!gameDescription) return <></>;
+
   return (
     <Flex width="50%" height="10%">
       <Span>
@@ -43,7 +46,7 @@ export const GameDescription: FC<GameDescriptionProps> = ({
           {readAll ? <HiArrowNarrowUp /> : <HiArrowNarrowDown />}
         </Button>
       ) : (
-        <></>
+        ""
       )}
     </Flex>
   );
