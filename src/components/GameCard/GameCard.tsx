@@ -73,6 +73,7 @@ export const GameCard = () => {
                   "https://assets.nintendo.com/image/upload/" +
                   game.productImage
                 }
+                title={game.title}
               />
               <Flex
                 $justify="space-around"

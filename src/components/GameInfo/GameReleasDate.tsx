@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Span } from "../../styledComponents/Span";
 
 type GameReleasDateProps = {
-  date: string;
+  date: string | undefined;
 };
 
 export const GameReleasDate: FC<GameReleasDateProps> = ({ date }) => {
