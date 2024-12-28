@@ -25,22 +25,26 @@ export const GameDescription: FC<GameDescriptionProps> = ({
       <Span>
         {readAll ? gameDescription : getShortText(gameDescription, 100)}
       </Span>
-      <Button
-        display="flex"
-        $justify="center"
-        $align="center"
-        $gap="5px"
-        onClick={() => setReadAll(!readAll)}
-        $backgroundColor={variables.orange}
-        width="100px"
-        height="30px"
-        $borderRadius="25px"
-        $margin="25px 0 0 0"
-        cursor="pointer"
-      >
-        {readAll ? "Close" : "Read all"}
-        {readAll ? <HiArrowNarrowUp /> : <HiArrowNarrowDown />}
-      </Button>
+      {gameDescription && gameDescription.length >= 100 ? (
+        <Button
+          display="flex"
+          $justify="center"
+          $align="center"
+          $gap="5px"
+          onClick={() => setReadAll(!readAll)}
+          $backgroundColor={variables.orange}
+          width="100px"
+          height="30px"
+          $borderRadius="25px"
+          $margin="25px 0 0 0"
+          cursor="pointer"
+        >
+          {readAll ? "Close" : "Read all"}
+          {readAll ? <HiArrowNarrowUp /> : <HiArrowNarrowDown />}
+        </Button>
+      ) : (
+        <></>
+      )}
     </Flex>
   );
 };
