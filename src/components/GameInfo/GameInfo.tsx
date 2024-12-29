@@ -10,6 +10,7 @@ import Price, { GamePrice } from "./GamePrice";
 
 import axios from "axios";
 import { GameReleasDate } from "./GameReleasDate";
+import { Error } from "../ErrorPage/Error";
 
 type GameInfoResponse = {
   title: string;
@@ -23,7 +24,7 @@ type GameInfoResponse = {
 export const GameInfo: FC = () => {
   const { id } = useParams<{ id: string }>();
   const [gameInfo, setGameInfo] = useState<GameInfoResponse>();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<unknown>(null);
   useEffect(() => {
     const fetchGameInfo = async () => {
       try {
@@ -55,18 +56,16 @@ export const GameInfo: FC = () => {
             : game.releaseDate.slice(0, 10),
         });
       } catch (err: unknown) {
-        if (axios.isAxiosError(err)) {
-          setError(err.response?.data.message || "Ошибка сети.");
-        } else if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("Неизвестная ошибка.");
-        }
+        setError(err);
       }
     };
 
     fetchGameInfo();
   }, [id]);
+
+  if (error !== null) {
+    return <Error />;
+  }
 
   return (
     <>

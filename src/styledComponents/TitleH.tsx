@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface TitleProps {
   as: keyof JSX.IntrinsicElements;
   color?: string;
-  $margin: string;
+  $margin?: string;
   children: React.ReactNode;
 }
 
