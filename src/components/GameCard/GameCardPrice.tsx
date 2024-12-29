@@ -15,7 +15,7 @@ interface Price {
 
 export const GameCardPrice: FC<GameCardPrice> = ({ price, availability }) => {
   const isGameFree = availability.includes("Available now")
-    ? "Бесплатно"
+    ? "Free"
     : availability;
 
   const hasValidPrice =

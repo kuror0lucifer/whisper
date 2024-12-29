@@ -2,6 +2,9 @@ import { FC } from "react";
 import styled from "styled-components";
 
 interface ContainerProps {
+  $position: "relative" | "sticky" | "absolute" | "static" | "fixed";
+  $bottom: string;
+  $right: string;
   display: string;
   $justify: string;
   $align: string;
@@ -17,9 +20,12 @@ interface ContainerProps {
 }
 
 const StyledContainer = styled.div<Partial<ContainerProps>>`
+  position: ${(props) => props.$position || "static"};
+  ${(props) => props.$bottom && `bottom: ${props.$bottom};`}
+  ${(props) => props.$right && `right: ${props.$right};`}
   display: ${(props) => props.display || "block"};
-  justify-content: ${(props) => props.$justify || "stretch"};
-  align-items: ${(props) => props.$align || "stretch"};
+  ${(props) => props.$justify && `justify-content: ${props.$justify};`}
+  ${(props) => props.$align && `align-items: ${props.$align};`}
   width: ${(props) => props.width || "auto"};
   padding: ${(props) => props.$padding || "0"};
   height: ${(props) => props.height || "auto"};

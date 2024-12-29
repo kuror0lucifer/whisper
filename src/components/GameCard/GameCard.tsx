@@ -74,6 +74,7 @@ export const GameCard = () => {
                   game.productImage
                 }
                 title={game.title}
+                price={game.price}
               />
               <Flex
                 $justify="space-around"
@@ -84,9 +85,7 @@ export const GameCard = () => {
                 <GameCardPrice
                   price={game.price}
                   availability={
-                    game.availability.length > 0
-                      ? game.availability
-                      : "Бесплатно"
+                    game.availability.length > 0 ? game.availability : "Free"
                   }
                 />
               </Flex>

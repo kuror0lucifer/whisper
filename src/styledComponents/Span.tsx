@@ -9,6 +9,7 @@ interface SpanProps {
   $weight?: string;
   color?: string;
   $decoration?: string;
+  $align?: string;
   $marginRight?: string;
   $marginBottom?: string;
   children: React.ReactNode;
@@ -22,6 +23,7 @@ const StyledSpan = styled.span<SpanProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   text-decoration: ${(props) => props.$decoration || "none"};
+  text-align: ${(props) => props.$align}
   margin-right: ${(props) => props.$marginRight || "0"};
   margin-bottom: ${(props) => props.$marginBottom || "0"};
 `;

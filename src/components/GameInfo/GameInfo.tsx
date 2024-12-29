@@ -6,11 +6,12 @@ import { TitleH } from "../../styledComponents/TitleH";
 import { Image } from "../../styledComponents/Image";
 import { Flex } from "../../styledComponents/Flex";
 import { GameDescription } from "./GameDescription";
-import Price, { GamePrice } from "./GamePrice";
+import { GamePrice } from "./GamePrice";
 
 import axios from "axios";
 import { GameReleasDate } from "./GameReleasDate";
 import { Error } from "../ErrorPage/Error";
+import Price from "../../@types/price";
 
 type GameInfoResponse = {
   title: string;
