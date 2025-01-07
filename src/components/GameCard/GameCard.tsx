@@ -60,12 +60,12 @@ export const GameCard = () => {
         {paginatedGames.map((game, index) => {
           return (
             <Container
-              key={game.objectID || `fallback-${index}`}
+              key={game.nsuid || `fallback-${index}`}
               width="250px"
               height="260px"
               $bgColor="white"
               onClick={() => {
-                navigate(`/game/${game.nsuid}`);
+                navigate(`/game/${game.sku}`);
               }}
             >
               <GameCardImg

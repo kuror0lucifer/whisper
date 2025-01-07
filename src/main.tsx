@@ -19,7 +19,7 @@ if (rootElement) {
         <StrictMode>
           <Routes>
             <Route path="*" element={<App />} />
-            <Route path="/game/:id" element={<GameInfo />} />
+            <Route path="/game/:sku" element={<GameInfo />} />
           </Routes>
         </StrictMode>
       </BrowserRouter>

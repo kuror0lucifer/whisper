@@ -23,16 +23,17 @@ type GameInfoResponse = {
 };
 
 export const GameInfo: FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { sku } = useParams<{ sku: string }>();
   const [gameInfo, setGameInfo] = useState<GameInfoResponse>();
   const [error, setError] = useState<unknown>(null);
+
   useEffect(() => {
     const fetchGameInfo = async () => {
       try {
         const response = await axios.post(
           "https://U3B6GR4UA3-dsn.algolia.net/1/indexes/store_all_products_en_us/query",
           {
-            params: `filters=nsuid:${id}`,
+            params: `filters=sku:${sku}`,
           },
           {
             headers: {
@@ -42,7 +43,6 @@ export const GameInfo: FC = () => {
             },
           }
         );
-
         const data = response.data;
 
         const game = data.hits[0];
@@ -62,7 +62,7 @@ export const GameInfo: FC = () => {
     };
 
     fetchGameInfo();
-  }, [id]);
+  }, [sku]);
 
   if (error !== null) {
     return <Error />;
