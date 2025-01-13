@@ -15,7 +15,7 @@ export const GameCardImg = memo(
   ({ headerImage, title, price }: GameCardImgProps) => {
     return (
       <Wrapper $position="relative" width="100%" height="188px">
-        {price.salePrice ? (
+        {price?.salePrice ? (
           <Container
             $position="absolute"
             display="flex"
