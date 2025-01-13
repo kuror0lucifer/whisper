@@ -6,6 +6,7 @@ import { Span } from "../../styledComponents/Span";
 import variables from "../../scss/styles.module.scss";
 import { HeaderLogo } from "./HeaderLogo";
 import { SearchInput } from "./SearchInput";
+import { Link } from "../../styledComponents/Link";
 
 export const Header: FC = () => {
   return (
@@ -25,10 +26,15 @@ export const Header: FC = () => {
         $direction="row"
         $gap="10px"
       >
-        <HeaderLogo />
-        <Span $size="18px" $weight="400">
-          WHISPER
-        </Span>
+        <Link href="/" $decoration="none" color="black">
+          <Flex $align="center" $justify="center" $gap="10px">
+            <HeaderLogo />
+            <Span $size="18px" $weight="400">
+              WHISPER
+            </Span>
+          </Flex>
+        </Link>
+
         <SearchInput />
       </Flex>
     </Container>
