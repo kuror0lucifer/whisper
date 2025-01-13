@@ -20,6 +20,7 @@ Demo: <a href="" target="_blank">Click Me</a>
 - React Pagination (pagination)
 - Styled-Components / SCSS (stylisation)
 - React Content Loader (skeleton)
+- Date-fns
   <!-- - Lodash.Debounce -->
   <!-- - React Loadable, useWhyDidYouUpdate -->
 - Prettier (code formatting)
