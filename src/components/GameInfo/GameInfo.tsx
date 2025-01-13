@@ -12,6 +12,9 @@ import axios from "axios";
 import { GameReleasDate } from "./GameReleasDate";
 import { Error } from "../ErrorPage/Error";
 import Price from "../../@types/price";
+import { GameDiscountTime } from "./GameDiscountTimeEnd";
+import eshopDetails from "../../@types/eshopDetails";
+import { GameEshopDetails } from "./GameEshopDetails";
 
 type GameInfoResponse = {
   title: string;
@@ -19,7 +22,9 @@ type GameInfoResponse = {
   productImage: string;
   description: string;
   price: Price;
+  priceRange: string;
   date: string;
+  eshopDetails: eshopDetails;
 };
 
 export const GameInfo: FC = () => {
@@ -52,9 +57,11 @@ export const GameInfo: FC = () => {
           productImage: game.productImage,
           description: game.description || "",
           price: game.price,
+          priceRange: game.collectionPriceRange,
           date: game.releaseDateDisplay
             ? game.releaseDateDisplay
             : game.releaseDate.slice(0, 10),
+          eshopDetails: game.eshopDetails,
         });
       } catch (err: unknown) {
         setError(err);
@@ -98,7 +105,12 @@ export const GameInfo: FC = () => {
           />
 
           <GameDescription gameDescription={gameInfo?.description} />
-          <GamePrice price={gameInfo?.price} />
+          <GamePrice
+            price={gameInfo?.price}
+            priceRange={gameInfo?.priceRange}
+          />
+          <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
+          <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
           <GameReleasDate date={gameInfo?.date} />
         </Flex>
       </Container>
