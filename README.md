@@ -15,7 +15,7 @@ Demo: <a href="https://tourmaline-paletas-244068.netlify.app" target="_blank">Cl
 - **Redux Toolkit** (data storage)
 - **React Router**
   <!-- - **React Router v6** (navigation) -->
-  - **Axios + Fetch** (sending a request to the backend)
+- **Axios + Fetch** (sending a request to the backend)
 - React Hooks (hooks)
 - React Pagination (pagination)
 - Styled-Components / SCSS (stylisation)
