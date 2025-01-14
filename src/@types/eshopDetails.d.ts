@@ -1,6 +1,6 @@
 export default interface eshopDetails {
   discountPriceEnd: string;
-  discountPriceEndTimestamp: string;
+  discountPriceEndTimestamp: number;
   goldPoints: number;
   baseGoldPoints: number;
 }
