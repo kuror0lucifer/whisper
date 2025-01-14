@@ -3,6 +3,9 @@ import styled from "styled-components";
 
 interface ButtonProps {
   display: string;
+  position: string;
+  right: string;
+  top: string;
   $direction: "row" | "column" | "row-reverse" | "column-reverse";
   $align: "stretch" | "flex-start" | "flex-end" | "center" | "baseline";
   $justify:
@@ -29,6 +32,9 @@ interface ButtonProps {
 
 const StyledButton = styled.button<Partial<ButtonProps>>`
   display: ${(props) => props.display || "block"};
+  position: ${(props) => props.position};
+  right: ${(props) => props.right || "0"};
+  top: ${(props) => props.top || "0"};
   flex-direction: ${(props) => props.$direction || "row"};
   align-items: ${(props) => props.$align || "stretch"};
   justify-content: ${(props) => props.$justify || "stretch"};

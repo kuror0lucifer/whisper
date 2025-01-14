@@ -11,10 +11,13 @@ interface InputProps {
   $borderLeft: string;
   $backgroundColor: string;
   $fontSize: string;
+  color: string;
   $padding: string;
   $margin: string;
   outline: string;
 
+  type: string;
+  placeholder: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -29,6 +32,7 @@ const StyledInput = styled.input<Partial<InputProps>>`
   border-left: ${(props) => props.$borderLeft || "none"};
   background-color: ${(props) => props.$backgroundColor || "transparent"};
   font-size: ${(props) => props.$fontSize || "14px"};
+  color: ${(props) => props.color || "tranparent"};
   padding: ${(props) => props.$padding || "0"};
   margin: ${(props) => props.$margin || "auto"};
   outline: ${(props) => props.outline || "none"};
@@ -38,8 +42,8 @@ export const Input: FC<Partial<InputProps>> = (props) => {
   return (
     <StyledInput
       {...props}
-      placeholder="Поиск"
-      type="text"
+      type={props.type || "text"}
+      placeholder={props.placeholder}
       value={props.value}
       onChange={props.onChange}
     />

@@ -9,6 +9,7 @@ interface ContainerProps {
   $justify: string;
   $align: string;
   width: string;
+  $maxWidth: string;
   height: string;
   $margin: string;
   $padding: string;
@@ -27,6 +28,7 @@ const StyledContainer = styled.div<Partial<ContainerProps>>`
   ${(props) => props.$justify && `justify-content: ${props.$justify};`}
   ${(props) => props.$align && `align-items: ${props.$align};`}
   width: ${(props) => props.width || "auto"};
+  max-width: ${(props) => props.width || "auto"};
   padding: ${(props) => props.$padding || "0"};
   height: ${(props) => props.height || "auto"};
   margin: ${(props) => props.$margin || "0"};
