@@ -60,10 +60,13 @@ export const GameCard = () => {
         {paginatedGames.map((game, index) => {
           return (
             <Container
+              className="highlighted"
               key={game.nsuid || `fallback-${index}`}
               width="250px"
               height="260px"
               $bgColor="white"
+              $boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
+              cursor="pointer"
               onClick={() => {
                 navigate(`/game/${game.sku}`);
               }}

@@ -15,9 +15,12 @@ interface ContainerProps {
   $padding: string;
   $bgColor: string;
   $borderRadius: string;
+  $boxShadow: string;
+  cursor: string;
   children: React.ReactNode;
 
   onClick: () => void;
+  className: string;
 }
 
 const StyledContainer = styled.div<Partial<ContainerProps>>`
@@ -34,6 +37,15 @@ const StyledContainer = styled.div<Partial<ContainerProps>>`
   margin: ${(props) => props.$margin || "0"};
   background-color: ${(props) => props.$bgColor || "transparent"};
   border-radius: ${(props) => props.$borderRadius || "0"};
+  box-shadow: ${(props) => props.$boxShadow || "none"};
+  cursor: ${(props) => props.cursor};
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+
+  &.highlighted:hover {
+    box-shadow: 0px 8px 20px rgba(211, 125, 40, 0.69);
+  }
 `;
 
 export const Container: FC<Partial<ContainerProps>> = (props) => {
