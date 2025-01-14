@@ -2,7 +2,7 @@
 
 Welcome! The project is a site where you can track discounts on games from the American eShop. Also on the site you can search for games and see information about them.
 
-Demo: <a href="https://tourmaline-paletas-244068.netlify.app" target="_blank">Click Me</a>
+Demo: <a href="https://whisper64.netlify.app" target="_blank">Click Me</a>
 
 ---
 
