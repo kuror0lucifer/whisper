@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
-import { Span } from "../../styledComponents/Span";
-import { Flex } from "../../styledComponents/Flex";
-import { Button } from "../../styledComponents/Button";
+import { Span } from "../../../styledComponents/Span";
+import { Flex } from "../../../styledComponents/Flex";
+import { Button } from "../../../styledComponents/Button";
 
-import variables from "../../scss/styles.module.scss";
+import variables from "../../../scss/styles.module.scss";
 
 import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Span } from "../../styledComponents/Span";
-import eshopDetails from "../../@types/eshopDetails";
+import { Span } from "../../../styledComponents/Span";
+import eshopDetails from "../../../@types/eshopDetails";
 import { format } from "date-fns";
 
 type GameDiscountTimeProps = {

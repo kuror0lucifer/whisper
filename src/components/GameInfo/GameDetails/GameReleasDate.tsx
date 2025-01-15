@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Span } from "../../styledComponents/Span";
+import { Span } from "../../../styledComponents/Span";
 import { format } from "date-fns";
 
 type GameReleasDateProps = {

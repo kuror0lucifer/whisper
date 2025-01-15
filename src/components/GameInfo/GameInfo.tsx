@@ -5,18 +5,20 @@ import { useParams } from "react-router-dom";
 import { TitleH } from "../../styledComponents/TitleH";
 import { Image } from "../../styledComponents/Image";
 import { Flex } from "../../styledComponents/Flex";
-import { GameDescription } from "./GameDescription";
-import { GamePrice } from "./GamePrice";
+import { GameDescription } from "./GameDetails/GameDescription";
+import { GamePrice } from "./GameDetails/GamePrice";
 
 import axios from "axios";
-import { GameReleasDate } from "./GameReleasDate";
+import { GameReleasDate } from "./GameDetails/GameReleasDate";
 import { Error } from "../ErrorPage/Error";
 import Price from "../../@types/price";
-import { GameDiscountTime } from "./GameDiscountTimeEnd";
+import { GameDiscountTime } from "./GameDetails/GameDiscountTimeEnd";
 import eshopDetails from "../../@types/eshopDetails";
-import { GameEshopDetails } from "./GameEshopDetails";
-import { GamePlayersCount } from "./GamePlayersCount";
-import { GamePlatform } from "./GamePlatform";
+import { GameEshopDetails } from "./GameDetails/GameEshopDetails";
+import { GamePlayersCount } from "./GameDetails/GamePlayersCount";
+import { GamePlatform } from "./GameDetails/GamePlatform";
+import { Span } from "../../styledComponents/Span";
+import { GamePlayModes } from "./GameDetails/GamePlayModes";
 
 type GameInfoResponse = {
   title: string;
@@ -28,6 +30,7 @@ type GameInfoResponse = {
   date: string;
   eshopDetails: eshopDetails;
   platforms: string[];
+  playModes: string[];
 };
 
 export const GameInfo: FC = () => {
@@ -52,6 +55,7 @@ export const GameInfo: FC = () => {
           }
         );
         const data = response.data;
+        console.log(data);
 
         const game = data.hits[0];
         setGameInfo({
@@ -66,6 +70,7 @@ export const GameInfo: FC = () => {
             : game.releaseDate.slice(0, 10),
           eshopDetails: game.eshopDetails,
           platforms: game.corePlatforms,
+          playModes: game.playModes,
         });
       } catch (err) {
         setError(`Failed to load game information. ${err}`);
@@ -89,9 +94,13 @@ export const GameInfo: FC = () => {
       $margin={isDescriptionPresent ? "25px 25px 0 25px" : ""}
       $gap="10px"
     >
+      <Span $size="28px" $weight="800">
+        Details
+      </Span>
       <GamePrice price={gameInfo?.price} platforms={gameInfo?.platforms} />
       <GamePlatform platforms={gameInfo?.platforms} />
       <GamePlayersCount players={gameInfo?.players} />
+      <GamePlayModes playModes={gameInfo?.playModes} />
       <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
       <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
       <GameReleasDate date={gameInfo?.date} />

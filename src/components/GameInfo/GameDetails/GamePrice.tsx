@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Span } from "../../styledComponents/Span";
-import Price from "../../@types/price";
+import { Span } from "../../../styledComponents/Span";
+import Price from "../../../@types/price";
 
 type GamePriceProps = {
   price: Price | undefined;
