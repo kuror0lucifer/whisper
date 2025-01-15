@@ -25,7 +25,7 @@ export const GameDescription: FC<GameDescriptionProps> = ({
 
   return (
     <Flex width="50%" height="10%">
-      <Span>
+      <Span $size="20px">
         {readAll ? gameDescription : getShortText(gameDescription, 100)}
       </Span>
       {gameDescription && gameDescription.length >= 100 ? (

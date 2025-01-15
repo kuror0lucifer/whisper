@@ -105,14 +105,39 @@ export const GameInfo: FC = () => {
             alt={gameInfo?.title}
             width="40%"
           />
-
-          <GameDescription gameDescription={gameInfo?.description} />
-          <GamePrice price={gameInfo?.price} />
-          <GamePlayersCount players={gameInfo?.players} />
-          <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
-          <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
-          <GameReleasDate date={gameInfo?.date} />
+          {gameInfo?.description ? (
+            <GameDescription gameDescription={gameInfo?.description} />
+          ) : (
+            <Flex
+              $align="flex-start"
+              $direction="column"
+              $justify="flex-start"
+              $margin="15px 25px 0 25px"
+              $gap="10px"
+            >
+              <GamePrice price={gameInfo?.price} />
+              <GamePlayersCount players={gameInfo?.players} />
+              <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
+              <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
+              <GameReleasDate date={gameInfo?.date} />
+            </Flex>
+          )}
         </Flex>
+        {gameInfo?.description && (
+          <Flex
+            $align="flex-start"
+            $direction="column"
+            $justify="flex-start"
+            $margin="25px 25px 0 25px"
+            $gap="10px"
+          >
+            <GamePrice price={gameInfo?.price} />
+            <GamePlayersCount players={gameInfo?.players} />
+            <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
+            <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
+            <GameReleasDate date={gameInfo?.date} />
+          </Flex>
+        )}
       </Container>
     </>
   );
