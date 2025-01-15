@@ -15,6 +15,7 @@ import Price from "../../@types/price";
 import { GameDiscountTime } from "./GameDiscountTimeEnd";
 import eshopDetails from "../../@types/eshopDetails";
 import { GameEshopDetails } from "./GameEshopDetails";
+import { GamePlayersCount } from "./GamePlayersCount";
 
 type GameInfoResponse = {
   title: string;
@@ -22,7 +23,7 @@ type GameInfoResponse = {
   productImage: string;
   description: string;
   price: Price;
-  priceRange: string;
+  players: string;
   date: string;
   eshopDetails: eshopDetails;
 };
@@ -49,6 +50,7 @@ export const GameInfo: FC = () => {
           }
         );
         const data = response.data;
+        console.log(data);
 
         const game = data.hits[0];
         setGameInfo({
@@ -57,7 +59,7 @@ export const GameInfo: FC = () => {
           productImage: game.productImage,
           description: game.description || "",
           price: game.price,
-          priceRange: game.collectionPriceRange,
+          players: game.playerCount,
           date: game.releaseDateDisplay
             ? game.releaseDateDisplay
             : game.releaseDate.slice(0, 10),
@@ -105,10 +107,8 @@ export const GameInfo: FC = () => {
           />
 
           <GameDescription gameDescription={gameInfo?.description} />
-          <GamePrice
-            price={gameInfo?.price}
-            priceRange={gameInfo?.priceRange}
-          />
+          <GamePrice price={gameInfo?.price} />
+          <GamePlayersCount players={gameInfo?.players} />
           <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
           <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
           <GameReleasDate date={gameInfo?.date} />

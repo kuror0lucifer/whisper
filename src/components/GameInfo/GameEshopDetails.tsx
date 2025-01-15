@@ -11,7 +11,7 @@ export const GameEshopDetails: FC<GameEshopDetailsProps> = ({
 }) => {
   return (
     <Span $size="22px">
-      🪙 Gold points:{" "}
+      🏅 Gold points:{" "}
       {eshopDetails?.goldPoints ? eshopDetails?.goldPoints : "Not available"}
     </Span>
   );
