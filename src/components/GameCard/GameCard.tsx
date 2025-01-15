@@ -11,10 +11,12 @@ import "../../scss/components/paginate.scss";
 import { useSelector } from "react-redux";
 import { selectGames, selectQuery } from "../../redux/games/selectors";
 import { useNavigate } from "react-router-dom";
+import { GameCardSkeleton } from "../Skeleton/GameCardSkeleton";
 
 export const GameCard = () => {
   const [allGames, setAllGames] = useState<QueriedGameUS[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const itemsPerPage = 8;
 
   const navigate = useNavigate();
@@ -25,10 +27,13 @@ export const GameCard = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
+        setIsLoading(true);
         const gamesData = await getQueriedGamesAmerica("");
         setAllGames(gamesData);
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchGames();
@@ -57,55 +62,63 @@ export const GameCard = () => {
         $margin="25px auto"
         width="80%"
       >
-        {paginatedGames.map((game, index) => {
-          return (
-            <Container
-              className="highlighted"
-              key={game.nsuid || `fallback-${index}`}
-              width="250px"
-              height="260px"
-              $bgColor="white"
-              $boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
-              cursor="pointer"
-              onClick={() => {
-                navigate(`/game/${game.sku}`);
-              }}
-            >
-              <GameCardImg
-                headerImage={
-                  "https://assets.nintendo.com/image/upload/" +
-                  game.productImage
-                }
-                title={game.title}
-                price={game.price}
-              />
-              <Flex
-                $justify="space-around"
-                $align="flex-start"
-                $direction="row"
-              >
-                <GameCardTitle title={game.title} />
-                <GameCardPrice
-                  price={game.price}
-                  availability={
-                    game.availability.length > 0 ? game.availability : "Free"
-                  }
-                />
-              </Flex>
-            </Container>
-          );
-        })}
+        {isLoading
+          ? Array.from({ length: itemsPerPage }).map((_, index) => (
+              <GameCardSkeleton key={index} />
+            ))
+          : paginatedGames.map((game, index) => {
+              return (
+                <Container
+                  className="highlighted"
+                  key={game.nsuid || `fallback-${index}`}
+                  width="250px"
+                  height="260px"
+                  $bgColor="white"
+                  $boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
+                  cursor="pointer"
+                  onClick={() => {
+                    navigate(`/game/${game.sku}`);
+                  }}
+                >
+                  <GameCardImg
+                    headerImage={
+                      "https://assets.nintendo.com/image/upload/" +
+                      game.productImage
+                    }
+                    title={game.title}
+                    price={game.price}
+                  />
+                  <Flex
+                    $justify="space-around"
+                    $align="flex-start"
+                    $direction="row"
+                  >
+                    <GameCardTitle title={game.title} />
+                    <GameCardPrice
+                      price={game.price}
+                      availability={
+                        game.availability.length > 0
+                          ? game.availability
+                          : "Free"
+                      }
+                    />
+                  </Flex>
+                </Container>
+              );
+            })}
       </Flex>
-      <ReactPaginate
-        pageCount={Math.ceil(currentGames.length / itemsPerPage)}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
-        onPageChange={handlePageClick}
-        containerClassName="pagination"
-        activeClassName="active"
-        previousLabel="Назад"
-        nextLabel="Вперед"
-      />
+      {!isLoading && (
+        <ReactPaginate
+          pageCount={Math.ceil(currentGames.length / itemsPerPage)}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
+          onPageChange={handlePageClick}
+          containerClassName="pagination"
+          activeClassName="active"
+          previousLabel="Назад"
+          nextLabel="Вперед"
+        />
+      )}
     </>
   );
 };
