@@ -16,7 +16,7 @@ export const GameDiscountTime: FC<GameDiscountTimeProps> = ({
 
   const formattedDate = discountEndDate
     ? format(discountEndDate, "dd MMMM yyyy, HH:mm:ss")
-    : "Not available";
+    : "Not on sale";
 
   return <Span $size="22px">⌛ Sale end: {formattedDate}</Span>;
 };

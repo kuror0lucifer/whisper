@@ -5,7 +5,12 @@ import { Flex } from "../../styledComponents/Flex";
 import { TitleH } from "../../styledComponents/TitleH";
 import { Image } from "../../styledComponents/Image";
 
-export const Error: FC = () => {
+type ErrorProps = {
+  message: string;
+};
+
+export const Error: FC<ErrorProps> = ({ message }) => {
+  console.error(message);
   return (
     <>
       <Header />

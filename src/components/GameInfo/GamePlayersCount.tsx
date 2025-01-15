@@ -6,5 +6,5 @@ type GamePlayersCountProps = {
 };
 
 export const GamePlayersCount: FC<GamePlayersCountProps> = ({ players }) => {
-  return <Span $size="22px">🎮 Players count: {players}</Span>;
+  return <Span $size="22px">👤 Players count: {players}</Span>;
 };

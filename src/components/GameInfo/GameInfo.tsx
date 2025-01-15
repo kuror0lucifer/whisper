@@ -16,6 +16,7 @@ import { GameDiscountTime } from "./GameDiscountTimeEnd";
 import eshopDetails from "../../@types/eshopDetails";
 import { GameEshopDetails } from "./GameEshopDetails";
 import { GamePlayersCount } from "./GamePlayersCount";
+import { GamePlatform } from "./GamePlatform";
 
 type GameInfoResponse = {
   title: string;
@@ -26,12 +27,13 @@ type GameInfoResponse = {
   players: string;
   date: string;
   eshopDetails: eshopDetails;
+  platforms: string[];
 };
 
 export const GameInfo: FC = () => {
   const { sku } = useParams<{ sku: string }>();
   const [gameInfo, setGameInfo] = useState<GameInfoResponse>();
-  const [error, setError] = useState<unknown>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchGameInfo = async () => {
@@ -50,7 +52,6 @@ export const GameInfo: FC = () => {
           }
         );
         const data = response.data;
-        console.log(data);
 
         const game = data.hits[0];
         setGameInfo({
@@ -64,18 +65,38 @@ export const GameInfo: FC = () => {
             ? game.releaseDateDisplay
             : game.releaseDate.slice(0, 10),
           eshopDetails: game.eshopDetails,
+          platforms: game.corePlatforms,
         });
-      } catch (err: unknown) {
-        setError(err);
+      } catch (err) {
+        setError(`Failed to load game information. ${err}`);
       }
     };
 
     fetchGameInfo();
   }, [sku]);
 
-  if (error !== null) {
-    return <Error />;
+  if (error) {
+    return <Error message={error} />;
   }
+
+  const isDescriptionPresent = gameInfo?.description;
+
+  const content = (
+    <Flex
+      $align="flex-start"
+      $direction="column"
+      $justify="flex-start"
+      $margin={isDescriptionPresent ? "25px 25px 0 25px" : ""}
+      $gap="10px"
+    >
+      <GamePrice price={gameInfo?.price} platforms={gameInfo?.platforms} />
+      <GamePlatform platforms={gameInfo?.platforms} />
+      <GamePlayersCount players={gameInfo?.players} />
+      <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
+      <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
+      <GameReleasDate date={gameInfo?.date} />
+    </Flex>
+  );
 
   return (
     <>
@@ -93,9 +114,8 @@ export const GameInfo: FC = () => {
         <Flex
           $align="flex-start"
           $direction="row"
-          $justify="flex-start"
+          $justify="space-between"
           $margin="40px 25px 0 25px"
-          $gap="50px"
         >
           <Image
             src={
@@ -104,40 +124,15 @@ export const GameInfo: FC = () => {
             }
             alt={gameInfo?.title}
             width="40%"
+            height="248px"
           />
-          {gameInfo?.description ? (
-            <GameDescription gameDescription={gameInfo?.description} />
+          {isDescriptionPresent ? (
+            <GameDescription gameDescription={gameInfo.description} />
           ) : (
-            <Flex
-              $align="flex-start"
-              $direction="column"
-              $justify="flex-start"
-              $margin="15px 25px 0 25px"
-              $gap="10px"
-            >
-              <GamePrice price={gameInfo?.price} />
-              <GamePlayersCount players={gameInfo?.players} />
-              <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
-              <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
-              <GameReleasDate date={gameInfo?.date} />
-            </Flex>
+            content
           )}
         </Flex>
-        {gameInfo?.description && (
-          <Flex
-            $align="flex-start"
-            $direction="column"
-            $justify="flex-start"
-            $margin="25px 25px 0 25px"
-            $gap="10px"
-          >
-            <GamePrice price={gameInfo?.price} />
-            <GamePlayersCount players={gameInfo?.players} />
-            <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
-            <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
-            <GameReleasDate date={gameInfo?.date} />
-          </Flex>
-        )}
+        {isDescriptionPresent && content}
       </Container>
     </>
   );
