@@ -91,19 +91,21 @@ export const GameInfo: FC = () => {
       $align="flex-start"
       $direction="column"
       $justify="flex-start"
-      $margin={isDescriptionPresent ? "25px 25px 0 25px" : ""}
+      $margin="25px 25px 0 25px"
       $gap="10px"
     >
-      <Span $size="28px" $weight="800">
+      <Span $size="28px" $weight="800" $marginTop="20px">
         Details
       </Span>
-      <GamePrice price={gameInfo?.price} platforms={gameInfo?.platforms} />
-      <GamePlatform platforms={gameInfo?.platforms} />
-      <GamePlayersCount players={gameInfo?.players} />
-      <GamePlayModes playModes={gameInfo?.playModes} />
-      <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
-      <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
-      <GameReleasDate date={gameInfo?.date} />
+      <Flex $direction="column" $wrap="nowrap">
+        <GamePrice price={gameInfo?.price} platforms={gameInfo?.platforms} />
+        <GamePlatform platforms={gameInfo?.platforms} />
+        <GamePlayersCount players={gameInfo?.players} />
+        <GamePlayModes playModes={gameInfo?.playModes} />
+        <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
+        <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
+        <GameReleasDate date={gameInfo?.date} />
+      </Flex>
     </Flex>
   );
 
@@ -138,10 +140,10 @@ export const GameInfo: FC = () => {
           {isDescriptionPresent ? (
             <GameDescription gameDescription={gameInfo.description} />
           ) : (
-            content
+            <></>
           )}
         </Flex>
-        {isDescriptionPresent && content}
+        {content}
       </Container>
     </>
   );

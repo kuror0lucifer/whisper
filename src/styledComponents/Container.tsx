@@ -15,6 +15,9 @@ interface ContainerProps {
   $padding: string;
   $bgColor: string;
   $borderRadius: string;
+  $border: string;
+  $borderBottom: string;
+  $borderTop: string;
   $boxShadow: string;
   cursor: string;
   children: React.ReactNode;
@@ -37,6 +40,8 @@ const StyledContainer = styled.div<Partial<ContainerProps>>`
   margin: ${(props) => props.$margin || "0"};
   background-color: ${(props) => props.$bgColor || "transparent"};
   border-radius: ${(props) => props.$borderRadius || "0"};
+  border-top: ${(props) => props.$borderTop || "none"};
+  border-bottom: ${(props) => props.$borderBottom || "none"};
   box-shadow: ${(props) => props.$boxShadow || "none"};
   cursor: ${(props) => props.cursor};
 
