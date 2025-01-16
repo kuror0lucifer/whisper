@@ -19,6 +19,7 @@ import { GamePlayersCount } from "./GameDetails/GamePlayersCount";
 import { GamePlatform } from "./GameDetails/GamePlatform";
 import { Span } from "../../styledComponents/Span";
 import { GamePlayModes } from "./GameDetails/GamePlayModes";
+import { LikeButton } from "../Buttons/LikeButton";
 
 type GameInfoResponse = {
   title: string;
@@ -55,7 +56,6 @@ export const GameInfo: FC = () => {
           }
         );
         const data = response.data;
-        console.log(data);
 
         const game = data.hits[0];
         setGameInfo({
@@ -138,9 +138,13 @@ export const GameInfo: FC = () => {
             height="248px"
           />
           {isDescriptionPresent ? (
-            <GameDescription gameDescription={gameInfo.description} />
+            <>
+              {" "}
+              <GameDescription gameDescription={gameInfo.description} />
+              <LikeButton />
+            </>
           ) : (
-            <></>
+            <LikeButton />
           )}
         </Flex>
         {content}

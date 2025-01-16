@@ -21,11 +21,12 @@ interface ButtonProps {
   width: string;
   height: string;
   $backgroundColor: string;
-  border: string;
+  $border: string;
   $borderRadius: string;
   $margin: string;
   cursor: string;
   children: React.ReactNode;
+  className: string;
 
   onClick: () => void;
 }
@@ -43,10 +44,14 @@ const StyledButton = styled.button<Partial<ButtonProps>>`
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
   background-color: ${(props) => props.$backgroundColor || "transparent"};
-  border: ${(props) => props.border || "0"};
+  border: ${(props) => props.$border || "0"};
   border-radius: ${(props) => props.$borderRadius || "0"};
   margin: ${(props) => props.$margin || "0"};
   cursor: ${(props) => props.cursor || "default"};
+
+  &.highlighted:hover {
+    background: rgb(251, 182, 53);
+  }
 `;
 
 export const Button: FC<Partial<ButtonProps>> = (props) => {
