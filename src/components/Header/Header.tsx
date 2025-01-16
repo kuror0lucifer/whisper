@@ -16,7 +16,6 @@ export const Header: FC = () => {
       $bgColor={variables.orange}
       $borderRadius="0 0 25px 25px"
       $margin="0 auto"
-      // $padding="0 20px"
     >
       <Flex
         $align="center"

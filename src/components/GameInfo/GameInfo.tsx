@@ -134,17 +134,21 @@ export const GameInfo: FC = () => {
               gameInfo?.productImage
             }
             alt={gameInfo?.title}
-            width="40%"
-            height="248px"
+            width="500px"
+            height="300px"
           />
           {isDescriptionPresent ? (
             <>
-              {" "}
               <GameDescription gameDescription={gameInfo.description} />
               <LikeButton />
             </>
           ) : (
-            <LikeButton />
+            <>
+              <Flex width="45%" $align="flex-start" $justify="flex-start">
+                <Span $size="22px">{`No description :(`}</Span>
+              </Flex>
+              <LikeButton />
+            </>
           )}
         </Flex>
         {content}
