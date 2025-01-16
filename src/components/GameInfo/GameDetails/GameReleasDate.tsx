@@ -17,7 +17,7 @@ export const GameReleasDate: FC<GameReleasDateProps> = ({ date }) => {
 
   return (
     <Container
-      width="60%"
+      width="400px"
       height="75px"
       $borderTop="2px solid gray"
       $borderBottom="2px solid gray"

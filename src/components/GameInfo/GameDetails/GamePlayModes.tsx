@@ -8,11 +8,9 @@ type GamePlayModesProps = {
 };
 
 export const GamePlayModes: FC<GamePlayModesProps> = ({ playModes }) => {
-  console.log(playModes);
-
   return (
     <Container
-      width="60%"
+      width="400px"
       height="75px"
       $borderTop="2px solid gray"
       display="flex"

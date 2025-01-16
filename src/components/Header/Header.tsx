@@ -35,7 +35,7 @@ export const Header: FC = () => {
           >
             <HeaderLogo />
             <Span $size="18px" $weight="400">
-              WHISPER
+              WHISPER64
             </Span>
           </Flex>
         </Link>

@@ -26,7 +26,7 @@ export const GamePrice: FC<GamePriceProps> = ({ price, platforms }) => {
       : priceInfo || platformInfo;
   return (
     <Container
-      width="60%"
+      width="400px"
       height="75px"
       $borderTop="2px solid gray"
       display="flex"
