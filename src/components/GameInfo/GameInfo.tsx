@@ -20,6 +20,7 @@ import { GamePlatform } from "./GameDetails/GamePlatform";
 import { Span } from "../../styledComponents/Span";
 import { GamePlayModes } from "./GameDetails/GamePlayModes";
 import { LikeButton } from "../Buttons/LikeButton";
+import { GameInfoSkeleton } from "../Skeleton/GameInfoSkeleton";
 
 type GameInfoResponse = {
   title: string;
@@ -38,10 +39,13 @@ export const GameInfo: FC = () => {
   const { sku } = useParams<{ sku: string }>();
   const [gameInfo, setGameInfo] = useState<GameInfoResponse>();
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchGameInfo = async () => {
       try {
+        setIsLoading(true);
+
         const response = await axios.post(
           "https://U3B6GR4UA3-dsn.algolia.net/1/indexes/store_all_products_en_us/query",
           {
@@ -74,6 +78,8 @@ export const GameInfo: FC = () => {
         });
       } catch (err) {
         setError(`Failed to load game information. ${err}`);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -118,40 +124,46 @@ export const GameInfo: FC = () => {
         $margin="25px auto"
         $bgColor="inherit"
       >
-        <TitleH as="h1" $margin="0 0 0 25px">
-          {gameInfo?.title}
-        </TitleH>
+        {isLoading ? (
+          <GameInfoSkeleton />
+        ) : (
+          <>
+            <TitleH as="h1" $margin="0 0 0 25px">
+              {gameInfo?.title}
+            </TitleH>
 
-        <Flex
-          $align="flex-start"
-          $direction="row"
-          $justify="space-between"
-          $margin="40px 25px 0 25px"
-        >
-          <Image
-            src={
-              "https://assets.nintendo.com/image/upload/" +
-              gameInfo?.productImage
-            }
-            alt={gameInfo?.title}
-            width="500px"
-            height="300px"
-          />
-          {isDescriptionPresent ? (
-            <>
-              <GameDescription gameDescription={gameInfo.description} />
-              <LikeButton />
-            </>
-          ) : (
-            <>
-              <Flex width="45%" $align="flex-start" $justify="flex-start">
-                <Span $size="22px">{`No description :(`}</Span>
-              </Flex>
-              <LikeButton />
-            </>
-          )}
-        </Flex>
-        {content}
+            <Flex
+              $align="flex-start"
+              $direction="row"
+              $justify="space-between"
+              $margin="40px 25px 0 25px"
+            >
+              <Image
+                src={
+                  "https://assets.nintendo.com/image/upload/" +
+                  gameInfo?.productImage
+                }
+                alt={gameInfo?.title}
+                width="500px"
+                height="300px"
+              />
+              {isDescriptionPresent ? (
+                <>
+                  <GameDescription gameDescription={gameInfo.description} />
+                  <LikeButton />
+                </>
+              ) : (
+                <>
+                  <Flex width="45%" $align="flex-start" $justify="flex-start">
+                    <Span $size="22px">{`No description :(`}</Span>
+                  </Flex>
+                  <LikeButton />
+                </>
+              )}
+            </Flex>
+            {content}
+          </>
+        )}
       </Container>
     </>
   );

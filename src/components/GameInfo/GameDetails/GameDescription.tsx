@@ -41,6 +41,7 @@ export const GameDescription: FC<GameDescriptionProps> = ({
           $borderRadius="25px"
           $margin="25px 0 0 0"
           cursor="pointer"
+          className="highlighted"
         >
           {readAll ? "Close" : "Read all"}
           {readAll ? <HiArrowNarrowUp /> : <HiArrowNarrowDown />}
