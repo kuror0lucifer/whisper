@@ -1,10 +1,11 @@
 import { FC } from "react";
-import { Span } from "../../../styledComponents/Span";
-import eshopDetails from "../../../@types/eshopDetails";
 import { format } from "date-fns";
-import { Container } from "../../../styledComponents/Container";
 
+import { Span } from "../../../styledComponents/Span";
+import { Container } from "../../../styledComponents/Container";
 import { IoTime } from "react-icons/io5";
+
+import eshopDetails from "../../../@types/eshopDetails";
 
 type GameDiscountTimeProps = {
   eshopDetails: eshopDetails | undefined;

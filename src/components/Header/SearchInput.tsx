@@ -1,14 +1,14 @@
 import { ChangeEvent, FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { fetchGames, setQuery } from "../../redux/games/slice";
+import { selectQuery } from "../../redux/games/selectors";
+
 import { Input } from "../../styledComponents/Input";
 import { Container } from "../../styledComponents/Container";
 import { Button } from "../../styledComponents/Button";
 import { FaSearch } from "react-icons/fa";
 import { MdClear } from "react-icons/md";
-
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { fetchGames, setQuery } from "../../redux/games/slice";
-import { selectQuery } from "../../redux/games/selectors";
 
 export const SearchInput: FC = () => {
   const query = useSelector(selectQuery);

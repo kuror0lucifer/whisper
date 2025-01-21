@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { Span } from "../../../styledComponents/Span";
 import { format } from "date-fns";
+
+import { Span } from "../../../styledComponents/Span";
 import { Container } from "../../../styledComponents/Container";
 import { IoCalendarNumberSharp } from "react-icons/io5";
 

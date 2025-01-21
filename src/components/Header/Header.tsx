@@ -1,14 +1,15 @@
 import { FC } from "react";
+
 import { Container } from "../../styledComponents/Container";
 import { Flex } from "../../styledComponents/Flex";
 import { Span } from "../../styledComponents/Span";
-
-import variables from "../../scss/styles.module.scss";
 import { HeaderLogo } from "./HeaderLogo";
 import { SearchInput } from "./SearchInput";
 import { Link } from "../../styledComponents/Link";
 import { SignUpButton } from "../Buttons/SignUpButton";
 import { LogInButton } from "../Buttons/LogInButton";
+
+import variables from "../../scss/styles.module.scss";
 
 export const Header: FC = () => {
   return (

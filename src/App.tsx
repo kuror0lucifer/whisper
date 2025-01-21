@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { GameCard } from "./components/GameCard/GameCard";
 import { Header } from "./components/Header/Header";
 

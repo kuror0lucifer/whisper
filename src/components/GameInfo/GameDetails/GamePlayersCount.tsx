@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { Span } from "../../../styledComponents/Span";
 import { Container } from "../../../styledComponents/Container";
 import { FaPerson } from "react-icons/fa6";

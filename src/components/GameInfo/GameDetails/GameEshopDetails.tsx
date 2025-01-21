@@ -1,8 +1,10 @@
 import { FC } from "react";
+
 import { Span } from "../../../styledComponents/Span";
-import eshopDetails from "../../../@types/eshopDetails";
 import { Container } from "../../../styledComponents/Container";
 import { FaMedal } from "react-icons/fa";
+
+import eshopDetails from "../../../@types/eshopDetails";
 
 type GameEshopDetailsProps = {
   eshopDetails: eshopDetails | undefined;

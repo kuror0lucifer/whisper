@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Span } from "../../../styledComponents/Span";
-import Price from "../../../@types/price";
 import { Container } from "../../../styledComponents/Container";
 import { IoMdPricetag } from "react-icons/io";
+
+import Price from "../../../@types/price";
 
 type GamePriceProps = {
   price: Price | undefined;

@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
+
 import { Span } from "../../../styledComponents/Span";
 import { Flex } from "../../../styledComponents/Flex";
 import { Button } from "../../../styledComponents/Button";
+import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 
 import variables from "../../../scss/styles.module.scss";
-
-import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 
 type GameDescriptionProps = {
   gameDescription: string | undefined;
