@@ -24,6 +24,7 @@ interface ButtonProps {
   $border: string;
   $borderRadius: string;
   $margin: string;
+  color: string;
   cursor: string;
   children: React.ReactNode;
   className: string;
@@ -47,6 +48,7 @@ const StyledButton = styled.button<Partial<ButtonProps>>`
   border: ${(props) => props.$border || "0"};
   border-radius: ${(props) => props.$borderRadius || "0"};
   margin: ${(props) => props.$margin || "0"};
+  color: ${(props) => props.color || "black"};
   cursor: ${(props) => props.cursor || "default"};
 
   &.highlighted:hover {

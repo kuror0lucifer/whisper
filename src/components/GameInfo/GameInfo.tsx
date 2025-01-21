@@ -1,26 +1,27 @@
 import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import { Container } from "../../styledComponents/Container";
 import { Header } from "../Header/Header";
-import { useParams } from "react-router-dom";
 import { TitleH } from "../../styledComponents/TitleH";
 import { Image } from "../../styledComponents/Image";
 import { Flex } from "../../styledComponents/Flex";
 import { GameDescription } from "./GameDetails/GameDescription";
 import { GamePrice } from "./GameDetails/GamePrice";
-
-import axios from "axios";
 import { GameReleasDate } from "./GameDetails/GameReleasDate";
 import { Error } from "../ErrorPage/Error";
-import Price from "../../@types/price";
-import { GameDiscountTime } from "./GameDetails/GameDiscountTimeEnd";
-import eshopDetails from "../../@types/eshopDetails";
-import { GameEshopDetails } from "./GameDetails/GameEshopDetails";
-import { GamePlayersCount } from "./GameDetails/GamePlayersCount";
-import { GamePlatform } from "./GameDetails/GamePlatform";
-import { Span } from "../../styledComponents/Span";
-import { GamePlayModes } from "./GameDetails/GamePlayModes";
 import { LikeButton } from "../Buttons/LikeButton";
 import { GameInfoSkeleton } from "../Skeleton/GameInfoSkeleton";
+import { GamePlatform } from "./GameDetails/GamePlatform";
+import { Span } from "../../styledComponents/Span";
+import { GamePlayersCount } from "./GameDetails/GamePlayersCount";
+import { GamePlayModes } from "./GameDetails/GamePlayModes";
+import { GameDiscountTime } from "./GameDetails/GameDiscountTimeEnd";
+import { GameEshopDetails } from "./GameDetails/GameEshopDetails";
+
+import Price from "../../@types/price";
+import eshopDetails from "../../@types/eshopDetails";
 
 type GameInfoResponse = {
   title: string;

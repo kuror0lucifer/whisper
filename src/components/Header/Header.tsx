@@ -7,6 +7,8 @@ import variables from "../../scss/styles.module.scss";
 import { HeaderLogo } from "./HeaderLogo";
 import { SearchInput } from "./SearchInput";
 import { Link } from "../../styledComponents/Link";
+import { SignUpButton } from "../Buttons/SignUpButton";
+import { LogInButton } from "../Buttons/LogInButton";
 
 export const Header: FC = () => {
   return (
@@ -21,7 +23,7 @@ export const Header: FC = () => {
         $align="center"
         $justify="flex-start"
         height="100%"
-        width="90%"
+        width="100%"
         $direction="row"
         $gap="10px"
       >
@@ -40,6 +42,16 @@ export const Header: FC = () => {
         </Link>
 
         <SearchInput />
+        <Flex
+          $gap="10px"
+          height="100%"
+          $justify="center"
+          $align="center"
+          $margin="0 20px 0 0"
+        >
+          <LogInButton />
+          <SignUpButton />
+        </Flex>
       </Flex>
     </Container>
   );
