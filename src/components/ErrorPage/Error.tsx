@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { Header } from "../Header/Header";
 import { Container } from "../../styledComponents/Container";
 import { Flex } from "../../styledComponents/Flex";
