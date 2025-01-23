@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface ContainerProps {
   $position: "relative" | "sticky" | "absolute" | "static" | "fixed";
+  $top: string;
   $bottom: string;
   $right: string;
   display: string;
@@ -19,6 +20,7 @@ interface ContainerProps {
   $borderBottom: string;
   $borderTop: string;
   $boxShadow: string;
+  $zIndex: number;
   cursor: string;
   children: React.ReactNode;
 
@@ -28,6 +30,7 @@ interface ContainerProps {
 
 const StyledContainer = styled.div<Partial<ContainerProps>>`
   position: ${(props) => props.$position || "static"};
+  ${(props) => props.$top && `top: ${props.$top};`}
   ${(props) => props.$bottom && `bottom: ${props.$bottom};`}
   ${(props) => props.$right && `right: ${props.$right};`}
   display: ${(props) => props.display || "block"};
@@ -43,6 +46,7 @@ const StyledContainer = styled.div<Partial<ContainerProps>>`
   border-top: ${(props) => props.$borderTop || "none"};
   border-bottom: ${(props) => props.$borderBottom || "none"};
   box-shadow: ${(props) => props.$boxShadow || "none"};
+  z-index: ${(props) => props.$zIndex || "0"};
   cursor: ${(props) => props.cursor};
 
   transition: transform 0.3s ease, box-shadow 0.3s ease,

@@ -1,7 +1,11 @@
 import { FC } from "react";
 import { Button } from "../../styledComponents/Button";
 
-export const SignUpButton: FC = () => {
+type SignUpButtonProps = {
+  clickSignUp: () => void;
+};
+
+export const SignUpButton: FC<SignUpButtonProps> = ({ clickSignUp }) => {
   return (
     <Button
       $backgroundColor="white"
@@ -12,6 +16,7 @@ export const SignUpButton: FC = () => {
       $margin="0 auto"
       color="black"
       cursor="pointer"
+      onClick={() => clickSignUp()}
     >
       Sign Up
     </Button>
