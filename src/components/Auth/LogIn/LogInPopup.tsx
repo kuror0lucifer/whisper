@@ -5,7 +5,6 @@ import { Container } from "../../../styledComponents/Container";
 import { Flex } from "../../../styledComponents/Flex";
 import { IoClose } from "react-icons/io5";
 import { TitleH } from "../../../styledComponents/TitleH";
-import { Button } from "../../../styledComponents/Button";
 import { LogInInputs } from "./LogInInputs";
 
 type LogInPopupProps = {
@@ -61,17 +60,6 @@ export const LogInPopup: FC<LogInPopupProps> = ({ closePopup }) => {
           </Container>
           <TitleH as="h2">Log In</TitleH>
           <LogInInputs />
-          <Button
-            type="button"
-            width="40%"
-            height="40px"
-            $backgroundColor="red"
-            $borderRadius="25px"
-            color="white"
-            cursor="pointer"
-          >
-            Confirm
-          </Button>
         </Flex>
       </Container>
     </Container>,

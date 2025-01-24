@@ -6,7 +6,6 @@ import { Flex } from "../../../styledComponents/Flex";
 import { IoClose } from "react-icons/io5";
 import { TitleH } from "../../../styledComponents/TitleH";
 import { SignUpInputs } from "./SignUpInputs";
-import { Button } from "../../../styledComponents/Button";
 
 type SignUpPopupProps = {
   closePopup: () => void;
@@ -61,17 +60,6 @@ export const SignUpPopup: FC<SignUpPopupProps> = ({ closePopup }) => {
           </Container>
           <TitleH as="h2">Sign Up</TitleH>
           <SignUpInputs />
-          <Button
-            type="button"
-            width="40%"
-            height="40px"
-            $backgroundColor="red"
-            $borderRadius="25px"
-            color="white"
-            cursor="pointer"
-          >
-            Confirm
-          </Button>
         </Flex>
       </Container>
     </Container>,
