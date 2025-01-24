@@ -5,14 +5,14 @@ import { Container } from "../../../styledComponents/Container";
 import { Flex } from "../../../styledComponents/Flex";
 import { IoClose } from "react-icons/io5";
 import { TitleH } from "../../../styledComponents/TitleH";
-import { SignUpInputs } from "./SignUpInputs";
 import { Button } from "../../../styledComponents/Button";
+import { LogInInputs } from "./LogInInputs";
 
-type SignUpPopupProps = {
+type LogInPopupProps = {
   closePopup: () => void;
 };
 
-export const SignUpPopup: FC<SignUpPopupProps> = ({ closePopup }) => {
+export const LogInPopup: FC<LogInPopupProps> = ({ closePopup }) => {
   const portalRoot = document.getElementById("portal-root");
 
   if (!portalRoot) {
@@ -59,8 +59,8 @@ export const SignUpPopup: FC<SignUpPopupProps> = ({ closePopup }) => {
           >
             <IoClose size={24} />
           </Container>
-          <TitleH as="h2">Sign Up</TitleH>
-          <SignUpInputs />
+          <TitleH as="h2">Log In</TitleH>
+          <LogInInputs />
           <Button
             type="button"
             width="40%"

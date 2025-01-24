@@ -8,20 +8,19 @@ import { SearchInput } from "./SearchInput";
 import { Link } from "../../styledComponents/Link";
 import { SignUpButton } from "../Buttons/SignUpButton";
 import { LogInButton } from "../Buttons/LogInButton";
-
-import variables from "../../scss/styles.module.scss";
 import { SignUpPopup } from "../Auth/SignUp/SignUpPopup";
 
+import variables from "../../scss/styles.module.scss";
+import { LogInPopup } from "../Auth/LogIn/LogInPopup";
+
 export const Header: FC = () => {
-  const [isSignUpOpen, setSignUpOpen] = useState<boolean>(false);
+  const [activePopup, setActivePopup] = useState<"login" | "signup" | null>(
+    null
+  );
 
-  const clickSignUp = () => {
-    setSignUpOpen(true);
-  };
-
-  const closeSignUp = () => {
-    setSignUpOpen(false);
-  };
+  const openLogInPopup = () => setActivePopup("login");
+  const openSignUpPopup = () => setActivePopup("signup");
+  const closePopup = () => setActivePopup(null);
 
   return (
     <>
@@ -62,12 +61,13 @@ export const Header: FC = () => {
             $align="center"
             $margin="0 20px 0 0"
           >
-            <LogInButton />
-            <SignUpButton clickSignUp={clickSignUp} />
+            <LogInButton clickLogIn={openLogInPopup} />
+            <SignUpButton clickSignUp={openSignUpPopup} />
           </Flex>
         </Flex>
       </Container>
-      {isSignUpOpen && <SignUpPopup closeSignUp={closeSignUp} />}
+      {activePopup === "login" && <LogInPopup closePopup={closePopup} />}
+      {activePopup === "signup" && <SignUpPopup closePopup={closePopup} />}
     </>
   );
 };

@@ -14,7 +14,7 @@ type ValueType = {
   confirmPassword: string;
 };
 
-export const SignUpInput: FC = () => {
+export const SignUpInputs: FC = () => {
   const [value, setValue] = useState<ValueType>({
     email: "",
     password: "",
@@ -23,7 +23,6 @@ export const SignUpInput: FC = () => {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = event.target;
-    // setValue(event.target.value);
     setValue((prev) => ({
       ...prev,
       [name]: inputValue,
