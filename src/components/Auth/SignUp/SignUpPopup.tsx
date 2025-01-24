@@ -40,6 +40,7 @@ export const SignUpPopup: FC<SignUpPopupProps> = ({ closePopup }) => {
         height="400px"
         $bgColor="orange"
         $borderRadius="25px"
+        $boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
       >
         <Flex
           width="100%"

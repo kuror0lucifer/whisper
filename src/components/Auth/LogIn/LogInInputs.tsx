@@ -35,10 +35,16 @@ export const LogInInputs: FC = () => {
     const { email, password } = value;
 
     try {
-      const response = await axios.post("http://localhost:3000/api/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       setError(null);
       setSuccess("Login successful");
       console.log(response.data);
