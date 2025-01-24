@@ -34,40 +34,46 @@ export const SignUpPopup: FC<SignUpPopupProps> = ({ closeSignUp }) => {
       $zIndex={1000}
       onClick={closeSignUp}
     >
-      <Flex
+      <Container
         $position="relative"
-        $direction="column"
-        $justify="center"
-        $align="center"
         width="380px"
         $padding="15px"
         height="400px"
         $bgColor="orange"
         $borderRadius="25px"
-        onClick={(event) => event.stopPropagation()}
       >
-        <Container
-          $position="absolute"
-          $top="20px"
-          $right="20px"
-          cursor="pointer"
-          onClick={closeSignUp}
+        <Flex
+          width="100%"
+          height="320px"
+          $direction="column"
+          $justify="center"
+          $align="center"
+          onClick={(event) => event.stopPropagation()}
         >
-          <IoClose size={24} />
-        </Container>
-        <TitleH as="h2">Sign Up</TitleH>
-        <SignUpInput />
-        <Button
-          width="40%"
-          height="40px"
-          $backgroundColor="red"
-          $borderRadius="25px"
-          color="white"
-          cursor="pointer"
-        >
-          Confirm
-        </Button>
-      </Flex>
+          <Container
+            $position="absolute"
+            $top="20px"
+            $right="20px"
+            cursor="pointer"
+            onClick={closeSignUp}
+          >
+            <IoClose size={24} />
+          </Container>
+          <TitleH as="h2">Sign Up</TitleH>
+          <SignUpInput />
+          <Button
+            type="button"
+            width="40%"
+            height="40px"
+            $backgroundColor="red"
+            $borderRadius="25px"
+            color="white"
+            cursor="pointer"
+          >
+            Confirm
+          </Button>
+        </Flex>
+      </Container>
     </Container>,
     portalRoot
   );

@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
+  type: string;
   display: string;
   position: string;
   right: string;

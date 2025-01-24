@@ -4,6 +4,7 @@ import styled from "styled-components";
 interface InputProps {
   width: string;
   height: string;
+  $borderRadius: string;
   border: string;
   $borderTop: string;
   $borderRight: string;
@@ -17,6 +18,7 @@ interface InputProps {
   outline: string;
 
   type: string;
+  name: string;
   placeholder: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -25,6 +27,7 @@ interface InputProps {
 const StyledInput = styled.input<Partial<InputProps>>`
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
+  border-radius: ${(props) => props.$borderRadius || "none"};
   border: ${(props) => props.border || "none"};
   border-top: ${(props) => props.$borderTop || "none"};
   border-right: ${(props) => props.$borderRight || "none"};
