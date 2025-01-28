@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Container } from "../../styledComponents/Container";
 import { Flex } from "../../styledComponents/Flex";
@@ -12,15 +12,37 @@ import { SignUpPopup } from "../Auth/SignUp/SignUpPopup";
 
 import variables from "../../scss/styles.module.scss";
 import { LogInPopup } from "../Auth/LogIn/LogInPopup";
+import axios from "axios";
+import { ProfileButton } from "../Profile/ProfileButton";
 
 export const Header: FC = () => {
   const [activePopup, setActivePopup] = useState<"login" | "signup" | null>(
     null
   );
+  const [userData, setUserData] = useState<string | null>(null);
 
   const openLogInPopup = () => setActivePopup("login");
   const openSignUpPopup = () => setActivePopup("signup");
   const closePopup = () => setActivePopup(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/protected-route",
+          {
+            withCredentials: true,
+          }
+        );
+        setUserData(response.data.message);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  console.log(userData);
 
   return (
     <>
@@ -61,8 +83,14 @@ export const Header: FC = () => {
             $align="center"
             $margin="0 20px 0 0"
           >
-            <LogInButton clickLogIn={openLogInPopup} />
-            <SignUpButton clickSignUp={openSignUpPopup} />
+            {userData ? (
+              <ProfileButton />
+            ) : (
+              <>
+                <LogInButton clickLogIn={openLogInPopup} />
+                <SignUpButton clickSignUp={openSignUpPopup} />
+              </>
+            )}
           </Flex>
         </Flex>
       </Container>

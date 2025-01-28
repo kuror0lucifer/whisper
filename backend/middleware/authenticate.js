@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 
 const authenticate = (req, res, next) => {
-  const token = req.cookies.auth.token;
+  const token = req.cookies.auth_token;
 
   if (!token) return res.status(401).json({ error: "Unauthorized" });
 
