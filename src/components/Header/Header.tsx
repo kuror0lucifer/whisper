@@ -29,7 +29,7 @@ export const Header: FC = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/protected-route",
+          "http://localhost:3000/auth/protected-route",
           {
             withCredentials: true,
           }
@@ -41,8 +41,6 @@ export const Header: FC = () => {
     };
     fetchUserData();
   }, []);
-
-  console.log(userData);
 
   return (
     <>
@@ -83,7 +81,7 @@ export const Header: FC = () => {
             $align="center"
             $margin="0 20px 0 0"
           >
-            {userData ? (
+            {userData !== null ? (
               <ProfileButton />
             ) : (
               <>

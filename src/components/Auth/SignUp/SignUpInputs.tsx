@@ -24,7 +24,6 @@ export const SignUpInputs: FC = () => {
     confirmPassword: "",
   });
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = event.target;
@@ -39,7 +38,6 @@ export const SignUpInputs: FC = () => {
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
-      setSuccess(null);
       return;
     }
 
@@ -50,12 +48,10 @@ export const SignUpInputs: FC = () => {
       );
 
       setError(null);
-      setSuccess("Registration successful");
       console.log(response.data);
     } catch (error) {
       const err = error as AxiosError<{ error: string }>;
       setError(err.response?.data?.error || "Registration failed");
-      setSuccess(null);
     }
   };
 
@@ -99,7 +95,6 @@ export const SignUpInputs: FC = () => {
         Confirm
       </Button>
       {error && <Span>{error}</Span>}
-      {success && <Span>{success}</Span>}
     </>
   );
 };

@@ -6,6 +6,7 @@ import { Flex } from "../../../styledComponents/Flex";
 import { IoClose } from "react-icons/io5";
 import { TitleH } from "../../../styledComponents/TitleH";
 import { LogInInputs } from "./LogInInputs";
+import { PopupWrapper } from "../../../styledComponents/PopupWrapper";
 
 type LogInPopupProps = {
   closePopup: () => void;
@@ -20,19 +21,7 @@ export const LogInPopup: FC<LogInPopupProps> = ({ closePopup }) => {
   }
 
   return ReactDOM.createPortal(
-    <Container
-      $position="fixed"
-      $top="0"
-      $right="0"
-      width="100%"
-      height="100%"
-      $bgColor="rgba(0,0,0,0.5)"
-      display="flex"
-      $justify="center"
-      $align="center"
-      $zIndex={1000}
-      onClick={closePopup}
-    >
+    <PopupWrapper onClick={closePopup}>
       <Container
         $position="relative"
         width="380px"
@@ -62,7 +51,7 @@ export const LogInPopup: FC<LogInPopupProps> = ({ closePopup }) => {
           <LogInInputs />
         </Flex>
       </Container>
-    </Container>,
+    </PopupWrapper>,
     portalRoot
   );
 };

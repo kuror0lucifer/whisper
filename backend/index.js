@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 
 import sequelize from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
-import authenticate from "./middleware/authenticate.js";
+import authCheckRoutes from "./routes/authCheckRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -24,9 +24,7 @@ app.use(express.json());
 
 app.use("/api", userRoutes);
 
-app.get("/protected-route", authenticate, (req, res) => {
-  res.status(200).json({ message: `Welcome, ${req.user.email}` });
-});
+app.use("/auth", authCheckRoutes);
 
 sequelize
   .sync()

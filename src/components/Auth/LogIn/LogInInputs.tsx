@@ -21,7 +21,6 @@ export const LogInInputs: FC = () => {
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = event.target;
@@ -46,12 +45,10 @@ export const LogInInputs: FC = () => {
         }
       );
       setError(null);
-      setSuccess("Login successful");
-      console.log(response.data);
+      window.location.reload();
     } catch (error) {
       const err = error as AxiosError<{ error: string }>;
       setError(err.response?.data?.error || "Login failed");
-      setSuccess(null);
     }
   };
 
@@ -90,7 +87,6 @@ export const LogInInputs: FC = () => {
         Confirm
       </Button>
       {error && <Span>{error}</Span>}
-      {success && <Span>{success}</Span>}
     </>
   );
 };
