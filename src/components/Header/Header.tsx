@@ -14,15 +14,18 @@ import variables from "../../scss/styles.module.scss";
 import { LogInPopup } from "../Auth/LogIn/LogInPopup";
 import axios from "axios";
 import { ProfileButton } from "../Profile/ProfileButton";
+import { ProfilePopup } from "../Profile/ProfilePopup";
+import User from "../../@types/userData";
 
 export const Header: FC = () => {
-  const [activePopup, setActivePopup] = useState<"login" | "signup" | null>(
-    null
-  );
-  const [userData, setUserData] = useState<string | null>(null);
+  const [activePopup, setActivePopup] = useState<
+    "login" | "signup" | "profile" | null
+  >(null);
+  const [userData, setUserData] = useState<User | null>(null);
 
   const openLogInPopup = () => setActivePopup("login");
   const openSignUpPopup = () => setActivePopup("signup");
+  const openProfilePopup = () => setActivePopup("profile");
   const closePopup = () => setActivePopup(null);
 
   useEffect(() => {
@@ -34,7 +37,7 @@ export const Header: FC = () => {
             withCredentials: true,
           }
         );
-        setUserData(response.data.message);
+        setUserData(response.data);
       } catch (err) {
         console.error(err);
       }
@@ -82,7 +85,7 @@ export const Header: FC = () => {
             $margin="0 20px 0 0"
           >
             {userData !== null ? (
-              <ProfileButton />
+              <ProfileButton clickProfileButton={openProfilePopup} />
             ) : (
               <>
                 <LogInButton clickLogIn={openLogInPopup} />
@@ -94,6 +97,13 @@ export const Header: FC = () => {
       </Container>
       {activePopup === "login" && <LogInPopup closePopup={closePopup} />}
       {activePopup === "signup" && <SignUpPopup closePopup={closePopup} />}
+      {activePopup === "profile" && userData && (
+        <ProfilePopup
+          closePopup={closePopup}
+          email={userData.user.email}
+          setUserData={setUserData}
+        />
+      )}
     </>
   );
 };

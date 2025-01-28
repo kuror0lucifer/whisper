@@ -1,13 +1,78 @@
 import { FC } from "react";
 import ReactDOM from "react-dom";
-import { PopupWrapper } from "../../styledComponents/PopupWrapper";
+import axios from "axios";
 
-export const ProfilePopup: FC = () => {
+import { PopupWrapper } from "../../styledComponents/PopupWrapper";
+import { Flex } from "../../styledComponents/Flex";
+import { TitleH } from "../../styledComponents/TitleH";
+import { Button } from "../../styledComponents/Button";
+import { ClosePopupButton } from "../Buttons/ClosePopupButton";
+import User from "../../@types/userData";
+
+type ProfilePopupProps = {
+  email: string;
+  setUserData: React.Dispatch<React.SetStateAction<User | null>>;
+  closePopup: () => void;
+};
+
+export const ProfilePopup: FC<ProfilePopupProps> = ({
+  closePopup,
+  email,
+  setUserData,
+}) => {
   const portalRoot = document.getElementById("portal-root");
 
   if (!portalRoot) {
     console.error("Portal not found");
     return null;
   }
-  return ReactDOM.createPortal(<PopupWrapper></PopupWrapper>, portalRoot);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      setUserData(null);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return ReactDOM.createPortal(
+    <PopupWrapper onClick={closePopup}>
+      <Flex
+        $position="relative"
+        $justify="center"
+        $align="center"
+        width="380px"
+        $padding="15px"
+        height="400px"
+        $bgColor="white"
+        $borderRadius="25px"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <ClosePopupButton closePopup={closePopup} />
+        <TitleH as="h4" $size="16px">
+          Hello, {email}
+        </TitleH>
+        <Button
+          $backgroundColor="red"
+          color="white"
+          $borderRadius="25px"
+          width="150px"
+          height="50px"
+          cursor="pointer"
+          onClick={handleSubmit}
+        >
+          Log Out
+        </Button>
+      </Flex>
+    </PopupWrapper>,
+    portalRoot
+  );
 };

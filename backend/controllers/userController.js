@@ -61,4 +61,10 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { createUser, loginUser };
+const logoutUser = (req, res) => {
+  console.log("Logging out user");
+  res.clearCookie("auth_token", { maxAge: new Date(0) });
+  res.status(200).json({ message: "Logout successful" });
+};
+
+export { createUser, loginUser, logoutUser };

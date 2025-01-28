@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 
 import { Container } from "../../../styledComponents/Container";
 import { Flex } from "../../../styledComponents/Flex";
-import { IoClose } from "react-icons/io5";
 import { TitleH } from "../../../styledComponents/TitleH";
 import { SignUpInputs } from "./SignUpInputs";
 import { PopupWrapper } from "../../../styledComponents/PopupWrapper";
+import { ClosePopupButton } from "../../Buttons/ClosePopupButton";
 
 type SignUpPopupProps = {
   closePopup: () => void;
@@ -39,15 +39,7 @@ export const SignUpPopup: FC<SignUpPopupProps> = ({ closePopup }) => {
           $align="center"
           onClick={(event) => event.stopPropagation()}
         >
-          <Container
-            $position="absolute"
-            $top="20px"
-            $right="20px"
-            cursor="pointer"
-            onClick={closePopup}
-          >
-            <IoClose size={24} />
-          </Container>
+          <ClosePopupButton closePopup={closePopup} />
           <TitleH as="h2">Sign Up</TitleH>
           <SignUpInputs />
         </Flex>
