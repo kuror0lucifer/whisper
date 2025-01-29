@@ -17,6 +17,14 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  telegramid: {
+    type: DataTypes.BIGINT,
+    unique: true,
+    allowNull: true,
+  },
+  linktoken: {
+    type: DataTypes.STRING,
+  },
 });
 
 export default User;

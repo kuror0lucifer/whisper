@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 
 import sequelize from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
-import authCheckRoutes from "./routes/authCheckRoutes.js";
+import tgTokenRoutes from "./routes/tgTokenRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use("/api", userRoutes);
 
-app.use("/auth", authCheckRoutes);
+app.use("/api", tgTokenRoutes);
 
 sequelize
   .sync()

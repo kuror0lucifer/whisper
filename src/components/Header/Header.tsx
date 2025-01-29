@@ -93,6 +93,7 @@ export const Header: FC = () => {
         <ProfilePopup
           closePopup={closePopup}
           email={userData.email}
+          userId={userData.id}
           setUserData={setUserData}
         />
       )}

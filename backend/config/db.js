@@ -1,7 +1,11 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
-dotenv.config();
+dotenv.config({
+  path: join(dirname(fileURLToPath(import.meta.url)), "../.env"),
+});
 
 const sequelize = new Sequelize({
   dialect: "postgres",

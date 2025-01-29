@@ -1,8 +1,10 @@
 import { ChangeEvent, FC, useState } from "react";
+
 import { Input } from "../../../styledComponents/Input";
-import axios, { AxiosError } from "axios";
 import { Button } from "../../../styledComponents/Button";
 import { Span } from "../../../styledComponents/Span";
+
+import axios, { AxiosError } from "axios";
 
 interface Field {
   id: string;
