@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import sequelize from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import tgTokenRoutes from "./routes/tgTokenRoutes.js";
+import addToFavoritesRoutes from "./routes/addToFavoritesRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,8 @@ app.use(express.json());
 app.use("/api", userRoutes);
 
 app.use("/api", tgTokenRoutes);
+
+app.use("/api", addToFavoritesRoutes);
 
 sequelize
   .sync()
