@@ -48,13 +48,7 @@ const loginUser = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.cookie("auth_token", token, {
-      httpOnly: true,
-      secure: false,
-      maxAge: 3600000,
-    });
-
-    res.status(200).json({ message: "Login successful" });
+    res.status(200).json({ token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to login" });
@@ -62,8 +56,6 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-  console.log("Logging out user");
-  res.clearCookie("auth_token", { maxAge: new Date(0) });
   res.status(200).json({ message: "Logout successful" });
 };
 

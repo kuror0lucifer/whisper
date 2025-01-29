@@ -1,6 +1,5 @@
 import { FC } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
 
 import { PopupWrapper } from "../../styledComponents/PopupWrapper";
 import { Flex } from "../../styledComponents/Flex";
@@ -29,14 +28,7 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-
+      localStorage.removeItem("auth_token");
       setUserData(null);
     } catch (err) {
       console.error(err);
@@ -47,8 +39,9 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
     <PopupWrapper onClick={closePopup}>
       <Flex
         $position="relative"
-        $justify="center"
+        $justify="space-between"
         $align="center"
+        $direction="column"
         width="380px"
         $padding="15px"
         height="400px"

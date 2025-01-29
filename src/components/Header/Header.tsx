@@ -9,12 +9,11 @@ import { Link } from "../../styledComponents/Link";
 import { SignUpButton } from "../Buttons/SignUpButton";
 import { LogInButton } from "../Buttons/LogInButton";
 import { SignUpPopup } from "../Auth/SignUp/SignUpPopup";
-
-import variables from "../../scss/styles.module.scss";
 import { LogInPopup } from "../Auth/LogIn/LogInPopup";
-import axios from "axios";
 import { ProfileButton } from "../Profile/ProfileButton";
 import { ProfilePopup } from "../Profile/ProfilePopup";
+
+import variables from "../../scss/styles.module.scss";
 import User from "../../@types/userData";
 
 export const Header: FC = () => {
@@ -23,27 +22,20 @@ export const Header: FC = () => {
   >(null);
   const [userData, setUserData] = useState<User | null>(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      const user = JSON.parse(atob(token.split(".")[1]));
+      setUserData(user);
+    }
+  }, []);
+
+  console.log(userData);
+
   const openLogInPopup = () => setActivePopup("login");
   const openSignUpPopup = () => setActivePopup("signup");
   const openProfilePopup = () => setActivePopup("profile");
   const closePopup = () => setActivePopup(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/auth/protected-route",
-          {
-            withCredentials: true,
-          }
-        );
-        setUserData(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchUserData();
-  }, []);
 
   return (
     <>
@@ -100,7 +92,7 @@ export const Header: FC = () => {
       {activePopup === "profile" && userData && (
         <ProfilePopup
           closePopup={closePopup}
-          email={userData.user.email}
+          email={userData.email}
           setUserData={setUserData}
         />
       )}

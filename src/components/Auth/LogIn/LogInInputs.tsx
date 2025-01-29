@@ -34,16 +34,11 @@ export const LogInInputs: FC = () => {
     const { email, password } = value;
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/api/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("auth_token", response.data.token);
       setError(null);
       window.location.reload();
     } catch (error) {
