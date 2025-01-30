@@ -32,7 +32,7 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
   const handleLinkTelegram = async (userId: number) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/generate-token",
+        "http://localhost:3000/tg-token/generate-token",
         {
           userId,
         }

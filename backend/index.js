@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import sequelize from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import tgTokenRoutes from "./routes/tgTokenRoutes.js";
-import addToFavoritesRoutes from "./routes/addToFavoritesRoutes.js";
+import addToFavouritesRoutes from "./routes/addToFavouritesRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -23,11 +23,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use("/api", userRoutes);
+app.use("/users", userRoutes);
 
-app.use("/api", tgTokenRoutes);
+app.use("/tg-token", tgTokenRoutes);
 
-app.use("/api", addToFavoritesRoutes);
+app.use("/favourites", addToFavouritesRoutes);
 
 sequelize
   .sync()

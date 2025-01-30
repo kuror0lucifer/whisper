@@ -36,6 +36,13 @@ type GameInfoResponse = {
   playModes: string[];
 };
 
+interface AuthTokenPayload {
+  id: number;
+  email: string;
+  iat: number;
+  exp: number;
+}
+
 export const GameInfo: FC = () => {
   const { sku } = useParams<{ sku: string }>();
   const [gameInfo, setGameInfo] = useState<GameInfoResponse>();
@@ -61,6 +68,7 @@ export const GameInfo: FC = () => {
           }
         );
         const data = response.data;
+        console.log(data);
 
         const game = data.hits[0];
         setGameInfo({
@@ -86,6 +94,30 @@ export const GameInfo: FC = () => {
 
     fetchGameInfo();
   }, [sku]);
+
+  const addToFavourite = async () => {
+    const gameId = Number(sku);
+
+    try {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        console.error("No auth token found");
+        return;
+      }
+      const payload: AuthTokenPayload = JSON.parse(atob(token.split(".")[1]));
+      const userId = payload.id;
+
+      const response = await axios.post(
+        "http://localhost:3000/favourites/add-to-favourites",
+        {
+          userId,
+          gameId,
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (error) {
     return <Error message={error} />;
@@ -151,14 +183,14 @@ export const GameInfo: FC = () => {
               {isDescriptionPresent ? (
                 <>
                   <GameDescription gameDescription={gameInfo.description} />
-                  <LikeButton />
+                  <LikeButton addToFavourite={addToFavourite} />
                 </>
               ) : (
                 <>
                   <Flex width="45%" $align="flex-start" $justify="flex-start">
                     <Span $size="22px">{`No description :(`}</Span>
                   </Flex>
-                  <LikeButton />
+                  <LikeButton addToFavourite={addToFavourite} />
                 </>
               )}
             </Flex>

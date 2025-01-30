@@ -43,7 +43,7 @@ export const SignUpInputs: FC = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/registration",
+        "http://localhost:3000/users/registration",
         { email, password }
       );
 

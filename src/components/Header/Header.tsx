@@ -30,8 +30,6 @@ export const Header: FC = () => {
     }
   }, []);
 
-  console.log(userData);
-
   const openLogInPopup = () => setActivePopup("login");
   const openSignUpPopup = () => setActivePopup("signup");
   const openProfilePopup = () => setActivePopup("profile");

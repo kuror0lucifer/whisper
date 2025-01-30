@@ -22,9 +22,6 @@ const User = sequelize.define("User", {
     unique: true,
     allowNull: true,
   },
-  linktoken: {
-    type: DataTypes.STRING,
-  },
 });
 
 export default User;
