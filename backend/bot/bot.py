@@ -38,7 +38,7 @@ def start(message):
             cursor.execute("UPDATE \"Users\" SET telegramid = %s WHERE id = %s;", (telegram_id, token))
     else: 
         pass
-    bot.send_message(chat_id=telegram_id, text='Hello! TEST TEST')
+    bot.send_message(chat_id=telegram_id, text='Hello! I\'m a bot that can let you know when your favourite games are on discount. Just add the game to your favourites game on the site to get me going.')
     
 def send_reminder(user_id: int, sku):
     
@@ -88,7 +88,6 @@ def force_reminder():
                 gotreminder = cursor.fetchone()[0]
                 if not gotreminder:
                     cursor.execute("UPDATE \"Favourites\" SET gotreminder = true WHERE userid = %s AND gameid = %s", (user[0], game[0]))
-                    print(user[0])
                     send_reminder(user, game[0])
             
 
@@ -138,7 +137,6 @@ def check_sale():
                 with conn.cursor() as cursor:
                     cursor.execute("UPDATE \"Favourites\" SET onsale = false, gotreminder = false WHERE gameid = %s", (game['sku'],))
             else:
-                print(game["sku"])
                 with conn.cursor() as cursor:
                     cursor.execute("UPDATE \"Favourites\" SET onsale = true WHERE gameid = %s", (game['sku'],))
 
