@@ -13,7 +13,7 @@ export const GamePlayModes: FC<GamePlayModesProps> = ({ playModes }) => {
     <Container
       width="400px"
       height="75px"
-      $borderTop="2px solid gray"
+      $borderBottom="2px solid gray"
       display="flex"
       $align="center"
     >

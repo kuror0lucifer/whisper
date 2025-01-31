@@ -31,7 +31,7 @@ export const GameDiscountTime: FC<GameDiscountTimeProps> = ({
       $align="center"
     >
       <Span $size="22px">
-        <IoTime /> Sale end: {formattedDate}
+        <IoTime /> Sale ends: {formattedDate}
       </Span>
     </Container>
   );

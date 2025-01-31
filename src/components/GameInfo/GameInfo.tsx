@@ -8,20 +8,15 @@ import { TitleH } from "../../styledComponents/TitleH";
 import { Image } from "../../styledComponents/Image";
 import { Flex } from "../../styledComponents/Flex";
 import { GameDescription } from "./GameDetails/GameDescription";
-import { GamePrice } from "./GameDetails/GamePrice";
-import { GameReleasDate } from "./GameDetails/GameReleasDate";
 import { Error } from "../ErrorPage/Error";
 import { LikeButton } from "../Buttons/LikeButton";
 import { GameInfoSkeleton } from "../Skeleton/GameInfoSkeleton";
-import { GamePlatform } from "./GameDetails/GamePlatform";
 import { Span } from "../../styledComponents/Span";
-import { GamePlayersCount } from "./GameDetails/GamePlayersCount";
-import { GamePlayModes } from "./GameDetails/GamePlayModes";
-import { GameDiscountTime } from "./GameDetails/GameDiscountTimeEnd";
-import { GameEshopDetails } from "./GameDetails/GameEshopDetails";
+import { getAuthToken } from "../../utils/getAuthToken";
 
 import Price from "../../@types/price";
 import eshopDetails from "../../@types/eshopDetails";
+import { GameDetails } from "./GameDetails/GameDetails";
 
 type GameInfoResponse = {
   title: string;
@@ -35,13 +30,6 @@ type GameInfoResponse = {
   platforms: string[];
   playModes: string[];
 };
-
-interface AuthTokenPayload {
-  id: number;
-  email: string;
-  iat: number;
-  exp: number;
-}
 
 export const GameInfo: FC = () => {
   const { sku } = useParams<{ sku: string }>();
@@ -67,10 +55,8 @@ export const GameInfo: FC = () => {
             },
           }
         );
-        const data = response.data;
-        console.log(data);
+        const game = response.data.hits?.[0];
 
-        const game = data.hits[0];
         setGameInfo({
           title: game.title,
           nsuid: game.nsuid,
@@ -99,13 +85,8 @@ export const GameInfo: FC = () => {
     const gameId = Number(sku);
 
     try {
-      const token = localStorage.getItem("auth_token");
-      if (!token) {
-        console.error("No auth token found");
-        return;
-      }
-      const payload: AuthTokenPayload = JSON.parse(atob(token.split(".")[1]));
-      const userId = payload.id;
+      const payload = getAuthToken();
+      const userId = payload?.id;
 
       const response = await axios.post(
         "http://localhost:3000/favourites/add-to-favourites",
@@ -124,29 +105,6 @@ export const GameInfo: FC = () => {
   }
 
   const isDescriptionPresent = gameInfo?.description;
-
-  const content = (
-    <Flex
-      $align="flex-start"
-      $direction="column"
-      $justify="flex-start"
-      $margin="25px 25px 0 25px"
-      $gap="10px"
-    >
-      <Span $size="28px" $weight="800" $marginTop="20px">
-        Details
-      </Span>
-      <Flex $direction="column" $wrap="nowrap">
-        <GamePrice price={gameInfo?.price} platforms={gameInfo?.platforms} />
-        <GamePlatform platforms={gameInfo?.platforms} />
-        <GamePlayersCount players={gameInfo?.players} />
-        <GamePlayModes playModes={gameInfo?.playModes} />
-        <GameDiscountTime eshopDetails={gameInfo?.eshopDetails} />
-        <GameEshopDetails eshopDetails={gameInfo?.eshopDetails} />
-        <GameReleasDate date={gameInfo?.date} />
-      </Flex>
-    </Flex>
-  );
 
   return (
     <>
@@ -194,7 +152,14 @@ export const GameInfo: FC = () => {
                 </>
               )}
             </Flex>
-            {content}
+            <GameDetails
+              price={gameInfo?.price}
+              platforms={gameInfo?.platforms}
+              playModes={gameInfo?.playModes}
+              players={gameInfo?.players}
+              date={gameInfo?.date}
+              eshopDetails={gameInfo?.eshopDetails}
+            />
           </>
         )}
       </Container>

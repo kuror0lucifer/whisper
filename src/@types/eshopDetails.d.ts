@@ -1,4 +1,4 @@
-export default interface eshopDetails {
+export default interface EshopDetails {
   discountPriceEnd: string;
   discountPriceEndTimestamp: number;
   goldPoints: number;
