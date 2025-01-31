@@ -97,8 +97,22 @@ def check_time():
     check_sale()
     force_reminder()
 
+def chill():
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT EXISTS(SELECT 1 FROM \"Favourites\" LIMIT 1)")
+        exists = cursor.fetchone()[0]
+        
+    if not exists:
+        return False
+    return True
+
 def check_sale():
     conn.autocommit = True
+    
+    if not chill():
+        return
+    
+    
     with conn.cursor() as cursor:
         cursor.execute("SELECT gameid FROM \"Favourites\" GROUP BY gameid;")
         games = cursor.fetchall()
