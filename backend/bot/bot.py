@@ -1,11 +1,13 @@
 from telebot import *
 from dotenv import load_dotenv
 from timeloop import Timeloop
-import datetime
+from datetime import datetime, timedelta
 import psycopg2
 import os 
 import threading
 import requests
+import io
+import math
 import json
 
 load_dotenv()
@@ -36,13 +38,40 @@ def start(message):
             cursor.execute("UPDATE \"Users\" SET telegramid = %s WHERE id = %s;", (telegram_id, token))
     else: 
         pass
+    bot.send_message(chat_id=telegram_id, text='Hello! TEST TEST')
     
 def send_reminder(user_id: int, sku):
-    with conn.cursor() as cursor:
-        cursor.execute("SELECT telegramid FROM \"Users\" WHERE id = %s;", (user_id,))
-        tg_user_id = cursor.fetchone()[0]
-        print(tg_user_id)
-    bot.send_message(chat_id = tg_user_id, text = f'Hello! {sku}')
+    
+    filters = sku
+    url = os.getenv('API_GAMES_INFO_URL')
+    headers = { 
+        "Content-Type": "application/json",
+        "X-Algolia-API-Key": os.getenv('API_GAMES_INFO_KEY'),
+        "X-Algolia-Application-Id": os.getenv('API_GAMES_INFO_APPLICATION_ID'),
+    }
+    data = {"params": f"filters=sku:{filters}"}
+    response = requests.post(url, headers=headers, json=data)
+    game_info = response.json()['hits'][0]
+    
+    product_image = game_info.get('productImage', '')
+    game_img_url = f'https://assets.nintendo.com/image/upload/{product_image}'
+    response_img = requests.get(game_img_url)
+    image = io.BytesIO(response_img.content)
+    
+    sale_end = datetime.strptime(game_info['eshopDetails']['discountPriceEnd'], "%Y-%m-%dT%H:%M:%SZ")
+    formatted_date = sale_end.strftime("%d.%m.%Y")  
+    
+    if response.status_code == 200:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT telegramid FROM \"Users\" WHERE id = %s;", (user_id,))
+            tg_user_id = cursor.fetchone()[0]
+            message_text = (
+                f"🔥 <b>{game_info['title']}</b> on sale!\n"
+                f"💰 Price: <s>{game_info['price']['regPrice']}$</s> → "
+                f"<b>{game_info['price']['salePrice']}$</b> (− {math.floor(game_info['price']['percentOff'])}%)\n"
+                f"⌛ Sale ends: {formatted_date}"
+            )        
+            bot.send_photo(chat_id = tg_user_id, photo = image, caption=message_text, parse_mode="HTML")
     
 def force_reminder():
     conn.autocommit = True
@@ -63,7 +92,7 @@ def force_reminder():
                     send_reminder(user, game[0])
             
 
-@tl.job(interval=datetime.timedelta(seconds=10)) # Поменять время!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@tl.job(interval=timedelta(seconds=10)) # Поменять время!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def check_time():
     check_sale()
     force_reminder()
