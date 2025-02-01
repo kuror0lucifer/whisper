@@ -1,4 +1,8 @@
 import { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { selectUserData } from "../../redux/user/selectors";
+import { setUserData } from "../../redux/user/slice";
 
 import { Container } from "../../styledComponents/Container";
 import { Flex } from "../../styledComponents/Flex";
@@ -14,21 +18,22 @@ import { ProfileButton } from "../Profile/ProfileButton";
 import { ProfilePopup } from "../Profile/ProfilePopup";
 
 import variables from "../../scss/styles.module.scss";
-import User from "../../@types/userData";
 
 export const Header: FC = () => {
   const [activePopup, setActivePopup] = useState<
     "login" | "signup" | "profile" | null
   >(null);
-  const [userData, setUserData] = useState<User | null>(null);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const userData = useSelector(selectUserData);
 
   useEffect(() => {
     const token = localStorage.getItem("auth_token");
     if (token) {
       const user = JSON.parse(atob(token.split(".")[1]));
-      setUserData(user);
+      dispatch(setUserData(user));
     }
-  }, []);
+  }, [dispatch]);
 
   const openLogInPopup = () => setActivePopup("login");
   const openSignUpPopup = () => setActivePopup("signup");
@@ -92,7 +97,7 @@ export const Header: FC = () => {
           closePopup={closePopup}
           email={userData.email}
           userId={userData.id}
-          setUserData={setUserData}
+          setUserData={(user) => dispatch(setUserData(user))}
         />
       )}
     </>
