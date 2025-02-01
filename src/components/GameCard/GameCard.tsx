@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getQueriedGamesAmerica, QueriedGameUS } from "nintendo-switch-eshop";
 import { Flex } from "../../styledComponents/Flex";
 import { Container } from "../../styledComponents/Container";
 import { GameCardImg } from "./GameCardImg";
@@ -12,43 +11,62 @@ import { useSelector } from "react-redux";
 import { selectGames, selectQuery } from "../../redux/games/selectors";
 import { useNavigate } from "react-router-dom";
 import { GameCardSkeleton } from "../Skeleton/GameCardSkeleton";
+import axios from "axios";
 
 export const GameCard = () => {
-  const [allGames, setAllGames] = useState<QueriedGameUS[]>([]);
+  const [allGames, setAllGames] = useState<any[]>([]);
+  const [nbPages, setNbPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const itemsPerPage = 8;
+  const itemsPerPage = 50;
 
   const navigate = useNavigate();
 
   const games = useSelector(selectGames);
   const query = useSelector(selectQuery);
 
+  const fetchGames = async (page: number) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        "https://U3B6GR4UA3-dsn.algolia.net/1/indexes/*/queries",
+        {
+          requests: [
+            {
+              indexName: "store_all_products_en_us",
+              params: `query=&hitsPerPage=${itemsPerPage}&page=${page}&filters=price.salePrice>0`,
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Algolia-API-Key": "a29c6927638bfd8cee23993e51e721c9",
+            "X-Algolia-Application-Id": "U3B6GR4UA3",
+          },
+        }
+      );
+      const hits = response.data.results?.[0]?.hits || [];
+      setAllGames(hits);
+      setNbPages(response.data.results?.[0]?.nbPages || 0);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        setIsLoading(true);
-        const gamesData = await getQueriedGamesAmerica("");
-        setAllGames(gamesData);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchGames();
-  }, []);
+    fetchGames(currentPage);
+  }, [currentPage]);
 
   const handlePageClick = (event: { selected: number }) => {
-    setCurrentPage(event.selected);
+    const selectedPage = event.selected;
+    const maxPage = nbPages - 1;
+    setCurrentPage(selectedPage > maxPage ? maxPage : selectedPage);
   };
 
   const currentGames = query.trim() ? games : allGames;
-
-  const paginatedGames = currentGames.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
 
   return (
     <>
@@ -66,7 +84,7 @@ export const GameCard = () => {
           ? Array.from({ length: itemsPerPage }).map((_, index) => (
               <GameCardSkeleton key={index} />
             ))
-          : paginatedGames.map((game, index) => {
+          : currentGames.map((game, index) => {
               return (
                 <Container
                   className="highlighted"
@@ -97,7 +115,7 @@ export const GameCard = () => {
                     <GameCardPrice
                       price={game.price}
                       availability={
-                        game.availability.length > 0
+                        game.availability?.length > 0
                           ? game.availability
                           : "Free"
                       }
@@ -109,7 +127,7 @@ export const GameCard = () => {
       </Flex>
       {!isLoading && (
         <ReactPaginate
-          pageCount={Math.ceil(currentGames.length / itemsPerPage)}
+          pageCount={nbPages}
           pageRangeDisplayed={3}
           marginPagesDisplayed={2}
           onPageChange={handlePageClick}
@@ -117,6 +135,7 @@ export const GameCard = () => {
           activeClassName="active"
           previousLabel="Назад"
           nextLabel="Вперед"
+          forcePage={currentPage}
         />
       )}
     </>
