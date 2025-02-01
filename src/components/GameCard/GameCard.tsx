@@ -12,13 +12,24 @@ import { selectGames, selectQuery } from "../../redux/games/selectors";
 import { useNavigate } from "react-router-dom";
 import { GameCardSkeleton } from "../Skeleton/GameCardSkeleton";
 import axios from "axios";
+import Price from "../../@types/price";
+
+interface Game {
+  nsuid: string;
+  sku: string;
+  productImage: string;
+  title: string;
+  price: Price;
+  availability: string;
+}
 
 export const GameCard = () => {
-  const [allGames, setAllGames] = useState<any[]>([]);
+  const [allGames, setAllGames] = useState<Game[]>([]);
   const [nbPages, setNbPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const itemsPerPage = 50;
+  const baseImgUrl = "https://assets.nintendo.com/image/upload/";
 
   const navigate = useNavigate();
 
@@ -99,10 +110,7 @@ export const GameCard = () => {
                   }}
                 >
                   <GameCardImg
-                    headerImage={
-                      "https://assets.nintendo.com/image/upload/" +
-                      game.productImage
-                    }
+                    headerImage={baseImgUrl + game.productImage}
                     title={game.title}
                     price={game.price}
                   />
