@@ -5,6 +5,7 @@ import { Button } from "../../../styledComponents/Button";
 import { Span } from "../../../styledComponents/Span";
 
 import axios, { AxiosError } from "axios";
+import { Flex } from "../../../styledComponents/Flex";
 
 interface Field {
   id: string;
@@ -55,7 +56,14 @@ export const LogInInputs: FC = () => {
   ];
 
   return (
-    <>
+    <Flex
+      $justify="flex-start"
+      $align="center"
+      $direction="column"
+      width="100%"
+      height="fit-content"
+      $gap="15px"
+    >
       {fields.map((field) => (
         <Input
           key={field.id}
@@ -84,6 +92,6 @@ export const LogInInputs: FC = () => {
         Confirm
       </Button>
       {error && <Span>{error}</Span>}
-    </>
+    </Flex>
   );
 };

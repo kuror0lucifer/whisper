@@ -83,7 +83,6 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
         $justify="flex-start"
         $align="center"
         $direction="column"
-        $gap="15px"
         width="380px"
         $padding="20px"
         height="400px"
@@ -91,21 +90,39 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
         $borderRadius="25px"
         onClick={(event) => event.stopPropagation()}
       >
-        <ClosePopupButton closePopup={closePopup} />
-        <TitleH as="h4" $size="16px">
-          Hello, {email}
-        </TitleH>
-        <Button
-          $backgroundColor="red"
-          color="white"
-          $borderRadius="25px"
-          width="150px"
-          height="50px"
-          cursor="pointer"
-          onClick={tgCheck ? null : () => handleLinkTelegram(userId)}
+        <Flex
+          $justify="flex-start"
+          $align="center"
+          $direction="column"
+          $gap="15px"
         >
-          {tgCheck ? "Telegram linked" : "Link Telegram"}
-        </Button>
+          <ClosePopupButton closePopup={closePopup} />
+          <TitleH as="h4" $size="16px">
+            Hello, {email}
+          </TitleH>
+
+          <Button
+            $backgroundColor="red"
+            color="white"
+            $borderRadius="25px"
+            width="150px"
+            height="50px"
+            cursor="pointer"
+            onClick={tgCheck ? null : () => handleLinkTelegram(userId)}
+          >
+            {tgCheck ? "Telegram linked" : "Link Telegram"}
+          </Button>
+          <Button
+            $backgroundColor="red"
+            color="white"
+            $borderRadius="25px"
+            width="150px"
+            height="50px"
+            cursor="pointer"
+          >
+            Settings
+          </Button>
+        </Flex>
         <Button
           $backgroundColor="red"
           color="white"
@@ -113,16 +130,7 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
           width="150px"
           height="50px"
           cursor="pointer"
-        >
-          Settings
-        </Button>
-        <Button
-          $backgroundColor="red"
-          color="white"
-          $borderRadius="25px"
-          width="150px"
-          height="50px"
-          cursor="pointer"
+          $margin="auto 0 0 0"
           onClick={handleSubmit}
         >
           Log Out
