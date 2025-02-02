@@ -30,7 +30,7 @@ interface ButtonProps {
   children: React.ReactNode;
   className: string;
 
-  onClick: () => void;
+  onClick: (() => void) | null;
 }
 
 const StyledButton = styled.button<Partial<ButtonProps>>`

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import { PopupWrapper } from "../../styledComponents/PopupWrapper";
@@ -22,6 +22,28 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
   setUserData,
   closePopup,
 }) => {
+  const [tgCheck, setTgCheck] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleTgCheck = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/telegram-id/tg-check",
+          { email }
+        );
+
+        if (response.data.status === "success") {
+          setTgCheck(true);
+        } else {
+          setTgCheck(false);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handleTgCheck();
+  }, [email]);
+
   const portalRoot = document.getElementById("portal-root");
 
   if (!portalRoot) {
@@ -58,11 +80,12 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
     <PopupWrapper onClick={closePopup}>
       <Flex
         $position="relative"
-        $justify="space-between"
+        $justify="flex-start"
         $align="center"
         $direction="column"
+        $gap="15px"
         width="380px"
-        $padding="15px"
+        $padding="20px"
         height="400px"
         $bgColor="white"
         $borderRadius="25px"
@@ -79,9 +102,19 @@ export const ProfilePopup: FC<ProfilePopupProps> = ({
           width="150px"
           height="50px"
           cursor="pointer"
-          onClick={() => handleLinkTelegram(userId)}
+          onClick={tgCheck ? null : () => handleLinkTelegram(userId)}
         >
-          Link Telegram
+          {tgCheck ? "Telegram linked" : "Link Telegram"}
+        </Button>
+        <Button
+          $backgroundColor="red"
+          color="white"
+          $borderRadius="25px"
+          width="150px"
+          height="50px"
+          cursor="pointer"
+        >
+          Settings
         </Button>
         <Button
           $backgroundColor="red"
