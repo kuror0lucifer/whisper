@@ -10,6 +10,8 @@ import { Flex } from "../../../styledComponents/Flex";
 import { Span } from "../../../styledComponents/Span";
 import Price from "../../../@types/price";
 import EshopDetails from "../../../@types/eshopDetails";
+import { GameGenres } from "./GameGenres";
+import { GameDLC } from "./GameDLC";
 
 type GameDetailsProps = {
   price: Price | undefined;
@@ -18,6 +20,8 @@ type GameDetailsProps = {
   date: string | undefined;
   playModes: string[] | undefined;
   players: string | undefined;
+  genres: string[] | undefined;
+  hasDlc: boolean | undefined;
 };
 
 export const GameDetails: FC<GameDetailsProps> = ({
@@ -27,6 +31,8 @@ export const GameDetails: FC<GameDetailsProps> = ({
   date,
   playModes,
   players,
+  genres,
+  hasDlc,
 }) => {
   const sections = [
     {
@@ -40,7 +46,7 @@ export const GameDetails: FC<GameDetailsProps> = ({
       ),
     },
     {
-      title: "Game Details",
+      title: "Game Information",
       content: (
         <>
           <GamePlatform platforms={platforms} />
@@ -50,8 +56,14 @@ export const GameDetails: FC<GameDetailsProps> = ({
       ),
     },
     {
-      title: "Players Details",
-      content: <GamePlayersCount players={players} />,
+      title: "Game Details",
+      content: (
+        <>
+          <GamePlayersCount players={players} />
+          <GameGenres genres={genres} />
+          <GameDLC hasDlc={hasDlc} />
+        </>
+      ),
     },
   ];
 

@@ -17,6 +17,7 @@ import { getAuthToken } from "../../utils/getAuthToken";
 import Price from "../../@types/price";
 import eshopDetails from "../../@types/eshopDetails";
 import { GameDetails } from "./GameDetails/GameDetails";
+import { getQueriedGamesAmerica } from "nintendo-switch-eshop";
 
 type GameInfoResponse = {
   title: string;
@@ -29,6 +30,8 @@ type GameInfoResponse = {
   eshopDetails: eshopDetails;
   platforms: string[];
   playModes: string[];
+  genres: string[];
+  hasDlc: boolean;
 };
 
 export const GameInfo: FC = () => {
@@ -36,6 +39,9 @@ export const GameInfo: FC = () => {
   const [gameInfo, setGameInfo] = useState<GameInfoResponse>();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const test = getQueriedGamesAmerica(`${gameInfo?.title}`);
+  console.log(test);
 
   useEffect(() => {
     const fetchGameInfo = async () => {
@@ -70,6 +76,8 @@ export const GameInfo: FC = () => {
           eshopDetails: game.eshopDetails,
           platforms: game.corePlatforms,
           playModes: game.playModes,
+          genres: game.genres,
+          hasDlc: game.hasDlc,
         });
       } catch (err) {
         setError(`Failed to load game information. ${err}`);
@@ -159,6 +167,8 @@ export const GameInfo: FC = () => {
               players={gameInfo?.players}
               date={gameInfo?.date}
               eshopDetails={gameInfo?.eshopDetails}
+              genres={gameInfo?.genres}
+              hasDlc={gameInfo?.hasDlc}
             />
           </>
         )}
