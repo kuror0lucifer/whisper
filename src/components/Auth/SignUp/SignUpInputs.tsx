@@ -1,13 +1,15 @@
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState } from "react";
 
 import { Input } from "../../../styledComponents/Input";
 import axios, { AxiosError } from "axios";
 import { Button } from "../../../styledComponents/Button";
 import { Span } from "../../../styledComponents/Span";
 import { Flex } from "../../../styledComponents/Flex";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Form } from "../../../styledComponents/Form";
 
 interface Field {
-  id: string;
+  id: "email" | "password" | "confirmPassword";
   type: string;
   placeholder: string;
 }
@@ -19,23 +21,12 @@ type ValueType = {
 };
 
 export const SignUpInputs: FC = () => {
-  const [value, setValue] = useState<ValueType>({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
   const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value: inputValue } = event.target;
-    setValue((prev) => ({
-      ...prev,
-      [name]: inputValue,
-    }));
-  };
+  const { register, handleSubmit } = useForm<ValueType>();
 
-  const handleSubmit = async () => {
-    const { email, password, confirmPassword } = value;
+  const onSubmit: SubmitHandler<ValueType> = async (data) => {
+    const { email, password, confirmPassword } = data;
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
@@ -50,9 +41,9 @@ export const SignUpInputs: FC = () => {
 
       setError(null);
       console.log(response.data);
-    } catch (error) {
-      const err = error as AxiosError<{ error: string }>;
-      setError(err.response?.data?.error || "Registration failed");
+    } catch (err) {
+      const error = err as AxiosError<{ error: string }>;
+      setError(error.response?.data?.error || "Login failed");
     }
   };
 
@@ -75,33 +66,43 @@ export const SignUpInputs: FC = () => {
       height="fit-content"
       $gap="15px"
     >
-      {fields.map((field) => (
-        <Input
-          key={field.id}
-          name={field.id}
-          value={value[field.id as keyof ValueType]}
-          type={field.type}
-          placeholder={field.placeholder}
-          width="70%"
-          height="50px"
-          $padding="0 0 0 10px"
-          $backgroundColor="white"
-          $borderRadius="15px"
-          onChange={handleInputChange}
-        />
-      ))}
-      <Button
-        type="button"
-        width="40%"
-        height="40px"
-        $backgroundColor="red"
-        $borderRadius="25px"
-        color="white"
-        cursor="pointer"
-        onClick={handleSubmit}
+      <Form
+        width="100%"
+        $direction="column"
+        $justify="flex-start"
+        $gap="15px"
+        $align="center"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        Confirm
-      </Button>
+        {fields.map((field) => (
+          <Input
+            key={field.id}
+            {...register(field.id, {
+              required: `${field.placeholder} is required`,
+            })}
+            name={field.id}
+            type={field.type}
+            placeholder={field.placeholder}
+            width="70%"
+            height="50px"
+            $padding="0 0 0 10px"
+            $backgroundColor="white"
+            $borderRadius="15px"
+            color="black"
+          />
+        ))}
+        <Button
+          type="submit"
+          width="40%"
+          height="40px"
+          $backgroundColor="red"
+          $borderRadius="25px"
+          color="white"
+          cursor="pointer"
+        >
+          Confirm
+        </Button>
+      </Form>
       {error && <Span>{error}</Span>}
     </Flex>
   );

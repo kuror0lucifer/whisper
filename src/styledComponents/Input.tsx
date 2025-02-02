@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, forwardRef } from "react";
 import styled from "styled-components";
 
 interface InputProps {
@@ -35,20 +35,14 @@ const StyledInput = styled.input<Partial<InputProps>>`
   border-left: ${(props) => props.$borderLeft || "none"};
   background-color: ${(props) => props.$backgroundColor || "transparent"};
   font-size: ${(props) => props.$fontSize || "14px"};
-  color: ${(props) => props.color || "tranparent"};
+  color: ${(props) => props.color || "transparent"};
   padding: ${(props) => props.$padding || "0"};
   margin: ${(props) => props.$margin || "auto"};
   outline: ${(props) => props.outline || "none"};
 `;
 
-export const Input: FC<Partial<InputProps>> = (props) => {
-  return (
-    <StyledInput
-      {...props}
-      type={props.type || "text"}
-      placeholder={props.placeholder}
-      value={props.value}
-      onChange={props.onChange}
-    />
-  );
-};
+export const Input = forwardRef<HTMLInputElement, Partial<InputProps>>(
+  (props, ref) => {
+    return <StyledInput {...props} ref={ref} />;
+  }
+);
