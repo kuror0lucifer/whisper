@@ -12,12 +12,10 @@ import { Error } from "../ErrorPage/Error";
 import { LikeButton } from "../Buttons/LikeButton";
 import { GameInfoSkeleton } from "../Skeleton/GameInfoSkeleton";
 import { Span } from "../../styledComponents/Span";
-import { getAuthToken } from "../../utils/getAuthToken";
 
 import Price from "../../@types/price";
 import eshopDetails from "../../@types/eshopDetails";
 import { GameDetails } from "./GameDetails/GameDetails";
-import { getQueriedGamesAmerica } from "nintendo-switch-eshop";
 
 type GameInfoResponse = {
   title: string;
@@ -39,9 +37,6 @@ export const GameInfo: FC = () => {
   const [gameInfo, setGameInfo] = useState<GameInfoResponse>();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const test = getQueriedGamesAmerica(`${gameInfo?.title}`);
-  console.log(test);
 
   useEffect(() => {
     const fetchGameInfo = async () => {
@@ -89,25 +84,6 @@ export const GameInfo: FC = () => {
     fetchGameInfo();
   }, [sku]);
 
-  const addToFavourite = async () => {
-    const gameId = Number(sku);
-
-    try {
-      const payload = getAuthToken();
-      const userId = payload?.id;
-
-      const response = await axios.post(
-        "http://localhost:3000/favourites/add-to-favourites",
-        {
-          userId,
-          gameId,
-        }
-      );
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   if (error) {
     return <Error message={error} />;
   }
@@ -149,14 +125,14 @@ export const GameInfo: FC = () => {
               {isDescriptionPresent ? (
                 <>
                   <GameDescription gameDescription={gameInfo.description} />
-                  <LikeButton addToFavourite={addToFavourite} />
+                  <LikeButton sku={sku} />
                 </>
               ) : (
                 <>
                   <Flex width="45%" $align="flex-start" $justify="flex-start">
                     <Span $size="22px">{`No description :(`}</Span>
                   </Flex>
-                  <LikeButton addToFavourite={addToFavourite} />
+                  <LikeButton sku={sku} />
                 </>
               )}
             </Flex>

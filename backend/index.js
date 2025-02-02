@@ -8,6 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import tgTokenRoutes from "./routes/tgTokenRoutes.js";
 import tgCheckRoutes from "./routes/tgCheckRoutes.js";
 import addToFavouritesRoutes from "./routes/addToFavouritesRoutes.js";
+import gameCheckFavouritesRoutes from "./routes/gameCheckFavouritesRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,8 @@ app.use("/tg-token", tgTokenRoutes);
 app.use("/favourites", addToFavouritesRoutes);
 
 app.use("/telegram-id", tgCheckRoutes);
+
+app.use("/game-check", gameCheckFavouritesRoutes);
 
 sequelize
   .sync()
