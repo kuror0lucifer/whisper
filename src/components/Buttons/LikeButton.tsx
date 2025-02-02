@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { Button } from "../../styledComponents/Button";
 import { FaHeart } from "react-icons/fa";
@@ -31,8 +31,14 @@ export const LikeButton: FC<LikeButtonProps> = ({ sku }) => {
         } else {
           setGameInFavourites(false);
         }
-      } catch (err) {
-        console.error(err);
+      } catch (err: unknown) {
+        if (
+          err instanceof AxiosError &&
+          err.response &&
+          err.response.status !== 500
+        ) {
+          console.error(err); // Логируем только ошибки, которые не с кодом 500
+        }
       }
     };
 
@@ -55,8 +61,14 @@ export const LikeButton: FC<LikeButtonProps> = ({ sku }) => {
       if (response.data.status === "success") {
         setGameInFavourites(true);
       }
-    } catch (err) {
-      console.error(err);
+    } catch (err: unknown) {
+      if (
+        err instanceof AxiosError &&
+        err.response &&
+        err.response.status !== 500
+      ) {
+        console.error(err);
+      }
     }
   };
   return (
@@ -67,7 +79,7 @@ export const LikeButton: FC<LikeButtonProps> = ({ sku }) => {
       width="50px"
       height="50px"
       cursor="pointer"
-      onClick={handleAddToFavourite}
+      onClick={gameInFavourites ? null : handleAddToFavourite}
     >
       {gameInFavourites ? <FaCheck color="black" /> : <FaHeart color="black" />}
     </Button>
