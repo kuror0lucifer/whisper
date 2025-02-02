@@ -57,8 +57,19 @@ export const GameCard = () => {
           },
         }
       );
-      const hits = response.data.results?.[0]?.hits || [];
-      setAllGames(hits);
+      const hits = (response.data.results?.[0]?.hits as Game[]) || [];
+
+      const uniqueHits = Array.from(
+        hits
+          .reduce((map, game) => {
+            if (!map.has(game.title)) {
+              map.set(game.title, game);
+            }
+            return map;
+          }, new Map())
+          .values()
+      );
+      setAllGames(uniqueHits);
       setNbPages(response.data.results?.[0]?.nbPages || 0);
     } catch (err) {
       console.error(err);
@@ -95,11 +106,11 @@ export const GameCard = () => {
           ? Array.from({ length: itemsPerPage }).map((_, index) => (
               <GameCardSkeleton key={index} />
             ))
-          : currentGames.map((game, index) => {
+          : currentGames.map((game) => {
               return (
                 <Container
                   className="highlighted"
-                  key={game.nsuid || `fallback-${index}`}
+                  key={game.nsuid}
                   width="250px"
                   height="260px"
                   $bgColor="white"
