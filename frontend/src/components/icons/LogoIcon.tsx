@@ -3,7 +3,7 @@ import { FC } from 'react';
 export const LogoIcon: FC = () => {
   return (
     <svg
-      fill='#000000'
+      fill='orange'
       height='20px'
       width='20px'
       version='1.1'

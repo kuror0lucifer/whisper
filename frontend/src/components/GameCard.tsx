@@ -4,17 +4,17 @@ interface GameCardProps {
   img: string;
   title: string;
   price: number;
-  discount: number;
+  //   discount: number;
 }
 
 export const GameCard: FC<GameCardProps> = ({
   img,
   title,
   price,
-  discount,
+  //   discount,
 }) => {
   return (
-    <div className='bg-white shadow-lg rounded-lg overflow-hidden'>
+    <div className='bg-white shadow-lg rounded-lg overflow-hidden w-85 h-85 hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-300 cursor-pointer'>
       <img
         src={img}
         alt={title}

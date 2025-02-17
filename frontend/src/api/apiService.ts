@@ -13,8 +13,12 @@ class ApiService {
     return this.baseURL;
   }
 
-  async post<T>(route: string, data: T) {
-    const response = await this.axiosInstance.post(route, data);
+  async post<T>(
+    route: string,
+    data: T,
+    headers: AxiosRequestConfig['headers']
+  ) {
+    const response = await this.axiosInstance.post(route, data, { headers });
     return response;
   }
 

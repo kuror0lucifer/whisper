@@ -4,7 +4,7 @@ interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
   type: 'button' | 'submit' | 'reset' | undefined;
-  className?: string;
+  className: string;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -17,7 +17,7 @@ export const Button: FC<ButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`text-white bg-gray-800 rounded-md text-center ${className}`}
+      className={`rounded-full bg-gray-800 cursor-pointer ${className}`}
     >
       {children}
     </button>
