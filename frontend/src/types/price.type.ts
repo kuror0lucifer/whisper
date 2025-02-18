@@ -1,6 +1,6 @@
 export interface Price {
   regPrice: number;
   finalPrice: number;
-  salePrice: number | null;
+  salePrice: number;
   percentOff?: number;
 }

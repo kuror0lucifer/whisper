@@ -1,16 +1,19 @@
-import apiService from '../../../api/apiService';
-import { Game } from '../../../types/game.type';
+import apiService from './apiService';
+import { Game } from '../types/game.type';
 
-export const fetchGames = async (
-  itemsPerPage: number,
-  page: number
+export const fetchGamesFromSearch = async (
+  value: string,
+  page: number,
+  itemsPerPage: number
 ): Promise<[Game[], number]> => {
   try {
     const data = {
       requests: [
         {
           indexName: 'store_all_products_en_us',
-          params: `filters=price.salePrice>0&hitsPerPage=${itemsPerPage}&page=${page}`,
+          params: `${
+            value ? `query=${value}` : 'filters=price.salePrice>0'
+          }&page=${page}&hitsPerPage=${itemsPerPage}`,
         },
       ],
     };

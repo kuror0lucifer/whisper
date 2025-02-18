@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoIcon } from './icons/LogoIcon';
 import { ProfileIcon } from './icons/ProfileIcon';
-// import { Input } from '../UI/Input';
 import { Search } from './Search';
 
 interface HeaderProps {
@@ -11,7 +10,7 @@ interface HeaderProps {
 
 export const Header: FC<HeaderProps> = ({ isAuth }) => {
   return (
-    <header className='sticky bg-white text-gray-700 py-4 px-6 border-b-[1px] border-b-gray-500'>
+    <header className='sticky bg-gray-50 text-gray-700 py-4 px-6 border-b-[1px] border-b-gray-500'>
       <div className='flex justify-between items-center'>
         <Link
           to='/'
@@ -22,7 +21,10 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
           </div>
           WHISPER64
         </Link>
-        <Search />
+        <div className='w-full sm:w-3/4 md:w-1/2 lg:w-2/3'>
+          <Search />
+        </div>
+
         <nav>
           {isAuth ? (
             <Link

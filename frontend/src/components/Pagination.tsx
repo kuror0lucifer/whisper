@@ -1,5 +1,8 @@
 import { FC } from 'react';
 import ReactPaginate from 'react-paginate';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { fetchGames } from '../redux/games/slice';
 
 interface PaginationProps {
   pageCount: number;
@@ -12,13 +15,25 @@ export const Pagination: FC<PaginationProps> = ({
   onPageClick,
   forcePage,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handlePageChange = ({ selected }: { selected: number }) => {
+    onPageClick({ selected });
+    dispatch(
+      fetchGames({
+        page: selected,
+        itemsPerPage: 20,
+      })
+    );
+  };
+
   return (
     <ReactPaginate
       pageCount={pageCount}
       pageRangeDisplayed={3}
       marginPagesDisplayed={2}
-      onPageChange={onPageClick}
-      containerClassName='flex items-center justify-center space-x-2 mt-4'
+      onPageChange={handlePageChange}
+      containerClassName='flex items-center justify-center space-x-2 mb-4'
       activeClassName='bg-blue-500 text-white font-semibold rounded-lg'
       previousLabel='Prev'
       nextLabel='Next'
