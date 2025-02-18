@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 interface ButtonProps {
   onClick: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   type: 'button' | 'submit' | 'reset' | undefined;
-  className: string;
+  className?: string;
 }
 
 export const Button: FC<ButtonProps> = ({

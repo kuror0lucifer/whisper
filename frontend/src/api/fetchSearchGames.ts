@@ -1,13 +1,19 @@
 import apiService from './apiService';
 import { Game } from '../types/game.type';
 
-export const fetchGamesFromSearch = async (value: string): Promise<Game[]> => {
+export const fetchGamesFromSearch = async (
+  value: string,
+  page: number,
+  itemsPerPage: number
+): Promise<[Game[], number]> => {
   try {
     const data = {
       requests: [
         {
           indexName: 'store_all_products_en_us',
-          params: `query=${value}`,
+          params: `${
+            value ? `query=${value}` : 'filters=price.salePrice>0'
+          }&page=${page}&hitsPerPage=${itemsPerPage}`,
         },
       ],
     };
@@ -24,8 +30,8 @@ export const fetchGamesFromSearch = async (value: string): Promise<Game[]> => {
       headers
     );
 
-    return response.data?.results[0].hits;
+    return [response.data?.results[0].hits, response.data?.results[0].nbPages];
   } catch {
-    return [];
+    return [[], 0];
   }
 };

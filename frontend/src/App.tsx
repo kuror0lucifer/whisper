@@ -1,12 +1,9 @@
-// import { GameCard } from './components/GameCard';
-import { Header } from './components/Header';
-import { GameList } from './modules/games/components/GameList';
+import { MainPage } from './pages/MainPage/components/MainPage';
 
 function App() {
   return (
     <>
-      <Header isAuth={false} />
-      <GameList />
+      <MainPage />
     </>
   );
 }

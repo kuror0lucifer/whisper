@@ -1,4 +1,11 @@
 @import 'tailwindcss';
+@theme {
+  --color-violet: #9287a1;
+  --color-violet-light: #ae98a8;
+  --color-violet-superlight: #ae98a8;
+  --color-gray: #e9e0df;
+  --color-white: #f3f3f3;
+}
 
 * {
   font-family: 'Noto Sans JP', sans-serif;
