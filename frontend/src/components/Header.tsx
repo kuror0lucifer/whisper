@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoIcon } from './icons/LogoIcon';
 import { ProfileIcon } from './icons/ProfileIcon';
-// import { Input } from '../UI/Input';
 import { Search } from './Search';
 
 interface HeaderProps {

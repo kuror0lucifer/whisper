@@ -4,6 +4,7 @@ interface GameCardProps {
   img: string;
   title: string;
   price: number;
+  className?: string;
   //   discount: number;
 }
 
@@ -11,10 +12,13 @@ export const GameCard: FC<GameCardProps> = ({
   img,
   title,
   price,
+  className,
   //   discount,
 }) => {
   return (
-    <div className='bg-white shadow-lg rounded-lg overflow-hidden w-85 h-85 hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-300 cursor-pointer'>
+    <div
+      className={`bg-white shadow-lg rounded-lg overflow-hidden w-85 h-85 hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-300 cursor-pointer ${className}`}
+    >
       <img
         src={img}
         alt={title}
