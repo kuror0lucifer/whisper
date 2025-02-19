@@ -13,10 +13,10 @@ export const GameList: FC = () => {
     <div className='w-full max-w-screen-3xl mx-auto grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-10 mt-8 px-10 pb-10'>
       {games?.map(game => (
         <GameCard
-          key={game.nsuid}
+          key={game.objectID}
           img={baseImgURL + game.productImage}
-          salePrice={game.price.salePrice}
-          regPrice={game.price.regPrice}
+          salePrice={game.price?.salePrice}
+          regPrice={game.price?.regPrice}
           title={game.title}
         />
       ))}

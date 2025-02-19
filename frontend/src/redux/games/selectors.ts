@@ -1,10 +1,6 @@
 import { RootState } from '../store';
-import { createSelector } from 'reselect';
 
-export const selectGames = createSelector(
-  (state: RootState) => state.games.games,
-  games => games.filter(game => game.nsuid != null && game.nsuid !== 'MOBILE')
-);
+export const selectGames = (state: RootState) => state.games.games;
 
 export const selectQuery = (state: RootState) => state.games.query;
 

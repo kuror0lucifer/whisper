@@ -2,6 +2,7 @@ import { Price } from './price.type';
 
 export interface Game {
   nsuid: string;
+  objectID: string;
   sku: string;
   productImage: string;
   title: string;

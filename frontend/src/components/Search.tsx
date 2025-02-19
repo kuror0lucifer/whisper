@@ -4,12 +4,7 @@ import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 import { SearchIcon } from './icons/SearchIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchGames,
-  setCurrentPage,
-  setQuery,
-  setStatus,
-} from '../redux/games/slice';
+import { fetchGames, setQuery, setStatus } from '../redux/games/slice';
 import { ClearInputIcon } from './icons/ClearInputIcon';
 import { AppDispatch, RootState } from '../redux/store';
 
@@ -37,9 +32,6 @@ export const Search: FC = () => {
 
   const handleClear = () => {
     setLocalQuery('');
-    dispatch(setQuery(''));
-    dispatch(setCurrentPage(0));
-    dispatch(fetchGames({ page: 0, itemsPerPage: 20 }));
   };
 
   return (

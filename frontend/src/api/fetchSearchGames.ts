@@ -11,9 +11,13 @@ export const fetchGamesFromSearch = async (
       requests: [
         {
           indexName: 'store_all_products_en_us',
-          params: `${
-            value ? `query=${value}` : 'filters=price.salePrice>0'
-          }&page=${page}&hitsPerPage=${itemsPerPage}`,
+          params: new URLSearchParams({
+            query: value || '',
+            ...(value ? {} : { filters: 'price.salePrice>0' }),
+            page: page.toString(),
+            hitsPerPage: itemsPerPage.toString(),
+            facetFilters: JSON.stringify(['topLevelCategory:Games']),
+          }).toString(),
         },
       ],
     };
