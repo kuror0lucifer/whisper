@@ -7,6 +7,7 @@ import { store } from './redux/store.ts';
 import './assets/styles/index.css';
 import App from './App.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LoginPage } from './pages/LoginPage/components/LoginPage.tsx';
 
 const queryClient = new QueryClient();
 
@@ -20,7 +21,10 @@ createRoot(document.getElementById('root')!).render(
               path='*'
               element={<App />}
             />
-            <Route />
+            <Route
+              path='/login'
+              element={<LoginPage />}
+            />
           </Routes>
         </StrictMode>
       </BrowserRouter>

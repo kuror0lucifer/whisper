@@ -6,6 +6,9 @@ class ApiService {
   constructor(private baseURL: string = 'http://localhost:3000') {
     this.axiosInstance = axios.create({
       baseURL: this.baseURL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   }
 
