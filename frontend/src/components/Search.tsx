@@ -1,30 +1,25 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 import { SearchIcon } from './icons/SearchIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchGames,
-  setCurrentPage,
-  setQuery,
-  setStatus,
-} from '../redux/games/slice';
+import { fetchGames, setQuery, setStatus } from '../redux/games/slice';
 import { ClearInputIcon } from './icons/ClearInputIcon';
 import { AppDispatch, RootState } from '../redux/store';
 
 export const Search: FC = () => {
   const methods = useForm();
+  const { getValues, setValue } = methods;
   const dispatch = useDispatch<AppDispatch>();
-
-  const [localQuery, setLocalQuery] = useState('');
 
   const query = useSelector((state: RootState) => state.games.query);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
+    const searchQuery = getValues('search');
     dispatch(setStatus('loading'));
-    dispatch(setQuery(localQuery));
+    dispatch(setQuery(searchQuery));
     try {
       const page = 0;
       const itemsPerPage = 20;
@@ -36,10 +31,7 @@ export const Search: FC = () => {
   };
 
   const handleClear = () => {
-    setLocalQuery('');
-    dispatch(setQuery(''));
-    dispatch(setCurrentPage(0));
-    dispatch(fetchGames({ page: 0, itemsPerPage: 20 }));
+    setValue('search', '');
   };
 
   return (
@@ -49,10 +41,7 @@ export const Search: FC = () => {
           <Input
             placeholder='Which game are you looking for?'
             name='search'
-            required={false}
-            value={localQuery}
             type='text'
-            onChange={e => setLocalQuery(e.target.value)}
             className='placeholder:text-black mt-4 border-none shadow-none'
           />
           <div className='flex justify-center items-center'>

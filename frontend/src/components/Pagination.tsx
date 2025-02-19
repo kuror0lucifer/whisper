@@ -27,6 +27,8 @@ export const Pagination: FC<PaginationProps> = ({
     );
   };
 
+  if (pageCount < 2) return;
+
   return (
     <ReactPaginate
       pageCount={pageCount}
