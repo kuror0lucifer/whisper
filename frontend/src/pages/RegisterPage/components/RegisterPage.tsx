@@ -5,14 +5,14 @@ import { Button } from '../../../UI/Button';
 import { useNavigate } from 'react-router-dom';
 import { IForm } from '../types/IForm';
 import { registerUser } from '../api/registerRequests';
+import { useAuth } from '../../../hooks/useAuth';
 
 export const RegisterPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
-  const [isAuth, setIsAuth] = useState(false);
-
   const methods = useForm<IForm>();
   const { handleSubmit } = methods;
   const navigate = useNavigate();
+  const { isAuth, login } = useAuth();
 
   useEffect(() => {
     if (isAuth) navigate('/');
@@ -29,43 +29,52 @@ export const RegisterPage: FC = () => {
       return;
     }
 
-    setIsAuth(true);
+    login();
   };
 
   return (
-    <div className='w-full h-screen flex justify-center items-center flex-col gap-3'>
-      <h2 className='font-bold text-2xl'>Registration</h2>
-      <FormProvider {...methods}>
-        <form
-          className='w-1/3 flex justify-center items-center flex-col gap-2'
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Input
-            name='email'
-            type='text'
-            placeholder='Enter your email'
-          />
-          <Input
-            name='password'
-            type='password'
-            placeholder='Enter your password'
-          />
-          <Input
-            name='confirmPassword'
-            type='password'
-            placeholder='Confirm your password'
-          />
-
-          {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
-
-          <Button
-            type='submit'
-            className='w-20 h-10 bg-blue-400 text-white hover:bg-blue-500 transition-colors duration-200'
+    <div className='w-full h-screen flex justify-center items-center bg-gray-200 '>
+      <div className='w-1/3 h-fit py-10 flex justify-center items-center flex-col gap-8 rounded-2xl shadow-2xl shadow-gray-600 bg-white'>
+        <h2 className='text-2xl text-[#40364e]'>REGISTRATION</h2>
+        <FormProvider {...methods}>
+          <form
+            className='w-2/3 flex justify-center items-center flex-col gap-2'
+            onSubmit={handleSubmit(onSubmit)}
           >
-            Registration
-          </Button>
-        </form>
-      </FormProvider>
+            <Input
+              name='email'
+              type='text'
+              placeholder='Enter your email'
+              className='w-full p-5 focus:ring-1 focus:ring-gray-400 transition-all duration-400'
+            />
+            <Input
+              name='password'
+              type='password'
+              placeholder='Enter your password'
+              className='w-full p-5 focus:ring-1 focus:ring-gray-400 transition-all duration-400'
+            />
+            <Input
+              name='confirmPassword'
+              type='password'
+              placeholder='Confirm your password'
+              className='w-full p-5 focus:ring-1 focus:ring-gray-400 transition-all duration-400'
+            />
+
+            {errorMessage && (
+              <span className='text-red-500 text-lg mb-2 animate-fade-in-scale'>
+                {errorMessage}
+              </span>
+            )}
+
+            <Button
+              type='submit'
+              className='w-full h-10 text-white text-lg transition-colors duration-400 rounded-md bg-[#bba5b1] hover:bg-[#70698e]'
+            >
+              Confirm
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
     </div>
   );
 };

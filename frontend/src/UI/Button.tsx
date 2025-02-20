@@ -17,7 +17,7 @@ export const Button: FC<ButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`rounded-full bg-gray-800 cursor-pointer ${className}`}
+      className={`rounded-full cursor-pointer ${className}`}
     >
       {children}
     </button>
