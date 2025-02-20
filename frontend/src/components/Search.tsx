@@ -4,7 +4,12 @@ import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 import { SearchIcon } from './icons/SearchIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGames, setQuery, setStatus } from '../redux/games/slice';
+import {
+  fetchGames,
+  setCurrentPage,
+  setQuery,
+  setStatus,
+} from '../redux/games/slice';
 import { ClearInputIcon } from './icons/ClearInputIcon';
 import { AppDispatch, RootState } from '../redux/store';
 
@@ -34,10 +39,14 @@ export const Search: FC = () => {
     setValue('search', '');
   };
 
+  const goToFirstPage = () => {
+    dispatch(setCurrentPage(0));
+  };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSearch}>
-        <div className='h-15 flex justify-between items-center rounded-4xl px-4 border-2 bg-gray-100 border-pink-50 hover:bg-white transition-colors duration-300'>
+        <div className='h-15 flex justify-between items-center rounded-4xl px-4 border-2 bg-gray-100 border-pink-50 hover:bg-gray-50 transition-colors duration-300'>
           <Input
             placeholder='Which game are you looking for?'
             name='search'
@@ -56,8 +65,8 @@ export const Search: FC = () => {
             )}
             <Button
               type='submit'
-              onClick={() => ''}
-              className='w-12 h-12 rounded-2xl bg-pink-300 hover:bg-pink-600 flex items-center justify-center transition-colors duration-300'
+              onClick={goToFirstPage}
+              className='w-12 h-12 rounded-2xl bg-pink-300 hover:bg-pink-400 flex items-center justify-center transition-colors duration-300'
             >
               <SearchIcon />
             </Button>

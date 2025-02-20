@@ -36,16 +36,16 @@ export const Pagination: FC<PaginationProps> = ({
       marginPagesDisplayed={2}
       onPageChange={handlePageChange}
       containerClassName='flex items-center justify-center space-x-2 mb-4'
-      activeClassName='bg-blue-500 text-white font-semibold rounded-lg'
-      previousLabel='Prev'
-      nextLabel='Next'
+      activeClassName='bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 hover:text-gray-700'
+      previousLabel='←'
+      nextLabel='→'
       forcePage={forcePage}
       breakLabel='...'
-      previousClassName='px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300'
-      nextClassName='px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300'
-      pageClassName='px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200'
-      disabledClassName='opacity-50 cursor-not-allowed'
-      activeLinkClassName='bg-blue-500 text-white'
+      previousClassName='px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer disabled:cursor-not-allowed'
+      nextClassName='px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer'
+      pageClassName='px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 cursor-pointer'
+      disabledClassName='opacity-50'
+      activeLinkClassName='text-white'
     />
   );
 };

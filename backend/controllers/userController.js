@@ -10,9 +10,9 @@ const createUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const isUserExist = await User.findOne({ where: { email } });
+    const userExists = await User.findOne({ where: { email } });
 
-    if (isUserExist) {
+    if (userExists) {
       return res.status(400).json({ error: 'Email is already being used' });
     }
 
@@ -20,12 +20,17 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = await User.create({ email, password: hashedPassword });
-    const { id, email: userEmail } = newUser;
 
-    res.status(201).json({ id, email: userEmail });
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.status(201).json({ id: newUser.id, email: newUser.email, token });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: ' Failed to create user' });
+    res.status(500).json({ error: 'Failed to create user' });
   }
 };
 
