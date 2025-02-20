@@ -41,7 +41,7 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
             <div className='flex'>
               <Link
                 to={'/register'}
-                className='ml-6 hover:text-gray-300 flex justify-center items-center'
+                className='ml-6 hover:text-gray-500 flex justify-center items-center transition-colors duration-400'
               >
                 Sign Up
               </Link>

@@ -1,13 +1,13 @@
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { IForm } from '../types/IForm.type';
-import { loginUser } from '../api/loginRequest';
-import { Button } from '../../../UI/Button';
 import { FC, useEffect, useState } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '../../../UI/Input';
+import { Button } from '../../../UI/Button';
 import { useNavigate } from 'react-router-dom';
+import { IForm } from '../types/IForm';
+import { registerUser } from '../api/registerRequests';
 import { useAuth } from '../../../hooks/useAuth';
 
-export const LoginPage: FC = () => {
+export const RegisterPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const methods = useForm<IForm>();
   const { handleSubmit } = methods;
@@ -19,8 +19,8 @@ export const LoginPage: FC = () => {
   }, [isAuth, navigate]);
 
   const onSubmit: SubmitHandler<IForm> = async data => {
-    const { email, password } = data;
-    const error = await loginUser(email, password);
+    const { email, password, confirmPassword } = data;
+    const error = await registerUser(email, password, confirmPassword);
 
     if (error) {
       setErrorMessage(
@@ -28,17 +28,18 @@ export const LoginPage: FC = () => {
       );
       return;
     }
+
     login();
   };
 
   return (
-    <div className='w-full h-screen flex justify-center items-center bg-gray-200  '>
-      <div className='w-1/3 h-fit py-10 flex justify-center items-center flex-col gap-8 rounded-2xl shadow-2xl shadow-gray-600 bg-white '>
-        <h2 className='text-2xl text-[#40364e]'>LOG IN</h2>
+    <div className='w-full h-screen flex justify-center items-center bg-gray-200 '>
+      <div className='w-1/3 h-fit py-10 flex justify-center items-center flex-col gap-8 rounded-2xl shadow-2xl shadow-gray-600 bg-white'>
+        <h2 className='text-2xl text-[#40364e]'>REGISTRATION</h2>
         <FormProvider {...methods}>
           <form
-            onSubmit={handleSubmit(onSubmit)}
             className='w-2/3 flex justify-center items-center flex-col gap-2'
+            onSubmit={handleSubmit(onSubmit)}
           >
             <Input
               name='email'
@@ -52,6 +53,13 @@ export const LoginPage: FC = () => {
               placeholder='Enter your password'
               className='w-full p-5 focus:ring-1 focus:ring-gray-400 transition-all duration-400'
             />
+            <Input
+              name='confirmPassword'
+              type='password'
+              placeholder='Confirm your password'
+              className='w-full p-5 focus:ring-1 focus:ring-gray-400 transition-all duration-400'
+            />
+
             {errorMessage && (
               <span className='text-red-500 text-lg mb-2 animate-fade-in-scale'>
                 {errorMessage}

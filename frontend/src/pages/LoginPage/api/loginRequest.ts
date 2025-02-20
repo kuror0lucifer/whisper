@@ -10,6 +10,6 @@ export const loginUser = async (email: string, password: string) => {
 
     localStorage.setItem('auth_token', response.data.token);
   } catch {
-    return 'Ошибка при авторизации';
+    return 'Authentication error';
   }
 };

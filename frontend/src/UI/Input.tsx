@@ -8,6 +8,7 @@ interface InputProps {
   className?: string;
   required?: string;
   error?: string;
+  autoComplete?: 'on' | 'off';
 }
 
 export const Input: FC<InputProps> = ({
@@ -17,6 +18,7 @@ export const Input: FC<InputProps> = ({
   className,
   required = false,
   error,
+  autoComplete,
 }) => {
   const { register } = useFormContext();
 
@@ -30,6 +32,7 @@ export const Input: FC<InputProps> = ({
         className={`mt-1 block w-full px-3 py-2 border-1 border-gray-400 rounded-md focus:outline-none ${
           error ? 'border-red-500' : ''
         } ${className}`}
+        autoComplete={autoComplete}
       />
       {error && <div className='text-sm text-red-500 mt-1'>{error}</div>}
     </div>

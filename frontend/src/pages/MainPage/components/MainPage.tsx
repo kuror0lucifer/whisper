@@ -11,8 +11,10 @@ import {
 import { Skeleton } from '../../../modules/games/components/Skeleton';
 import { AppDispatch, RootState } from '../../../redux/store';
 import { Pagination } from '../../../components/Pagination';
+import { useAuth } from '../../../hooks/useAuth';
 
 export const MainPage: FC = () => {
+  const { isAuth } = useAuth();
   const dispatch = useDispatch<AppDispatch>();
   const { totalPages, status, currentPage } = useSelector(
     (state: RootState) => state.games
@@ -35,9 +37,9 @@ export const MainPage: FC = () => {
 
   return (
     <>
-      <Header isAuth={false} />
+      <Header isAuth={isAuth} />
       {status === 'loading' ? (
-        <div className='w-full max-w-screen-3xl mx-auto grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-10 mt-8 px-10 pb-10'>
+        <div className='w-full flex flex-wrap justify-center items-center gap-10 my-8 px-10'>
           {Array.from({ length: 20 }).map((_, index) => (
             <Skeleton key={index} />
           ))}

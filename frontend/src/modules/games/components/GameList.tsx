@@ -10,7 +10,7 @@ export const GameList: FC = () => {
   const games = useSelector(selectGames);
 
   return (
-    <div className='w-full max-w-screen-3xl mx-auto grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-10 mt-8 px-10 pb-10'>
+    <div className='w-full flex flex-wrap justify-center items-center gap-10 my-8 px-10'>
       {games?.map(game => (
         <GameCard
           key={game.objectID}
