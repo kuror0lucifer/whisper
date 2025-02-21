@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { IForm } from '../types/IForm';
 import { registerUser } from '../api/registerRequests';
 import { useAuth } from '../../../hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../redux/store';
+import { setUserId } from '../../../redux/user/slice';
 
 export const RegisterPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -13,23 +16,26 @@ export const RegisterPage: FC = () => {
   const { handleSubmit } = methods;
   const navigate = useNavigate();
   const { isAuth, login } = useAuth();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (isAuth) navigate('/');
   }, [isAuth, navigate]);
 
   const onSubmit: SubmitHandler<IForm> = async data => {
-    const { email, password, confirmPassword } = data;
-    const error = await registerUser(email, password, confirmPassword);
-
-    if (error) {
-      setErrorMessage(
-        typeof error === 'string' ? error : JSON.stringify(error)
-      );
-      return;
+    try {
+      const { email, password, confirmPassword } = data;
+      const res = await registerUser(email, password, confirmPassword);
+      const { id } = res;
+      login();
+      dispatch(setUserId(id));
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage('Registration error');
+      }
     }
-
-    login();
   };
 
   return (

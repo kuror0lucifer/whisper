@@ -1,5 +1,5 @@
-import { Sequelize } from "sequelize";
-import User from "../models/User.js";
+import { Sequelize } from 'sequelize';
+import User from '../modules/users/user.js';
 
 const tgCheck = async (req, res) => {
   const { email } = req.body;
@@ -14,10 +14,10 @@ const tgCheck = async (req, res) => {
       },
     });
 
-    if (user) return res.status(200).json({ status: "success" });
+    if (user) return res.status(200).json({ status: 'success' });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Failed to check telegram" });
+    return res.status(500).json({ error: 'Failed to check telegram' });
   }
 };
 

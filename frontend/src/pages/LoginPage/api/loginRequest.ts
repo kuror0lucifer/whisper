@@ -9,6 +9,7 @@ export const loginUser = async (email: string, password: string) => {
     );
 
     localStorage.setItem('auth_token', response.data.token);
+    return response.data;
   } catch {
     return 'Authentication error';
   }

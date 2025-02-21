@@ -13,10 +13,15 @@ interface AuthProviderProps {
 }
 
 const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState<boolean>(
+    !!localStorage.getItem('auth_token')
+  );
 
   const login = () => setIsAuth(true);
-  const logout = () => setIsAuth(false);
+  const logout = () => {
+    setIsAuth(false);
+    localStorage.removeItem('auth_token');
+  };
 
   return (
     <AuthContext.Provider value={{ isAuth, login, logout }}>

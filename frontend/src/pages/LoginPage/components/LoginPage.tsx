@@ -6,6 +6,9 @@ import { FC, useEffect, useState } from 'react';
 import { Input } from '../../../UI/Input';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../redux/store';
+import { setUserId } from '../../../redux/user/slice';
 
 export const LoginPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -13,22 +16,27 @@ export const LoginPage: FC = () => {
   const { handleSubmit } = methods;
   const navigate = useNavigate();
   const { isAuth, login } = useAuth();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (isAuth) navigate('/');
   }, [isAuth, navigate]);
 
   const onSubmit: SubmitHandler<IForm> = async data => {
-    const { email, password } = data;
-    const error = await loginUser(email, password);
+    try {
+      const { email, password } = data;
+      const res = await loginUser(email, password);
+      const { id } = res;
 
-    if (error) {
-      setErrorMessage(
-        typeof error === 'string' ? error : JSON.stringify(error)
-      );
-      return;
+      login();
+      dispatch(setUserId(id));
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage('Authentication error');
+      }
     }
-    login();
   };
 
   return (

@@ -9,17 +9,13 @@ export const registerUser = async (
     if (password !== confirmPassword) {
       throw new Error('Passwords do not match');
     }
-    const response = await apiService.post(
-      '/users/registration',
-      {
-        email,
-        password,
-      },
-      {}
-    );
+    const response = await apiService.post('/users/registration', {
+      email,
+      password,
+    });
 
     localStorage.setItem('auth_token', response.data.token);
-    return null;
+    return response.data;
   } catch {
     return 'Registration error';
   }

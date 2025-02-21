@@ -1,12 +1,16 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import User from '../models/User.js';
+import User from '../modules/users/user.js';
 
 dotenv.config();
 
 const authMiddleware = async (req, res, next) => {
   try {
-    const publicRoutes = ['/users/login', '/users/register'];
+    const publicRoutes = [
+      '/users/login',
+      '/users/registration',
+      '/users/logout',
+    ];
     if (publicRoutes.includes(req.path)) {
       return next();
     }
