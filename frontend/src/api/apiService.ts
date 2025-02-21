@@ -28,7 +28,7 @@ class ApiService {
 
             if (tokenExpired) {
               localStorage.removeItem('auth_token');
-              window.location.href = '/login';
+              window.location.href = '/';
             } else {
               return Promise.reject(error);
             }

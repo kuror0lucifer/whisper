@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
@@ -16,6 +16,12 @@ export const Pagination: FC<PaginationProps> = ({
   forcePage,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
+  }, [forcePage]);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     onPageClick({ selected });
