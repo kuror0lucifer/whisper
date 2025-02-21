@@ -10,32 +10,44 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoginPage } from './pages/LoginPage/components/LoginPage.tsx';
 import { RegisterPage } from './pages/RegisterPage/components/RegisterPage.tsx';
 import { AuthProvider } from './context/AuthContext.tsx';
+import { ProfilePage } from './pages/ProfilePage/components/ProfilePage.tsx';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor } from './redux/store.ts';
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
-  <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <StrictMode>
-            <Routes>
-              <Route
-                path='*'
-                element={<App />}
-              />
-              <Route
-                path='/login'
-                element={<LoginPage />}
-              />
-              <Route
-                path='/register'
-                element={<RegisterPage />}
-              />
-            </Routes>
-          </StrictMode>
-        </BrowserRouter>
-      </Provider>
-    </QueryClientProvider>
-  </AuthProvider>
+  <PersistGate
+    loading={null}
+    persistor={persistor}
+  >
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <StrictMode>
+              <Routes>
+                <Route
+                  path='*'
+                  element={<App />}
+                />
+                <Route
+                  path='/login'
+                  element={<LoginPage />}
+                />
+                <Route
+                  path='/register'
+                  element={<RegisterPage />}
+                />
+                <Route
+                  path='/profile'
+                  element={<ProfilePage />}
+                />
+              </Routes>
+            </StrictMode>
+          </BrowserRouter>
+        </Provider>
+      </QueryClientProvider>
+    </AuthProvider>
+  </PersistGate>
 );

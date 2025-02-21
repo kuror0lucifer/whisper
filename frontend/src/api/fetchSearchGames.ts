@@ -1,5 +1,5 @@
-import apiService from './apiService';
 import { Game } from '../types/game.type';
+import axios from 'axios';
 
 export const fetchGamesFromSearch = async (
   value: string,
@@ -28,10 +28,10 @@ export const fetchGamesFromSearch = async (
       'X-Algolia-Application-Id': 'U3B6GR4UA3',
     };
 
-    const response = await apiService.post(
+    const response = await axios.post(
       'https://U3B6GR4UA3-dsn.algolia.net/1/indexes/*/queries',
       data,
-      headers
+      { headers }
     );
 
     return [response.data?.results[0].hits, response.data?.results[0].nbPages];

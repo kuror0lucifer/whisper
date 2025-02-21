@@ -1,7 +1,13 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosHeaders,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios';
 
 class ApiService {
-  private axiosInstance;
+  private axiosInstance: AxiosInstance;
 
   constructor(private baseURL: string = 'http://localhost:3000') {
     this.axiosInstance = axios.create({
@@ -10,18 +16,50 @@ class ApiService {
         'Content-Type': 'application/json',
       },
     });
+
+    this.axiosInstance.interceptors.response.use(
+      response => response,
+      (error: AxiosError) => {
+        if (error.response && error.response.data) {
+          const responseData = error.response.data as { error?: string };
+
+          if (error.response?.status === 403) {
+            const tokenExpired = responseData.error === 'Token expired';
+
+            if (tokenExpired) {
+              localStorage.removeItem('auth_token');
+              window.location.href = '/login';
+            } else {
+              return Promise.reject(error);
+            }
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
   }
 
   getBaseURL(): string {
     return this.baseURL;
   }
 
-  async post<T>(
-    route: string,
-    data: T,
-    headers: AxiosRequestConfig['headers']
-  ) {
-    const response = await this.axiosInstance.post(route, data, { headers });
+  private createHttpHeaders(): AxiosHeaders {
+    const headers = new AxiosHeaders();
+    const token = localStorage.getItem('auth_token');
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return headers;
+  }
+
+  async post<T>(route: string, data: T, config?: AxiosRequestConfig) {
+    const headers = this.createHttpHeaders();
+    const response = await this.axiosInstance.post(route, data, {
+      ...config,
+      headers,
+    });
     return response;
   }
 
@@ -29,19 +67,23 @@ class ApiService {
     route: string,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> {
+    const headers = this.createHttpHeaders();
     const response = await this.axiosInstance.get(route, {
       ...config,
+      headers,
     });
     return response;
   }
 
   async put<T>(route: string, data: T) {
-    const response = await this.axiosInstance.put(route, data);
+    const headers = this.createHttpHeaders();
+    const response = await this.axiosInstance.put(route, data, { headers });
     return response;
   }
 
   async delete(route: string) {
-    const response = await this.axiosInstance.delete(route);
+    const headers = this.createHttpHeaders();
+    const response = await this.axiosInstance.delete(route, { headers });
     return response.data;
   }
 }
