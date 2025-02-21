@@ -23,7 +23,7 @@ class AuthService {
       { expiresIn: '1h' }
     );
 
-    return { id: newUser.id, email: newUser.email, token };
+    return { id: newUser.id, userEmail: newUser.email, token };
   }
 
   static async login(email, password) {
@@ -43,7 +43,19 @@ class AuthService {
       { expiresIn: '1h' }
     );
 
-    return { token, id: user.id, email: user.email };
+    return { token, id: user.id, userEmail: user.email };
+  }
+
+  static async changeName(id, name) {
+    const user = await User.findOne({ where: id });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const userName = await User.update({ name: name }, { where: { id: id } });
+
+    return { userName };
   }
 }
 

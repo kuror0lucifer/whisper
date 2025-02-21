@@ -29,7 +29,7 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
           {isAuth ? (
             <Link
               to={'/profile'}
-              className='ml-6 hover:text-gray-300 flex gap-1'
+              className='ml-6 hover:bg-gray-100 hover:border-pink-300 flex justify-center items-center gap-1 border-2 border-pink-200 rounded-md p-3 transition-colors duration-300'
             >
               <ProfileIcon
                 size={20}

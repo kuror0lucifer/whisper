@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../redux/store';
-import { setUserId } from '../../../redux/user/slice';
+import { setUserEmail, setUserId } from '../../../redux/user/slice';
 import { useAuth } from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../UI/Button';
@@ -14,6 +14,7 @@ export const LogoutButton: FC = () => {
   const onClickLogout = () => {
     logout();
     dispatch(setUserId(null));
+    dispatch(setUserEmail(null));
     navigate('/');
   };
 

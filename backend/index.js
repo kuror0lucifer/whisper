@@ -4,7 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 import sequelize from './config/db.js';
-import userRoutes from './routes/userRoutes.js';
+import userRoutes from './modules/users/user.routes.js';
 import tgTokenRoutes from './routes/tgTokenRoutes.js';
 import tgCheckRoutes from './routes/tgCheckRoutes.js';
 import addToFavouritesRoutes from './routes/addToFavouritesRoutes.js';

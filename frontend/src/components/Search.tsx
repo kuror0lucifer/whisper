@@ -46,7 +46,7 @@ export const Search: FC = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSearch}>
-        <div className='h-15 flex justify-between items-center rounded-4xl px-4 border-2 bg-gray-100 border-pink-50 hover:bg-gray-50 transition-colors duration-300'>
+        <div className='h-15 flex justify-between items-center rounded-4xl px-4 border-2 bg-gray-100 border-pink-50 hover:bg-gray-50 hover:border-pink-100 transition-colors duration-300'>
           <Input
             placeholder='Which game are you looking for?'
             name='search'
