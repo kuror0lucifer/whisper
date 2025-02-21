@@ -31,7 +31,7 @@ export const fetchGamesFromSearch = async (
     const response = await apiService.post(
       'https://U3B6GR4UA3-dsn.algolia.net/1/indexes/*/queries',
       data,
-      headers
+      { headers }
     );
 
     return [response.data?.results[0].hits, response.data?.results[0].nbPages];
