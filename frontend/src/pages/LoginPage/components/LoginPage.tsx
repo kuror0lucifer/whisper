@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../redux/store';
-import { setUserId } from '../../../redux/user/slice';
+import { setUserEmail, setUserId } from '../../../redux/user/slice';
 
 export const LoginPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,10 +26,11 @@ export const LoginPage: FC = () => {
     try {
       const { email, password } = data;
       const res = await loginUser(email, password);
-      const { id } = res;
+      const { id, userEmail } = res;
 
-      login();
       dispatch(setUserId(id));
+      dispatch(setUserEmail(userEmail));
+      login();
     } catch (err) {
       if (err instanceof Error) {
         setErrorMessage(err.message);

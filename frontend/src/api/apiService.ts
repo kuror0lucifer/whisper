@@ -75,6 +75,12 @@ class ApiService {
     return response;
   }
 
+  async patch<T>(route: string, data: T) {
+    const headers = this.createHttpHeaders();
+    const response = await this.axiosInstance.patch(route, data, { headers });
+    return response;
+  }
+
   async put<T>(route: string, data: T) {
     const headers = this.createHttpHeaders();
     const response = await this.axiosInstance.put(route, data, { headers });

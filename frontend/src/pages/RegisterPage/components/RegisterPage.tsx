@@ -8,7 +8,7 @@ import { registerUser } from '../api/registerRequests';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../redux/store';
-import { setUserId } from '../../../redux/user/slice';
+import { setUserEmail, setUserId } from '../../../redux/user/slice';
 
 export const RegisterPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,9 +26,10 @@ export const RegisterPage: FC = () => {
     try {
       const { email, password, confirmPassword } = data;
       const res = await registerUser(email, password, confirmPassword);
-      const { id } = res;
+      const { id, userEmail } = res;
       login();
       dispatch(setUserId(id));
+      dispatch(setUserEmail(userEmail));
     } catch (err) {
       if (err instanceof Error) {
         setErrorMessage(err.message);

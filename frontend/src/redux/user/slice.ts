@@ -3,6 +3,7 @@ import UserState from './types.type';
 
 const initialState: UserState = {
   userId: null,
+  email: null,
 };
 
 const userSlice = createSlice({
@@ -12,8 +13,11 @@ const userSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
+    setUserEmail: (state, action) => {
+      state.email = action.payload;
+    },
   },
 });
 
-export const { setUserId } = userSlice.actions;
+export const { setUserId, setUserEmail } = userSlice.actions;
 export default userSlice.reducer;

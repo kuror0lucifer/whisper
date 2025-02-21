@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Button } from '../../../UI/Button';
-import { tgConnection } from '../api/apiTgConnection';
+import { tgConnection } from '../api/TgConnection';
 import { useSelector } from 'react-redux';
 import { selectUserId } from '../../../redux/user/selectors';
 
