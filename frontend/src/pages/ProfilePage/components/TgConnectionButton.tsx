@@ -1,14 +1,16 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { Button } from '../../../UI/Button';
 import { tgConnection } from '../api/TgConnection';
 import { useSelector } from 'react-redux';
-import { selectUserId } from '../../../redux/user/selectors';
+import { selectUserData } from '../../../redux/user/selectors';
+import { tgCheckConnection } from '../api/TgCheck';
 
 export const TgConnectionButton: FC = () => {
+  const [tgStatus, setTgStatus] = useState<boolean | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const userId = useSelector(selectUserId);
+  const { userId, email } = useSelector(selectUserData);
 
-  const onClickConnect = async () => {
+  const onClickConnect = useCallback(async () => {
     try {
       if (userId) {
         await tgConnection(userId);
@@ -20,15 +22,37 @@ export const TgConnectionButton: FC = () => {
         setErrorMessage('An error occurred');
       }
     }
-  };
+  }, [userId]);
+
+  const isTelegramLinked = useCallback(async () => {
+    try {
+      if (email) {
+        await tgCheckConnection(email);
+        setTgStatus(true);
+      }
+    } catch (err) {
+      setTgStatus(false);
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      }
+      setErrorMessage('Unknown error while check tg status');
+    }
+  }, [email]);
+
+  useEffect(() => {
+    if (email) {
+      isTelegramLinked();
+    }
+  }, [email, isTelegramLinked]);
+
   return (
     <>
       <Button
         type='button'
         onClick={onClickConnect}
-        className='bg-red-500 hover:bg-red-700 text-white p-2 mb-4 w-fit rounded-md transition-colors duration-300'
+        className='bg-red-500 hover:bg-red-700 text-white p-2 my-4 w-fit rounded-md transition-colors duration-300'
       >
-        Connect telegram
+        {tgStatus ? 'Telegram linked' : 'Connect telegram'}
       </Button>
       {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
     </>

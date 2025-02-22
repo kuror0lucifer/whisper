@@ -9,9 +9,9 @@ interface AsideProps {
 
 export const Aside: FC<AsideProps> = ({ activeTab }) => {
   return (
-    <aside className='w-1/5 h-screen bg-gray-400 border-r p-10 flex flex-col gap-10'>
+    <aside className='w-1/5 h-screen bg-gray-400/50 border-r p-10 flex flex-col gap-10'>
       <div
-        className={`w-full h-fit py-5 flex justify-center items-center gap-3 rounded-2xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 ${
+        className={`w-full h-fit p-5 flex justify-center items-center gap-3 rounded-2xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 ${
           activeTab === 'SETTINGS' ? 'bg-gray-100' : ''
         }`}
       >
@@ -19,7 +19,7 @@ export const Aside: FC<AsideProps> = ({ activeTab }) => {
         <span className='text-2xl font-bold'>SETTINGS</span>
       </div>
       <div
-        className={`w-full h-fit py-5 flex justify-center items-center gap-3 rounded-2xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 ${
+        className={`w-full h-fit p-5 flex justify-center items-center gap-3 rounded-2xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 ${
           activeTab === 'WISHLIST' ? 'bg-gray-100' : ''
         }`}
       >
@@ -27,7 +27,7 @@ export const Aside: FC<AsideProps> = ({ activeTab }) => {
         <span className='text-2xl font-bold'>WISHLIST</span>
       </div>
       <div
-        className={`w-full h-fit py-5 flex justify-center items-center gap-3 rounded-2xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 ${
+        className={`w-full h-fit p-5 flex justify-center items-center gap-3 rounded-2xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 ${
           activeTab === 'FRIENDS' ? 'bg-gray-100' : ''
         }`}
       >

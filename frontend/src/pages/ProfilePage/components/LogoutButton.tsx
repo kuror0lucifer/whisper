@@ -24,7 +24,7 @@ export const LogoutButton: FC = () => {
       onClick={onClickLogout}
       className='bg-red-500 hover:bg-red-700 text-white py-2 w-20 rounded-md transition-colors duration-300'
     >
-      Log out
+      Log Out
     </Button>
   );
 };

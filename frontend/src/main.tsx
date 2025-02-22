@@ -13,6 +13,7 @@ import { AuthProvider } from './context/AuthContext.tsx';
 import { ProfilePage } from './pages/ProfilePage/components/ProfilePage.tsx';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './redux/store.ts';
+import { GamePage } from './pages/GamePage/components/GamePage.tsx';
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,10 @@ createRoot(document.getElementById('root')!).render(
                 <Route
                   path='/profile'
                   element={<ProfilePage />}
+                />
+                <Route
+                  path='/game/:nsuid'
+                  element={<GamePage />}
                 />
               </Routes>
             </StrictMode>

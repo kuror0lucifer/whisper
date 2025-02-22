@@ -51,7 +51,9 @@ export const ChangeNameInput: FC = () => {
         <Button
           type='submit'
           className='w-10 h-10 border-2 bg-gray-50 rounded-md border-pink-200 hover:border-pink-300 transition-colors duration-300'
-        />
+        >
+          OK
+        </Button>
       </form>
       {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
     </FormProvider>
