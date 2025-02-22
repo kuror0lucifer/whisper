@@ -36,7 +36,7 @@ export const MainPage: FC = () => {
   }, [dispatch, currentPage]);
 
   return (
-    <>
+    <div className='w-full h-fit pb-5 bg-linear-to-b from-gray-100 to-blue-200'>
       <Header isAuth={isAuth} />
       {status === 'loading' ? (
         <div className='w-full flex flex-wrap justify-center items-center gap-10 my-8 px-10'>
@@ -54,6 +54,6 @@ export const MainPage: FC = () => {
           />
         </>
       )}
-    </>
+    </div>
   );
 };

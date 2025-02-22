@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Input } from '../../../UI/Input';
 import { Button } from '../../../UI/Button';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { changeName } from '../api/ChangeName';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUserId } from '../../../redux/user/selectors';
+import { setUserName } from '../../../redux/user/slice';
 
 interface IForm {
   id: number;
@@ -15,13 +16,17 @@ export const ChangeNameInput: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const methods = useForm<IForm>();
   const { handleSubmit } = methods;
+  const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
+
+  useEffect(() => {}, []);
 
   const onSubmit: SubmitHandler<IForm> = async data => {
     try {
       if (userId && data.userName) {
         const { userName } = data;
         await changeName(userId, userName);
+        dispatch(setUserName(userName));
       }
     } catch (err) {
       if (err instanceof Error) {

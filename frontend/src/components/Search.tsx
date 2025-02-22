@@ -46,7 +46,7 @@ export const Search: FC = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSearch}>
-        <div className='h-15 flex justify-between items-center rounded-4xl px-4 border-2 bg-gray-100 border-pink-50 hover:bg-gray-50 hover:border-pink-100 transition-colors duration-300'>
+        <div className='h-15 flex justify-between items-center rounded-4xl px-4 border-2 bg-gray-100 border-gray-100 hover:bg-gray-50 hover:border-gray-200 transition-colors duration-300'>
           <Input
             placeholder='Which game are you looking for?'
             name='search'
@@ -66,7 +66,7 @@ export const Search: FC = () => {
             <Button
               type='submit'
               onClick={goToFirstPage}
-              className='w-12 h-12 rounded-2xl bg-pink-300 hover:bg-pink-400 flex items-center justify-center transition-colors duration-300'
+              className='w-12 h-12 rounded-2xl bg-pink-400 hover:bg-pink-500 flex items-center justify-center transition-colors duration-300'
             >
               <SearchIcon />
             </Button>

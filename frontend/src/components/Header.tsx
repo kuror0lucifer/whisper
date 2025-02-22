@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export const Header: FC<HeaderProps> = ({ isAuth }) => {
   return (
-    <header className='sticky bg-gray-50 text-gray-700 py-4 px-6 border-b-[1px] border-b-gray-500'>
+    <header className='sticky bg-white text-gray-700 py-4 px-6 shadow-2xl shadow-gray-500 border-b-gray-500'>
       <div className='flex justify-between items-center'>
         <Link
           to='/'

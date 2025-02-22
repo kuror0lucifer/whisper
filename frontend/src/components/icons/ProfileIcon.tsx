@@ -1,14 +1,7 @@
 import { FC } from 'react';
+import { IconProps } from '../types/iconProps.type';
 
-interface ProfileIconProps {
-  color?: string;
-  size?: number;
-}
-
-export const ProfileIcon: FC<ProfileIconProps> = ({
-  color = 'white',
-  size = 20,
-}) => {
+export const ProfileIcon: FC<IconProps> = ({ color = 'white', size = 20 }) => {
   return (
     <svg
       viewBox='0 0 20 20'

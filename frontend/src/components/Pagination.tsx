@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
@@ -15,15 +15,19 @@ export const Pagination: FC<PaginationProps> = ({
   onPageClick,
   forcePage,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 50);
-  }, [forcePage]);
+    if (!isLoading) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
+    }
+  }, [forcePage, isLoading]);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
+    setIsLoading(true);
     onPageClick({ selected });
     dispatch(
       fetchGames({
@@ -31,6 +35,7 @@ export const Pagination: FC<PaginationProps> = ({
         itemsPerPage: 20,
       })
     );
+    setIsLoading(false);
   };
 
   if (pageCount < 2) return;

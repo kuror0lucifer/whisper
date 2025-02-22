@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../redux/store';
-import { setUserEmail, setUserId } from '../../../redux/user/slice';
+import { setUserInfo } from '../../../redux/user/slice';
 
 export const LoginPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,10 +26,11 @@ export const LoginPage: FC = () => {
     try {
       const { email, password } = data;
       const res = await loginUser(email, password);
-      const { id, userEmail } = res;
+      const { id, userEmail, userName } = res;
 
-      dispatch(setUserId(id));
-      dispatch(setUserEmail(userEmail));
+      dispatch(
+        setUserInfo({ userName: userName, email: userEmail, userId: id })
+      );
       login();
     } catch (err) {
       if (err instanceof Error) {
@@ -42,7 +43,7 @@ export const LoginPage: FC = () => {
 
   return (
     <div className='w-full h-screen flex justify-center items-center bg-gray-200  '>
-      <div className='w-1/3 h-fit py-10 flex justify-center items-center flex-col gap-8 rounded-2xl shadow-2xl shadow-gray-600 bg-white '>
+      <div className='w-1/3 h-fit py-10 flex justify-center items-center flex-col gap-8 rounded-2xl shadow-2xl shadow-gray-600 bg-white animate-fade-in-scale'>
         <h2 className='text-2xl text-[#40364e]'>LOG IN</h2>
         <FormProvider {...methods}>
           <form

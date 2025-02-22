@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 interface GameCardProps {
   img: string;
@@ -17,9 +17,29 @@ export const GameCard: FC<GameCardProps> = ({
   className,
   //   discount,
 }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
-      className={`bg-white shadow-lg rounded-lg overflow-hidden w-85 h-85 hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-300 cursor-pointer ${className}`}
+      ref={cardRef}
+      className={`bg-white shadow-lg rounded-lg overflow-hidden w-85 h-85 hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-300 cursor-pointer ${className} z-10 ${
+        isVisible ? 'animate-appearance' : 'opacity-0'
+      }`}
     >
       <img
         src={img}

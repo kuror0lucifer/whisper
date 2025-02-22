@@ -8,7 +8,7 @@ import { registerUser } from '../api/registerRequests';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../redux/store';
-import { setUserEmail, setUserId } from '../../../redux/user/slice';
+import { setUserInfo } from '../../../redux/user/slice';
 
 export const RegisterPage: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -27,9 +27,8 @@ export const RegisterPage: FC = () => {
       const { email, password, confirmPassword } = data;
       const res = await registerUser(email, password, confirmPassword);
       const { id, userEmail } = res;
+      dispatch(setUserInfo({ userId: id, email: userEmail, userName: '' }));
       login();
-      dispatch(setUserId(id));
-      dispatch(setUserEmail(userEmail));
     } catch (err) {
       if (err instanceof Error) {
         setErrorMessage(err.message);
@@ -41,7 +40,7 @@ export const RegisterPage: FC = () => {
 
   return (
     <div className='w-full h-screen flex justify-center items-center bg-gray-200 '>
-      <div className='w-1/3 h-fit py-10 flex justify-center items-center flex-col gap-8 rounded-2xl shadow-2xl shadow-gray-600 bg-white'>
+      <div className='w-1/3 h-fit py-10 flex justify-center items-center flex-col gap-8 rounded-2xl shadow-2xl shadow-gray-600 bg-white animate-fade-in-scale'>
         <h2 className='text-2xl text-[#40364e]'>REGISTRATION</h2>
         <FormProvider {...methods}>
           <form

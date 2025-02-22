@@ -1,6 +1,7 @@
 import { FC } from 'react';
+import { IconProps } from '../types/iconProps.type';
 
-export const ClearInputIcon: FC = () => {
+export const ClearInputIcon: FC<IconProps> = () => {
   return (
     <svg
       width='30px'

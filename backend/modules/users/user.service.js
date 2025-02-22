@@ -43,7 +43,12 @@ class AuthService {
       { expiresIn: '1h' }
     );
 
-    return { token, id: user.id, userEmail: user.email };
+    return {
+      token,
+      id: user.id,
+      userEmail: user.email,
+      userName: user.name,
+    };
   }
 
   static async changeName(id, name) {

@@ -1,6 +1,7 @@
 import { FC } from 'react';
+import { IconProps } from '../types/iconProps.type';
 
-export const LogoIcon: FC = () => {
+export const LogoIcon: FC<IconProps> = () => {
   return (
     <svg
       fill='orange'
