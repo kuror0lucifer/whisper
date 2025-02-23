@@ -8,4 +8,5 @@ export interface Game {
   title: string;
   price: Price;
   availability: string;
+  description: string;
 }

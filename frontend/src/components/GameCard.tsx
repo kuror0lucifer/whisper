@@ -6,6 +6,7 @@ interface GameCardProps {
   salePrice: number;
   regPrice: number;
   className?: string;
+  onClick: () => void;
   //   discount: number;
 }
 
@@ -15,6 +16,7 @@ export const GameCard: FC<GameCardProps> = ({
   salePrice,
   regPrice,
   className,
+  onClick,
   //   discount,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -40,6 +42,7 @@ export const GameCard: FC<GameCardProps> = ({
       className={`bg-white shadow-lg rounded-lg overflow-hidden w-85 h-85 hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-300 cursor-pointer ${className} z-10 ${
         isVisible ? 'animate-appearance' : 'opacity-0'
       }`}
+      onClick={onClick}
     >
       <img
         src={img}

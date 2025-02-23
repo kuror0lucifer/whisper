@@ -23,7 +23,7 @@ class ApiService {
         if (error.response && error.response.data) {
           const responseData = error.response.data as { error?: string };
 
-          if (error.response?.status === 403) {
+          if (error.response?.status === 401) {
             const tokenExpired = responseData.error === 'Token expired';
 
             if (tokenExpired) {

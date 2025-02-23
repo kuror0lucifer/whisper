@@ -1,20 +1,28 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import gamesReducer from './games/slice';
+import gameReducer from './game/slice';
 import userReducer from './user/slice';
 import storage from 'redux-persist/lib/storage';
 
-const persistConfig = {
-  key: 'root',
+const userPersistConfig = {
+  key: 'user',
   storage,
 };
 
-const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const gamePersistConfig = {
+  key: 'game',
+  storage,
+};
+
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
+const persistedGameReducer = persistReducer(gamePersistConfig, gameReducer);
 
 export const store = configureStore({
   reducer: {
     games: gamesReducer,
     user: persistedUserReducer,
+    game: persistedGameReducer,
   },
 });
 
