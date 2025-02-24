@@ -56,7 +56,6 @@ class ApiService {
 
   async post<T>(route: string, data: T, config?: AxiosRequestConfig) {
     const headers = this.createHttpHeaders();
-    console.log(`POST ${route} with headers:`, headers);
 
     const response = await this.axiosInstance.post(route, data, {
       ...config,
