@@ -27,8 +27,8 @@ export const TgConnectionButton: FC = () => {
   const isTelegramLinked = useCallback(async () => {
     try {
       if (email) {
-        await tgCheckConnection(email);
-        setTgStatus(true);
+        const res = await tgCheckConnection(email);
+        setTgStatus(res.success);
       }
     } catch (err) {
       setTgStatus(false);
@@ -50,7 +50,10 @@ export const TgConnectionButton: FC = () => {
       <Button
         type='button'
         onClick={onClickConnect}
-        className='bg-red-500 hover:bg-red-700 text-white p-2 my-4 w-fit rounded-md transition-colors duration-300'
+        className={` text-white p-2 my-4 w-fit rounded-md transition-colors duration-300 ${
+          tgStatus ? 'bg-red-300' : 'bg-red-500 hover:bg-red-700'
+        }`}
+        disabled={!!tgStatus}
       >
         {tgStatus ? 'Telegram linked' : 'Connect telegram'}
       </Button>

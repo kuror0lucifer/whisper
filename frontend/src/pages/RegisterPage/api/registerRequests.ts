@@ -9,7 +9,7 @@ export const registerUser = async (
     if (password !== confirmPassword) {
       throw new Error('Passwords do not match');
     }
-    const response = await apiService.post('/users/registration', {
+    const response = await apiService.post('api/users/registration', {
       email,
       password,
     });

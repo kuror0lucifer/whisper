@@ -9,7 +9,7 @@ import axios, {
 class ApiService {
   private axiosInstance: AxiosInstance;
 
-  constructor(private baseURL: string = 'http://localhost:3000') {
+  constructor(private baseURL: string = 'http://localhost:3000/') {
     this.axiosInstance = axios.create({
       baseURL: this.baseURL,
       headers: {
@@ -23,7 +23,7 @@ class ApiService {
         if (error.response && error.response.data) {
           const responseData = error.response.data as { error?: string };
 
-          if (error.response?.status === 401) {
+          if (error.response?.status === 403) {
             const tokenExpired = responseData.error === 'Token expired';
 
             if (tokenExpired) {
@@ -45,7 +45,7 @@ class ApiService {
 
   private createHttpHeaders(): AxiosHeaders {
     const headers = new AxiosHeaders();
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('authToken');
 
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
@@ -56,6 +56,8 @@ class ApiService {
 
   async post<T>(route: string, data: T, config?: AxiosRequestConfig) {
     const headers = this.createHttpHeaders();
+    console.log(`POST ${route} with headers:`, headers);
+
     const response = await this.axiosInstance.post(route, data, {
       ...config,
       headers,
