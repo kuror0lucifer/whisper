@@ -13,6 +13,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { cleanTitle, cleanTitleForUrl } from '../utils/cleanTitle';
 import { Skeleton } from '../../../modules/games/components/Skeleton';
 import { Pagination } from '../../../components/Pagination';
+import { NoSearchResult } from '../../../components/NoSearchResult';
 
 export const GameList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -80,6 +81,7 @@ export const GameList: FC = () => {
                 title={cleanTitle(game.title)}
               />
             ))}
+            {games.length === 0 && <NoSearchResult />}
           </>
         )}
       </div>

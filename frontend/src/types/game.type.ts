@@ -9,4 +9,5 @@ export interface Game {
   price: Price;
   availability: string;
   description: string;
+  url: string;
 }

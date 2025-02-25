@@ -14,8 +14,8 @@ export const registerUser = async (
       password,
     });
 
-    localStorage.setItem('auth_token', response.data.token);
-    return response.data;
+    localStorage.setItem('auth_token', response.data.data.token);
+    return response;
   } catch {
     return 'Registration error';
   }

@@ -10,7 +10,7 @@ export class FavouritesService {
       where: { user_id: userId, game_id: nsuid },
     });
 
-    if (!gameInFavourites) {
+    if (gameInFavourites) {
       return {
         success: true,
       };

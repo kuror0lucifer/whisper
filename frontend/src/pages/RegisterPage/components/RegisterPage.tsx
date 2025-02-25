@@ -19,14 +19,15 @@ export const RegisterPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (isAuth) navigate('/');
+    if (isAuth) navigate('/all-discounts');
   }, [isAuth, navigate]);
 
   const onSubmit: SubmitHandler<IForm> = async data => {
     try {
       const { email, password, confirmPassword } = data;
       const res = await registerUser(email, password, confirmPassword);
-      const { id, userEmail } = res;
+      console.log(res);
+      const { id, userEmail } = res.data.data.user;
       dispatch(setUserInfo({ userId: id, email: userEmail, userName: '' }));
       login();
     } catch (err) {

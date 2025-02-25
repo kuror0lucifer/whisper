@@ -59,7 +59,7 @@ export class UsersService {
         token,
         user: {
           id: newUser.id,
-          userEmail: newUser.email,
+          userEmail: newUser.dataValues.email,
         },
       },
     };

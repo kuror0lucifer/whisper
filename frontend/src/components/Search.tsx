@@ -12,13 +12,14 @@ import {
 } from '../redux/games/slice';
 import { ClearInputIcon } from './icons/ClearInputIcon';
 import { AppDispatch } from '../redux/store';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { selectCurrentPage, selectQuery } from '../redux/games/selectors';
 
 export const Search: FC = () => {
   const methods = useForm();
   const { getValues, setValue } = methods;
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = useSelector(selectQuery);
@@ -49,12 +50,11 @@ export const Search: FC = () => {
     dispatch(setStatus('loading'));
     dispatch(setQuery(searchQuery));
     dispatch(setCurrentPage(0));
-    dispatch(fetchGames({ page: 0, itemsPerPage: 20 }));
-    dispatch(setStatus('idle'));
 
     try {
       const page = 0;
       const itemsPerPage = 20;
+      navigate(`/all-discounts?search=${searchQuery}&page=${page + 1}`);
       dispatch(fetchGames({ page, itemsPerPage }));
       dispatch(setStatus('idle'));
     } catch {

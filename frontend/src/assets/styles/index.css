@@ -36,9 +36,9 @@
 }
 
 *::selection {
-  background: #fff2a8;
+  background: #ffc0cb;
 }
 
 *::-moz-selection {
-  background: #fff2a8;
+  background: #ffc0cb;
 }

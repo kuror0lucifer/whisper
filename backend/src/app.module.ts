@@ -13,7 +13,7 @@ import { AuthenticationMiddleware } from "./middleware/authentication.middleware
     JwtModule.register({
       global: true,
       secret: "cf934n4y8vy7so8",
-      signOptions: { expiresIn: "2 days" },
+      signOptions: { expiresIn: "30s" },
     }),
     ConfigModule.forRoot({
       envFilePath: "./env/.env",

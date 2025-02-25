@@ -19,7 +19,7 @@ export const LoginPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (isAuth) navigate('/');
+    if (isAuth) navigate('/all-discounts');
   }, [isAuth, navigate]);
 
   const onSubmit: SubmitHandler<IForm> = async data => {
