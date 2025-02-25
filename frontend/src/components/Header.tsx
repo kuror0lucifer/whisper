@@ -13,7 +13,7 @@ export const Header: FC<HeaderProps> = ({ isAuth }) => {
     <header className='sticky bg-white text-gray-700 py-4 px-6 shadow-2xl shadow-gray-500 border-b-gray-500'>
       <div className='flex justify-between items-center'>
         <Link
-          to='/'
+          to='/all-discounts'
           className='text-2xl font-semibold flex justify-around items-center gap-3'
         >
           <div className='rounded-full w-[30px] h-[30px] bg-white flex justify-center items-center border-[1px]'>

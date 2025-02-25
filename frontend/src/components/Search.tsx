@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
@@ -11,20 +11,47 @@ import {
   setStatus,
 } from '../redux/games/slice';
 import { ClearInputIcon } from './icons/ClearInputIcon';
-import { AppDispatch, RootState } from '../redux/store';
+import { AppDispatch } from '../redux/store';
+import { useSearchParams } from 'react-router-dom';
+import { selectCurrentPage, selectQuery } from '../redux/games/selectors';
 
 export const Search: FC = () => {
   const methods = useForm();
   const { getValues, setValue } = methods;
   const dispatch = useDispatch<AppDispatch>();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const query = useSelector((state: RootState) => state.games.query);
+  const query = useSelector(selectQuery);
+  const currentPage = useSelector(selectCurrentPage);
+
+  useEffect(() => {
+    const urlQuery = searchParams.get('search') || '';
+    const page = Number(searchParams.get('page')) || 1;
+
+    if (urlQuery !== query) {
+      dispatch(setQuery(urlQuery));
+      setValue('search', urlQuery);
+    }
+
+    if (page !== currentPage + 1) {
+      dispatch(setCurrentPage(page - 1));
+    }
+
+    dispatch(fetchGames({ page: page - 1, itemsPerPage: 20 }));
+  }, [currentPage, dispatch, setValue, query, searchParams]);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     const searchQuery = getValues('search');
+
+    setSearchParams({ search: searchQuery, page: '1' });
+
     dispatch(setStatus('loading'));
     dispatch(setQuery(searchQuery));
+    dispatch(setCurrentPage(0));
+    dispatch(fetchGames({ page: 0, itemsPerPage: 20 }));
+    dispatch(setStatus('idle'));
+
     try {
       const page = 0;
       const itemsPerPage = 20;
@@ -40,6 +67,7 @@ export const Search: FC = () => {
   };
 
   const goToFirstPage = () => {
+    setSearchParams({ page: '1' });
     dispatch(setCurrentPage(0));
   };
 

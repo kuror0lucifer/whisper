@@ -8,7 +8,7 @@ export const Error: FC = () => {
         size={100}
         color='red'
       />
-      <h2 className='font-bold text-3xl'>This game not found</h2>
+      <h2 className='font-bold text-3xl'>This game was not found</h2>
     </div>
   );
 };

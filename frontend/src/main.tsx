@@ -29,7 +29,11 @@ createRoot(document.getElementById('root')!).render(
             <StrictMode>
               <Routes>
                 <Route
-                  path='*'
+                  path='/all-discounts'
+                  element={<App />}
+                />
+                <Route
+                  path='/all-discounts/search/:query?/page/:page?'
                   element={<App />}
                 />
                 <Route
