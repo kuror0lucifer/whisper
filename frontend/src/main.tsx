@@ -49,7 +49,7 @@ createRoot(document.getElementById('root')!).render(
                   element={<ProfilePage />}
                 />
                 <Route
-                  path='/game/:nsuid'
+                  path='/game/:nsuid/:title'
                   element={<GamePage />}
                 />
               </Routes>

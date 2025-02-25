@@ -7,10 +7,11 @@ import { fetchCurrentGame } from '../api/fetchCurrentGame';
 import { resetGameData, setGameData } from '../../../redux/game/slice';
 import { Spinner } from '../../../UI/Spinner';
 import { Error } from '../../../components/Error';
+import { AxiosError } from 'axios';
 
 export const GamePageContent: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { nsuid } = useParams();
   const dispatch = useDispatch();
   const gameData = useSelector(selectGameData);
@@ -18,12 +19,12 @@ export const GamePageContent: FC = () => {
   const currentGame = useCallback(async () => {
     try {
       if (nsuid) {
-        const res = await fetchCurrentGame(nsuid);
+        const res = await fetchCurrentGame(String(nsuid));
         if (res) dispatch(setGameData(res[0]));
         setIsLoading(true);
       }
-    } catch (err: unknown) {
-      if (err instanceof Error) {
+    } catch (err) {
+      if (err instanceof AxiosError) {
         setErrorMessage(err.message);
       } else {
         setErrorMessage('Failed to load game data');
