@@ -1,3 +1,4 @@
+import { EshopDetails } from './eshopDetails.type';
 import { Price } from './price.type';
 
 export interface Game {
@@ -10,4 +11,9 @@ export interface Game {
   availability: string;
   description: string;
   url: string;
+  playModes: string[];
+  playerCount: string;
+  releaseDate: Date;
+  eshopDetails: EshopDetails;
+  genres: string[];
 }

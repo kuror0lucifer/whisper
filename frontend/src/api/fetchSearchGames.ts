@@ -16,7 +16,10 @@ export const fetchGamesFromSearch = async (
             ...(value ? {} : { filters: 'price.salePrice>0' }),
             page: page.toString(),
             hitsPerPage: itemsPerPage.toString(),
-            facetFilters: JSON.stringify(['topLevelCategory:Games']),
+            facetFilters: JSON.stringify([
+              'topLevelCategory:Games',
+              'nsuid:-MOBILE',
+            ]),
           }).toString(),
         },
       ],

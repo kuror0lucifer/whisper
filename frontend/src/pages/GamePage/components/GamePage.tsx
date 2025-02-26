@@ -6,7 +6,7 @@ import { GamePageContent } from './GamePageContent';
 export const GamePage: FC = () => {
   const { isAuth } = useAuth();
   return (
-    <div className='w-full h-screen '>
+    <div className='w-full h-screen'>
       <Header isAuth={isAuth} />
       <GamePageContent />
     </div>

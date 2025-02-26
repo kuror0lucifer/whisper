@@ -54,7 +54,8 @@ export const Search: FC = () => {
     try {
       const page = 0;
       const itemsPerPage = 20;
-      navigate(`/all-discounts?search=${searchQuery}&page=${page + 1}`);
+      const searchQueryToUrl = searchQuery.split(' ').join('+');
+      navigate(`/all-discounts?search=${searchQueryToUrl}&page=${page + 1}`);
       dispatch(fetchGames({ page, itemsPerPage }));
       dispatch(setStatus('idle'));
     } catch {

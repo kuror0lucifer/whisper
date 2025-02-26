@@ -8,8 +8,11 @@ import { resetGameData, setGameData } from '../../../redux/game/slice';
 import { Spinner } from '../../../UI/Spinner';
 import { Error } from '../../../components/Error';
 import { AxiosError } from 'axios';
-import { WishlistButton } from '../../../modules/wishlist/components/wishlistButton';
+import { WishlistButton } from '../../../modules/wishlist/components/WishlistButton';
 import { PriceButton } from './PriceButton';
+import { PlayModes } from './PlayModes';
+import { GameInfo } from './GameInfo';
+import { cleanTitle } from '../../../modules/games/utils/cleanTitle';
 
 export const GamePageContent: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -54,14 +57,17 @@ export const GamePageContent: FC = () => {
   return (
     <div className='w-full min-h-screen p-10 flex flex-col gap-4 bg-linear-to-b from-gray-100 to-blue-200'>
       {errorMessage && <span>{errorMessage}</span>}
-      <h2 className='font-bold text-2xl'>{gameData.game.title}</h2>
-      <div className='w-full flex justify-between items-start gap-5'>
+      <h2 className='font-bold text-3xl animate-appearance'>
+        {cleanTitle(gameData.game.title)}
+      </h2>
+      <div className='w-full flex justify-between items-start gap-5 overflow-hidden animate-appearance'>
         <img
           src={baseImgURL + gameData.game.productImage}
-          alt=''
-          className='w-150 h-auto object-cover hover:scale-105 transition-transform duration-300'
+          alt={gameData.game.title}
+          className='min-w-150 max-w-1/2 h-auto object-cover rounded-xl'
         />
-        <div className='w-1/2 flex flex-col gap-5'>
+
+        <div className='w-1/2 flex flex-col gap-5 animate-appearance'>
           <p className='text-xl'>
             {gameData.game.description || 'No description yet'}
           </p>
@@ -69,10 +75,19 @@ export const GamePageContent: FC = () => {
             <WishlistButton />
             <PriceButton
               link={gameData.game.url}
-              price={gameData.game.price.finalPrice}
+              price={gameData.game.price}
             />
           </div>
         </div>
+      </div>
+      <div className='flex justify-between items-start gap-5 animate-appearance'>
+        <GameInfo
+          eshopDetails={gameData.game.eshopDetails}
+          releaseDate={gameData.game.releaseDate}
+          genres={gameData.game.genres}
+          playerCount={gameData.game.playerCount}
+        />
+        <PlayModes playModes={gameData.game.playModes} />
       </div>
     </div>
   );
