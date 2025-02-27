@@ -15,7 +15,7 @@ export const LogoutButton: FC = () => {
     logout();
     dispatch(setUserInfo({ id: null, email: null, userName: '' }));
 
-    navigate('/');
+    navigate('/all-discounts');
   };
 
   return (

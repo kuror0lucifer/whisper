@@ -26,10 +26,15 @@ export const LoginPage: FC = () => {
     try {
       const { email, password } = data;
       const res = await loginUser(email, password);
-      const { id, userEmail, userName } = res.data.user;
+      const { id, userEmail, userName, avatar } = res.data.user;
 
       dispatch(
-        setUserInfo({ userName: userName, email: userEmail, userId: id })
+        setUserInfo({
+          userName: userName,
+          email: userEmail,
+          userId: id,
+          avatar: avatar,
+        })
       );
       login();
     } catch (err) {

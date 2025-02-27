@@ -57,6 +57,10 @@ class ApiService {
   async post<T>(route: string, data: T, config?: AxiosRequestConfig) {
     const headers = this.createHttpHeaders();
 
+    if (data instanceof FormData) {
+      headers['Content-Type'] = 'multipart/form-data';
+    }
+
     const response = await this.axiosInstance.post(route, data, {
       ...config,
       headers,

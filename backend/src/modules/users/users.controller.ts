@@ -1,4 +1,12 @@
-import { Body, Controller, Patch, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Param,
+  Patch,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from "@nestjs/common";
 import { UsersService } from "./users.service";
 import {
   ChangeNameDto,
@@ -6,6 +14,8 @@ import {
   TgCheckDto,
   TgGenerateTokenDto,
 } from "src/dtos/user.dto";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { multerConfig } from "src/config/multer.config";
 
 @Controller("/users")
 export class UsersController {
@@ -37,5 +47,14 @@ export class UsersController {
   @Post("/tg-check")
   public tgCheck(@Body() tgCheckDto: TgCheckDto) {
     return this.usersService.tgCheck(tgCheckDto.email);
+  }
+
+  @Post("avatar/:userId")
+  @UseInterceptors(FileInterceptor("avatar", multerConfig))
+  async uploadAvatar(
+    @Param("userId") userId: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.usersService.changeAvatar(userId, file);
   }
 }

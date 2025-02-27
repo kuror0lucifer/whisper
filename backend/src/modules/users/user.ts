@@ -15,4 +15,6 @@ export class User extends Model {
   telegram_id: number;
   @Column(DataTypes.STRING)
   name: string;
+  @Column(DataTypes.STRING)
+  avatar: string;
 }

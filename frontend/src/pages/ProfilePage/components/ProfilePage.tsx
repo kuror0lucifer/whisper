@@ -25,7 +25,7 @@ export const ProfilePage: FC = () => {
 
   useEffect(() => {
     if (!isAuth) {
-      navigate('/');
+      navigate('/all-discounts');
     }
   }, [isAuth, navigate]);
 
@@ -48,7 +48,7 @@ export const ProfilePage: FC = () => {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      <main className='w-full min-h-screen ml-[20%] '>
+      <main className='w-full min-h-screen ml-[20%]'>
         {activeTab === 'settings' && <ProfileSettingsContent />}
         {activeTab === 'wishlist' && <Wishlist />}
         {activeTab === 'friends' && <Friends />}

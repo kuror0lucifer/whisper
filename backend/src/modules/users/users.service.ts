@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { User } from "./user";
 import { compare, hash } from "bcrypt";
 import { ResetPasswordDto } from "src/dtos/user.dto";
 import { Op } from "sequelize";
 import { generateToken } from "src/utils/generateToken";
+import { extname } from "path";
 
 @Injectable()
 export class UsersService {
@@ -32,6 +37,7 @@ export class UsersService {
           id: user.id,
           userEmail: user.email,
           userName: user.name,
+          avatar: user.avatar,
         },
       },
     };
@@ -118,5 +124,32 @@ export class UsersService {
         success: true,
       };
     }
+  }
+
+  public async changeAvatar(userId: number, file: Express.Multer.File) {
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException("User was not found");
+    }
+
+    if (!file) {
+      throw new BadRequestException("File was not upload");
+    }
+
+    if (!["image/jpeg", "image/png"].includes(file.mimetype)) {
+      throw new BadRequestException("Invalid file type");
+    }
+
+    const avatarPath = `./public/${userId}/avatar${extname(file.originalname)}`;
+
+    await User.update({ avatar: avatarPath }, { where: { id: userId } });
+
+    return {
+      success: true,
+      data: {
+        avatar: avatarPath,
+      },
+    };
   }
 }

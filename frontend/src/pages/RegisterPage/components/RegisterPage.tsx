@@ -26,7 +26,6 @@ export const RegisterPage: FC = () => {
     try {
       const { email, password, confirmPassword } = data;
       const res = await registerUser(email, password, confirmPassword);
-      console.log(res);
       const { id, userEmail } = res.data.data.user;
       dispatch(setUserInfo({ userId: id, email: userEmail, userName: '' }));
       login();
