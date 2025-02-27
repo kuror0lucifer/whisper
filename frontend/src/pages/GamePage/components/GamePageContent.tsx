@@ -80,7 +80,7 @@ export const GamePageContent: FC = () => {
           </div>
         </div>
       </div>
-      <div className='flex justify-between items-start gap-5 animate-appearance'>
+      <div className='w-full h-auto flex justify-between items-start gap-5 animate-appearance'>
         <GameInfo
           eshopDetails={gameData.game.eshopDetails}
           releaseDate={gameData.game.releaseDate}

@@ -27,7 +27,7 @@ export const GameInfo: FC<GameInfoProps> = ({
     : null;
 
   return (
-    <div className='w-full h-fit py-5 px-15 flex flex-col justify-between items-center bg-gray-200 rounded-xl text-xl shadow-2xl shadow-gray-400'>
+    <div className='w-full h-fit py-5 px-10 flex flex-col justify-between items-center bg-white rounded-xl text-xl shadow-2xl shadow-gray-400'>
       {genres && genres.length > 0 && (
         <InfoRow
           icon={<GamepadIcon size={30} />}
