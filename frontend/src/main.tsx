@@ -74,7 +74,7 @@ createRoot(document.getElementById('root')!).render(
                   />
                 </Route>
                 <Route
-                  path='settings'
+                  path='/game/:nsuid/:title'
                   element={<GamePage />}
                 />
               </Routes>

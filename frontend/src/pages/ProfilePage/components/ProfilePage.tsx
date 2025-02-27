@@ -17,7 +17,7 @@ export const ProfilePage: FC = () => {
     const path = location.pathname.split('/')[2];
     return path === 'wishlist' || path === 'friends' || path === 'settings'
       ? path
-      : '';
+      : 'home';
   };
 
   const [activeTab, setActiveTab] =
@@ -43,14 +43,16 @@ export const ProfilePage: FC = () => {
   }, [activeTab, navigate]);
 
   return (
-    <div className='w-full h-screen flex items-start justify-baseline gap-3 bg-linear-to-br from-gray-100 to-blue-200'>
+    <div className='w-full min-h-screen max-h-fit flex items-start justify-baseline gap-3 bg-linear-to-br from-gray-100 to-blue-200'>
       <Aside
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      {activeTab === 'settings' && <ProfileSettingsContent />}
-      {activeTab === 'wishlist' && <Wishlist />}
-      {activeTab === 'friends' && <Friends />}
+      <main className='w-full min-h-screen ml-[20%] '>
+        {activeTab === 'settings' && <ProfileSettingsContent />}
+        {activeTab === 'wishlist' && <Wishlist />}
+        {activeTab === 'friends' && <Friends />}
+      </main>
     </div>
   );
 };

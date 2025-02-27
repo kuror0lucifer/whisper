@@ -1,4 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
+import { cleanTitleForUrl } from '../modules/games/utils/cleanTitle';
+import { useNavigate } from 'react-router-dom';
 
 interface GameCardProps {
   img: string;
@@ -6,8 +8,7 @@ interface GameCardProps {
   salePrice: number;
   regPrice: number;
   className?: string;
-  onClick: () => void;
-  //   discount: number;
+  nsuid: string;
 }
 
 export const GameCard: FC<GameCardProps> = ({
@@ -16,11 +17,11 @@ export const GameCard: FC<GameCardProps> = ({
   salePrice,
   regPrice,
   className,
-  onClick,
-  //   discount,
+  nsuid,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,13 +37,17 @@ export const GameCard: FC<GameCardProps> = ({
     return () => observer.disconnect();
   }, []);
 
+  const onClickGameCard = () => {
+    navigate(`/game/${nsuid}/${cleanTitleForUrl(title)}`);
+  };
+
   return (
     <div
       ref={cardRef}
+      onClick={onClickGameCard}
       className={`bg-white shadow-lg rounded-lg overflow-hidden w-85 h-85 hover:-translate-y-2.5 hover:shadow-2xl transition-all duration-300 cursor-pointer ${className} z-10 ${
         isVisible ? 'animate-appearance' : 'opacity-0'
       }`}
-      onClick={onClick}
     >
       <img
         src={img}

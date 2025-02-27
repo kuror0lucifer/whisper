@@ -1,1 +1,1 @@
-export type ActiveTabType = 'settings' | 'wishlist' | 'friends';
+export type ActiveTabType = 'settings' | 'wishlist' | 'friends' | 'home';

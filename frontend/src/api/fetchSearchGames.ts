@@ -1,5 +1,5 @@
-import { Game } from '../types/game.type';
 import axios from 'axios';
+import { Game } from '../types/game.type';
 
 export const fetchGamesFromSearch = async (
   value: string,

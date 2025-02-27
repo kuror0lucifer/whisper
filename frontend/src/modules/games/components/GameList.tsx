@@ -9,8 +9,8 @@ import {
   setStatus,
 } from '../../../redux/games/slice';
 import { AppDispatch, RootState } from '../../../redux/store';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { cleanTitle, cleanTitleForUrl } from '../utils/cleanTitle';
+import { useSearchParams } from 'react-router-dom';
+import { cleanTitle } from '../utils/cleanTitle';
 import { Skeleton } from '../../../modules/games/components/Skeleton';
 import { Pagination } from '../../../components/Pagination';
 import { NoSearchResult } from '../../../components/NoSearchResult';
@@ -22,7 +22,6 @@ export const GameList: FC = () => {
     (state: RootState) => state.games
   );
   const currentSearch = useSelector(selectQuery);
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const itemsPerPage = 20;
 
@@ -69,16 +68,12 @@ export const GameList: FC = () => {
           <>
             {games?.map(game => (
               <GameCard
-                onClick={() =>
-                  navigate(
-                    `/game/${game.nsuid}/${cleanTitleForUrl(game.title)}`
-                  )
-                }
                 key={game.objectID}
                 img={baseImgURL + game.productImage}
                 salePrice={game.price?.salePrice}
                 regPrice={game.price?.regPrice}
                 title={cleanTitle(game.title)}
+                nsuid={game.nsuid}
               />
             ))}
             {games.length === 0 && <NoSearchResult />}
