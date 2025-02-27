@@ -14,6 +14,9 @@ import { ProfilePage } from './pages/ProfilePage/components/ProfilePage.tsx';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './redux/store.ts';
 import { GamePage } from './pages/GamePage/components/GamePage.tsx';
+import { ProfileSettingsContent } from './pages/ProfilePage/pages/SettingsPage/components/ProfileSettingsContent.tsx';
+import { Wishlist } from './pages/ProfilePage/pages/WishlistPage/components/Wishlist.tsx';
+import { Friends } from './pages/ProfilePage/pages/FriendsPage/components/Friends.tsx';
 
 const queryClient = new QueryClient();
 
@@ -47,9 +50,31 @@ createRoot(document.getElementById('root')!).render(
                 <Route
                   path='/profile'
                   element={<ProfilePage />}
-                />
+                >
+                  <Route
+                    index
+                    element={null}
+                  />
+                  <Route
+                    path='settings'
+                    element={<ProfileSettingsContent />}
+                  />
+                  <Route
+                    path='wishlist'
+                    element={<Wishlist />}
+                  />
+                  <Route
+                    path='friends'
+                    element={<Friends />}
+                  />
+
+                  <Route
+                    path='*'
+                    element={<ProfilePage />}
+                  />
+                </Route>
                 <Route
-                  path='/game/:nsuid/:title'
+                  path='settings'
                   element={<GamePage />}
                 />
               </Routes>

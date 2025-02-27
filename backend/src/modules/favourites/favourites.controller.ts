@@ -1,6 +1,10 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { FavouritesService } from "./favourites.service";
-import { AddToFavouritesDto, CheckGameDto } from "src/dtos/favourites.dto";
+import {
+  AddToFavouritesDto,
+  CheckGameDto,
+  GetFavouritesDto,
+} from "src/dtos/favourites.dto";
 
 @Controller("favourites")
 export class FavouritesController {
@@ -19,5 +23,10 @@ export class FavouritesController {
       addToFavouritesDto.userId,
       addToFavouritesDto.nsuid,
     );
+  }
+
+  @Post("get-favourites")
+  public getFavouritesGames(@Body() getFavouritesDto: GetFavouritesDto) {
+    return this.favouritesService.getFavourites(getFavouritesDto.userId);
   }
 }

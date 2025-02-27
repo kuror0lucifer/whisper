@@ -1,9 +1,9 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { Button } from '../../../UI/Button';
-import { tgConnection } from '../api/TgConnection';
 import { useSelector } from 'react-redux';
-import { selectUserData } from '../../../redux/user/selectors';
+import { selectUserData } from '../../../../../redux/user/selectors';
+import { tgConnection } from '../api/TgConnection';
 import { tgCheckConnection } from '../api/TgCheck';
+import { Button } from '../../../../../UI/Button';
 
 export const TgConnectionButton: FC = () => {
   const [tgStatus, setTgStatus] = useState<boolean | null>(null);

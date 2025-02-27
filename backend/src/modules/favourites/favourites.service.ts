@@ -35,4 +35,15 @@ export class FavouritesService {
       success: true,
     };
   }
+
+  public async getFavourites(userId: number) {
+    const favourites = await Favourites.findAll({ where: { user_id: userId } });
+
+    const gameIds = favourites.map((fav) => fav.game_id);
+
+    return {
+      success: true,
+      gameIds,
+    };
+  }
 }

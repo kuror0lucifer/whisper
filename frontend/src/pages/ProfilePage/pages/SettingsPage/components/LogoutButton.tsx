@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../redux/store';
-import { setUserInfo } from '../../../redux/user/slice';
-import { useAuth } from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../../../UI/Button';
+import { AppDispatch } from '../../../../../redux/store';
+import { useAuth } from '../../../../../hooks/useAuth';
+import { setUserInfo } from '../../../../../redux/user/slice';
+import { Button } from '../../../../../UI/Button';
 
 export const LogoutButton: FC = () => {
   const navigate = useNavigate();

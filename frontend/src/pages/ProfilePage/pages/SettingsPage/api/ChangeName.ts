@@ -1,4 +1,4 @@
-import apiService from '../../../api/apiService';
+import apiService from '../../../../../api/apiService';
 
 export const changeName = async (id: number, userName: string) => {
   try {

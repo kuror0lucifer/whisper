@@ -1,4 +1,4 @@
-import apiService from '../../../api/apiService';
+import apiService from '../../../../../api/apiService';
 
 export const tgCheckConnection = async (email: string) => {
   try {

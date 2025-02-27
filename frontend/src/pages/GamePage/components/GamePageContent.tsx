@@ -55,7 +55,7 @@ export const GamePageContent: FC = () => {
   }
 
   return (
-    <div className='w-full min-h-screen p-10 flex flex-col gap-4 bg-linear-to-b from-gray-100 to-blue-200'>
+    <div className='w-full min-h-screen p-10 flex flex-col gap-4 bg-linear-to-br from-gray-100 to-blue-200'>
       {errorMessage && <span>{errorMessage}</span>}
       <h2 className='font-bold text-3xl animate-appearance'>
         {cleanTitle(gameData.game.title)}

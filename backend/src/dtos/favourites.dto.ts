@@ -19,3 +19,9 @@ export class AddToFavouritesDto {
   @IsNotEmpty()
   public nsuid: string;
 }
+
+export class GetFavouritesDto {
+  @IsNumber()
+  @IsNotEmpty()
+  public userId: number;
+}

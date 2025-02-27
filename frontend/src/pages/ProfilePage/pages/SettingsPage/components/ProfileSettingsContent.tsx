@@ -1,9 +1,12 @@
 import { FC } from 'react';
-import { LogoutButton } from './LogoutButton';
-import { TgConnectionButton } from './TgConnectionButton';
 import { useSelector } from 'react-redux';
-import { selectUserEmail, selectUserName } from '../../../redux/user/selectors';
+import {
+  selectUserEmail,
+  selectUserName,
+} from '../../../../../redux/user/selectors';
+import { TgConnectionButton } from './TgConnectionButton';
 import { ChangeNameInput } from './ChangeNameInput';
+import { LogoutButton } from './LogoutButton';
 
 export const ProfileSettingsContent: FC = () => {
   const userEmail = useSelector(selectUserEmail);
