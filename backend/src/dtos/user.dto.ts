@@ -30,6 +30,16 @@ export class ChangeNameDto {
   public userName: string;
 }
 
+export class ChangeDescriptionDto {
+  @IsString()
+  @IsNotEmpty()
+  public description: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  public userId: number;
+}
+
 export class TgGenerateTokenDto {
   @IsNumber()
   @IsNotEmpty()

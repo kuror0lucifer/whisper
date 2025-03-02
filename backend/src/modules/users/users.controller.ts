@@ -9,6 +9,7 @@ import {
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import {
+  ChangeDescriptionDto,
   ChangeNameDto,
   LoginDto,
   TgCheckDto,
@@ -31,14 +32,20 @@ export class UsersController {
     return this.usersService.login(loginDto.email, loginDto.password);
   }
 
-  @Patch("/changeName")
+  @Patch("/change-name")
   public changeName(@Body() changeNameDto: ChangeNameDto) {
     return this.usersService.changeName(
       changeNameDto.id,
       changeNameDto.userName,
     );
   }
-
+  @Post("/change-description")
+  public changeDescription(@Body() changeDescriptionDto: ChangeDescriptionDto) {
+    return this.usersService.changeDescription(
+      changeDescriptionDto.userId,
+      changeDescriptionDto.description,
+    );
+  }
   @Post("/generate-token")
   public generateToken(@Body() tgGenerateTokenDto: TgGenerateTokenDto) {
     return this.usersService.generateTgToken(tgGenerateTokenDto.userId);

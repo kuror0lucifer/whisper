@@ -16,5 +16,7 @@ export class User extends Model {
   @Column(DataTypes.STRING)
   name: string;
   @Column(DataTypes.STRING)
+  description: string;
+  @Column(DataTypes.STRING)
   avatar: string;
 }

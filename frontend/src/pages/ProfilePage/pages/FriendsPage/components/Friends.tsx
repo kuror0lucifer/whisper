@@ -1,5 +1,5 @@
 import { FC } from 'react';
 
 export const Friends: FC = () => {
-  return <div>Friends</div>;
+  return <div className='animate-fade-in-scale'>Friends</div>;
 };

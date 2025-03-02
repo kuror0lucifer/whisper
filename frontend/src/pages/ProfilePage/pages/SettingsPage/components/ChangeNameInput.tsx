@@ -40,11 +40,11 @@ export const ChangeNameInput: FC = () => {
   return (
     <FormProvider {...methods}>
       <form
-        className='w-full h-fit flex flex-col justify-baseline items-start'
+        className='w-full h-fit flex flex-col justify-baseline items-center'
         onSubmit={handleSubmit(onSubmit)}
       >
         <label className='text-xl'>Change name</label>
-        <div className='w-full flex flex-row justify-center items-center gap-2'>
+        <div className='w-1/2 flex flex-row justify-center items-center gap-2'>
           <Input
             name='userName'
             placeholder='You can change your name'

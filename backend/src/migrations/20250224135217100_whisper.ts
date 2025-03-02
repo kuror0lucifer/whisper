@@ -28,6 +28,10 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       type: "varchar",
       notNull: false,
     },
+    description: {
+      type: "varchar",
+      notNull: false,
+    },
   });
 
   pgm.createTable("favourites", {

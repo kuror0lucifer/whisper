@@ -47,11 +47,12 @@ export const TgConnectionButton: FC = () => {
 
   return (
     <>
+      <label className='text-xl'>Connect your telegram</label>
       <Button
         type='button'
         onClick={onClickConnect}
-        className={` text-white p-2 my-4 w-fit rounded-md transition-colors duration-300 ${
-          tgStatus ? 'bg-red-300' : 'bg-red-500 hover:bg-red-700'
+        className={` text-white p-2 mb-4 w-fit rounded-md transition-colors duration-300 ${
+          tgStatus ? 'bg-pink-300' : 'bg-pink-500 hover:bg-pink-700'
         }`}
         disabled={!!tgStatus}
       >

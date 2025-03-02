@@ -2,7 +2,7 @@ import apiService from '../../../../../api/apiService';
 
 export const changeName = async (id: number, userName: string) => {
   try {
-    const response = await apiService.patch('api/users/changeName', {
+    const response = await apiService.patch('api/users/change-name', {
       id,
       userName,
     });

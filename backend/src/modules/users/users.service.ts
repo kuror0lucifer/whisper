@@ -76,12 +76,29 @@ export class UsersService {
     if (!user) {
       throw new BadRequestException("User not found");
     }
-    const userName = await User.update({ name: name }, { where: { id: id } });
+    await User.update({ name: name }, { where: { id: id } });
 
     return {
       success: true,
       data: {
-        userName,
+        name: name,
+      },
+    };
+  }
+
+  public async changeDescription(id: number, description: string) {
+    const user = await User.findOne({ where: { id } });
+
+    if (!user) {
+      throw new BadRequestException("User not found");
+    }
+
+    await User.update({ description: description }, { where: { id: id } });
+
+    return {
+      success: true,
+      data: {
+        description: description,
       },
     };
   }

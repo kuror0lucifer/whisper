@@ -1,0 +1,36 @@
+import { FC, useState } from 'react';
+import { TextArea } from '../../../../../components/TextArea';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserId } from '../../../../../redux/user/selectors';
+import { changeDescription } from '../api/ChangeDescriptioin';
+import { setUserDescription } from '../../../../../redux/user/slice';
+
+export const ChangeDescription: FC = () => {
+  const userId = useSelector(selectUserId);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [description, setDescription] = useState('');
+
+  const dispatch = useDispatch();
+
+  const handleChangeDescription = async () => {
+    try {
+      if (userId) {
+        const res = await changeDescription(userId, description);
+        dispatch(setUserDescription(res.data.description));
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      }
+    }
+  };
+
+  return (
+    <TextArea
+      label='Description'
+      textAreaContent={description}
+      onChange={value => setDescription(value)}
+      onBlur={handleChangeDescription}
+    />
+  );
+};
