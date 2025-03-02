@@ -26,11 +26,14 @@ export const ChangeDescription: FC = () => {
   };
 
   return (
-    <TextArea
-      label='Description'
-      textAreaContent={description}
-      onChange={value => setDescription(value)}
-      onBlur={handleChangeDescription}
-    />
+    <>
+      <TextArea
+        label='Description'
+        textAreaContent={description}
+        onChange={value => setDescription(value)}
+        onBlur={handleChangeDescription}
+      />
+      {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
+    </>
   );
 };

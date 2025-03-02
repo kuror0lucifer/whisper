@@ -6,7 +6,7 @@ import {
   selectUserAvatar,
   selectUserId,
 } from '../../../../../redux/user/selectors';
-import { setUserAvatar, setUserInfo } from '../../../../../redux/user/slice';
+import { setUserAvatar } from '../../../../../redux/user/slice';
 
 export const Avatar: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -44,26 +44,29 @@ export const Avatar: FC = () => {
   };
 
   return (
-    <label
-      htmlFor='avatar'
-      className='relative w-50 h-50 rounded-full bg-white flex items-center justify-center overflow-hidden cursor-pointer'
-    >
-      <img
-        src={avatar || defaultAvatar}
-        alt='Avatar'
-        className='w-full h-full object-cover'
-      />
-      <input
-        type='file'
-        id='avatar'
-        name='avatar'
-        accept='image/jpeg, image/png'
-        className='hidden'
-        onChange={handleFileChange}
-      />
-      <div className='absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 text-white text-sm opacity-0 transition-opacity hover:opacity-90 duration-200'>
-        Загрузить аватар
-      </div>
-    </label>
+    <>
+      <label
+        htmlFor='avatar'
+        className='relative w-50 h-50 rounded-full bg-white flex items-center justify-center overflow-hidden cursor-pointer'
+      >
+        <img
+          src={avatar || defaultAvatar}
+          alt='Avatar'
+          className='w-full h-full object-cover'
+        />
+        <input
+          type='file'
+          id='avatar'
+          name='avatar'
+          accept='image/jpeg, image/png'
+          className='hidden'
+          onChange={handleFileChange}
+        />
+        <div className='absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 text-white text-sm opacity-0 transition-opacity hover:opacity-90 duration-200'>
+          <span>Загрузить аватар</span>
+        </div>
+      </label>
+      {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
+    </>
   );
 };
