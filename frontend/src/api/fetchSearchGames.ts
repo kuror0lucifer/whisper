@@ -37,7 +37,13 @@ export const fetchGamesFromSearch = async (
       { headers }
     );
 
-    return [response.data?.results[0].hits, response.data?.results[0].nbPages];
+    const filteredGames = response.data.results[0].hits.filter(
+      (game: Game) => game.nsuid !== null
+    );
+
+    const nbPages = response.data?.results[0].nbPages;
+
+    return [filteredGames, nbPages];
   } catch {
     return [[], 0];
   }

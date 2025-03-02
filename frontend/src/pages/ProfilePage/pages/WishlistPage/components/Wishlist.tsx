@@ -1,7 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import { fetchFavouriteGames } from '../api/GetFavouritesGames';
 import { useSelector } from 'react-redux';
-import { selectUserId } from '../../../../../redux/user/selectors';
+import {
+  selectUserDescription,
+  selectUserId,
+} from '../../../../../redux/user/selectors';
 import { Game } from '../../../../../types/game.type';
 import { GameCard } from '../../../../../components/GameCard';
 import { baseImgURL } from '../../../../../constants/baseImgURL';

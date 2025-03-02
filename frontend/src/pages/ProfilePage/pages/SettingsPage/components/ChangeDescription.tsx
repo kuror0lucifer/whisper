@@ -1,14 +1,18 @@
 import { FC, useState } from 'react';
 import { TextArea } from '../../../../../components/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserId } from '../../../../../redux/user/selectors';
+import {
+  selectUserDescription,
+  selectUserId,
+} from '../../../../../redux/user/selectors';
 import { changeDescription } from '../api/ChangeDescriptioin';
 import { setUserDescription } from '../../../../../redux/user/slice';
 
 export const ChangeDescription: FC = () => {
   const userId = useSelector(selectUserId);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [description, setDescription] = useState('');
+  const userDescription = useSelector(selectUserDescription);
+  const [description, setDescription] = useState(userDescription);
 
   const dispatch = useDispatch();
 

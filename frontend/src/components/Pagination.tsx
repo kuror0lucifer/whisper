@@ -52,6 +52,7 @@ export const Pagination: FC<PaginationProps> = ({
       nextLabel='→'
       forcePage={forcePage}
       breakLabel='...'
+      breakClassName='px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer'
       previousClassName='px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer disabled:cursor-not-allowed'
       nextClassName='px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer'
       pageClassName='px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 cursor-pointer'
