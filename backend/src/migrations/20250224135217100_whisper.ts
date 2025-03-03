@@ -57,6 +57,21 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
     },
   });
 
+  pgm.createTable("subscriptions", {
+    id: {
+      type: "serial",
+      primaryKey: true,
+    },
+    user_id: {
+      type: "bigint",
+      notNull: true,
+    },
+    subscription_id: {
+      type: "bigint",
+      notNull: true,
+    },
+  });
+
   pgm.addConstraint("favourites", "favourites_user_id_fkey", {
     foreignKeys: [
       {
@@ -66,10 +81,33 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       },
     ],
   });
+
+  pgm.addConstraint("subscriptions", "subscriptions_user_id_fkey", {
+    foreignKeys: [
+      {
+        columns: "user_id",
+        references: "users(id)",
+        onDelete: "CASCADE",
+      },
+    ],
+  });
+
+  pgm.addConstraint("subscriptions", "subscriptions_subscription_id_fkey", {
+    foreignKeys: [
+      {
+        columns: "subscription_id",
+        references: "users(id)",
+        onDelete: "CASCADE",
+      },
+    ],
+  });
 }
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
   pgm.dropConstraint("favourites", "favourites_user_id_fkey");
+  pgm.dropConstraint("subscriptions", "subscriptions_subscription_id_fkey");
+  pgm.dropConstraint("subscriptions", "subscriptions_user_id_fkey");
   pgm.dropTable("favourites");
+  pgm.dropTable("subscriptions");
   pgm.dropTable("users");
 }

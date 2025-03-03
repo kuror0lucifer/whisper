@@ -12,6 +12,8 @@ import { multerConfig } from "./config/multer.config";
 import { MulterModule } from "@nestjs/platform-express";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
+import { SubscriptionsModule } from "./modules/subscriptions/subscriptions.module";
+import { Subscriptions } from "./modules/subscriptions/subscriptions";
 
 @Module({
   imports: [
@@ -33,7 +35,7 @@ import { join } from "path";
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         uri: configService.get("databaseUrl"),
-        models: [User, Favourites],
+        models: [User, Favourites, Subscriptions],
         dialect: "postgres",
         query: {
           raw: true,
@@ -43,6 +45,7 @@ import { join } from "path";
     MulterModule.register(multerConfig),
     UsersModule,
     FavouritesModule,
+    SubscriptionsModule,
   ],
 })
 export class AppModule {
