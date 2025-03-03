@@ -38,8 +38,8 @@ export class SubscriptionsService {
   public async getSubscribes(user_id: number) {
     const subscriptions = await Subscriptions.findAll({ where: { user_id } });
 
-    const subscriptionsIds = subscriptions.map(
-      (subscritpion) => subscritpion.subscription_id,
+    const subscriptionsIds = subscriptions.map((subscritpion) =>
+      Number(subscritpion.subscription_id),
     );
 
     return {

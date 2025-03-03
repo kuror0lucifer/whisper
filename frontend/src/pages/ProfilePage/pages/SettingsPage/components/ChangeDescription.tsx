@@ -5,8 +5,8 @@ import {
   selectUserDescription,
   selectUserId,
 } from '../../../../../redux/user/selectors';
-import { changeDescription } from '../api/ChangeDescriptioin';
 import { setUserDescription } from '../../../../../redux/user/slice';
+import { changeDescription } from '../api/ChangeDescription';
 
 export const ChangeDescription: FC = () => {
   const userId = useSelector(selectUserId);

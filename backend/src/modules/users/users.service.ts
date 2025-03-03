@@ -103,6 +103,38 @@ export class UsersService {
     };
   }
 
+  public async getUserInfo(user_id: number | number[]) {
+    const userIds = Array.isArray(user_id) ? user_id : [user_id];
+    const users = await User.findAll({
+      where: {
+        id: {
+          [Op.in]: userIds,
+        },
+      },
+    });
+
+    if (users.length === 0) {
+      throw new BadRequestException("Users was not found");
+    }
+
+    const userData = users.map((user) => {
+      const { email, description, avatar, name } = user;
+      return {
+        email,
+        description,
+        avatar,
+        name,
+      };
+    });
+
+    return {
+      success: true,
+      data: {
+        users: userData,
+      },
+    };
+  }
+
   public async resetPassword(resetPasswordDto: ResetPasswordDto, user: User) {
     const isPasswordValid = await compare(
       resetPasswordDto.oldPassword,

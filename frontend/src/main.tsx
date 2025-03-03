@@ -16,7 +16,7 @@ import { persistor } from './redux/store.ts';
 import { GamePage } from './pages/GamePage/components/GamePage.tsx';
 import { ProfileSettingsContent } from './pages/ProfilePage/pages/SettingsPage/components/ProfileSettingsContent.tsx';
 import { Wishlist } from './pages/ProfilePage/pages/WishlistPage/components/Wishlist.tsx';
-import { Friends } from './pages/ProfilePage/pages/FriendsPage/components/Friends.tsx';
+import { Subscriptions } from './pages/ProfilePage/pages/SubsPage/components/Subscriptions.tsx';
 
 const queryClient = new QueryClient();
 
@@ -64,10 +64,9 @@ createRoot(document.getElementById('root')!).render(
                     element={<Wishlist />}
                   />
                   <Route
-                    path='friends'
-                    element={<Friends />}
+                    path='subscriptions'
+                    element={<Subscriptions />}
                   />
-
                   <Route
                     path='*'
                     element={<ProfilePage />}

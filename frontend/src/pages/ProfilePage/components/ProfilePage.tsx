@@ -4,9 +4,9 @@ import { Aside } from './Aside';
 import { useAuth } from '../../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileSettingsContent } from '../pages/SettingsPage/components/ProfileSettingsContent';
-import { ActiveTabType } from '../types/activeTab.type';
 import { Wishlist } from '../pages/WishlistPage/components/Wishlist';
-import { Friends } from '../pages/FriendsPage/components/Friends';
+import { Subscriptions } from '../pages/SubsPage/components/Subscriptions';
+import { ActiveTabType } from '../types/activeTab.type';
 
 export const ProfilePage: FC = () => {
   const { isAuth } = useAuth();
@@ -15,7 +15,9 @@ export const ProfilePage: FC = () => {
 
   const getActiveTabFromUrl = (): ActiveTabType => {
     const path = location.pathname.split('/')[2];
-    return path === 'wishlist' || path === 'friends' || path === 'settings'
+    return path === 'wishlist' ||
+      path === 'subscriptions' ||
+      path === 'settings'
       ? path
       : 'home';
   };
@@ -51,7 +53,7 @@ export const ProfilePage: FC = () => {
       <main className='w-full min-h-screen ml-[20%]'>
         {activeTab === 'settings' && <ProfileSettingsContent />}
         {activeTab === 'wishlist' && <Wishlist />}
-        {activeTab === 'friends' && <Friends />}
+        {activeTab === 'subscriptions' && <Subscriptions />}
       </main>
     </div>
   );

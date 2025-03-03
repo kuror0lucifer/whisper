@@ -14,6 +14,7 @@ import {
   LoginDto,
   TgCheckDto,
   TgGenerateTokenDto,
+  UserInfoDto,
 } from "src/dtos/user.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { multerConfig } from "src/config/multer.config";
@@ -39,6 +40,12 @@ export class UsersController {
       changeNameDto.userName,
     );
   }
+
+  @Post("/user-info")
+  public getUserInfo(@Body() userInfoDto: UserInfoDto) {
+    return this.usersService.getUserInfo(userInfoDto.id);
+  }
+
   @Post("/change-description")
   public changeDescription(@Body() changeDescriptionDto: ChangeDescriptionDto) {
     return this.usersService.changeDescription(

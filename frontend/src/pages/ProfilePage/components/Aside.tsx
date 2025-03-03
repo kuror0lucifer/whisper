@@ -43,9 +43,9 @@ export const Aside: FC<AsideProps> = ({ activeTab, setActiveTab }) => {
         <span className='text-2xl font-bold'>WISHLIST</span>
       </div>
       <div
-        onClick={() => setActiveTab('friends')}
+        onClick={() => setActiveTab('subscriptions')}
         className={`w-full h-fit p-5 flex justify-center items-center gap-3 rounded-2xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 ${
-          activeTab === 'friends' ? 'bg-gray-100' : ''
+          activeTab === 'subscriptions' ? 'bg-gray-100' : ''
         }`}
       >
         <FriendsIcon size={30} />

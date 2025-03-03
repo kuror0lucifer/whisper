@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsArray,
+  IsOptional,
+} from "class-validator";
 
 export class LoginDto {
   @IsString()
@@ -50,4 +56,12 @@ export class TgCheckDto {
   @IsString()
   @IsNotEmpty()
   public email: string;
+}
+
+export class UserInfoDto {
+  @IsArray()
+  @IsNotEmpty()
+  @IsOptional()
+  @IsNumber({}, { each: true })
+  public id: number[] | number;
 }
